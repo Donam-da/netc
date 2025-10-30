@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -372,6 +372,7 @@
             this.dtgvHoaDon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvHoaDon.Size = new System.Drawing.Size(436, 457);
             this.dtgvHoaDon.TabIndex = 2;
+            this.dtgvHoaDon.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvHoaDon_CellValueChanged);
             // 
             // pnlThanhToan
             // 
@@ -424,11 +425,8 @@
             // 
             // pnlGoiMon
             // 
-            this.pnlGoiMon.Controls.Add(this.btnXoa);
-            this.pnlGoiMon.Controls.Add(this.btnThem);
-            this.pnlGoiMon.Controls.Add(this.nmSoLuong);
-            this.pnlGoiMon.Controls.Add(this.label2);
             this.pnlGoiMon.Controls.Add(this.btnBanDaChon);
+            this.pnlGoiMon.Controls.Add(this.btnXoa);
             this.pnlGoiMon.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlGoiMon.Location = new System.Drawing.Point(0, 0);
             this.pnlGoiMon.Name = "pnlGoiMon";
@@ -437,62 +435,19 @@
             // 
             // btnXoa
             // 
+            this.btnXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.btnXoa.FlatAppearance.BorderSize = 0;
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnXoa.ForeColor = System.Drawing.Color.White;
-            this.btnXoa.Location = new System.Drawing.Point(365, 12);
+            this.btnXoa.Location = new System.Drawing.Point(364, 10);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(60, 35);
+            this.btnXoa.Size = new System.Drawing.Size(63, 40);
             this.btnXoa.TabIndex = 4;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = false;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
-            // 
-            // btnThem
-            // 
-            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(142)))), ((int)(((byte)(65)))));
-            this.btnThem.FlatAppearance.BorderSize = 0;
-            this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(295, 12);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(64, 35);
-            this.btnThem.TabIndex = 3;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = false;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-            // 
-            // nmSoLuong
-            // 
-            this.nmSoLuong.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.nmSoLuong.Location = new System.Drawing.Point(215, 16);
-            this.nmSoLuong.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nmSoLuong.Name = "nmSoLuong";
-            this.nmSoLuong.Size = new System.Drawing.Size(65, 29);
-            this.nmSoLuong.TabIndex = 2;
-            this.nmSoLuong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nmSoLuong.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
-            this.label2.Location = new System.Drawing.Point(145, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Số lượng:";
             // 
             // btnBanDaChon
             // 
@@ -507,6 +462,13 @@
             this.btnBanDaChon.TabIndex = 0;
             this.btnBanDaChon.Text = "Chưa chọn bàn";
             this.btnBanDaChon.UseVisualStyleBackColor = false;
+            // 
+            // nmSoLuong
+            // 
+            this.nmSoLuong.Location = new System.Drawing.Point(0, 0);
+            this.nmSoLuong.Name = "nmSoLuong";
+            this.nmSoLuong.Size = new System.Drawing.Size(120, 25);
+            this.nmSoLuong.TabIndex = 0;
             // 
             // pnlMenu
             // 

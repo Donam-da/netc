@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 
@@ -44,5 +45,27 @@ namespace QuanLyCafe
                 e.SuppressKeyPress = true; // Ngăn tiếng 'beep'
             }
         }
+
+        #region Hover Effects
+        private void btnThem_MouseEnter(object sender, EventArgs e)
+        {
+            btnThem.BackColor = Color.FromArgb(76, 175, 80); // #4CAF50
+        }
+
+        private void btnThem_MouseLeave(object sender, EventArgs e)
+        {
+            btnThem.BackColor = Color.FromArgb(62, 142, 65); // #3E8E41
+        }
+
+        private void btnHuy_MouseEnter(object sender, EventArgs e)
+        {
+            btnHuy.BackColor = Color.FromArgb(161, 136, 127); // #A1887F
+        }
+
+        private void btnHuy_MouseLeave(object sender, EventArgs e)
+        {
+            btnHuy.BackColor = Color.FromArgb(188, 170, 164); // #BCAAA4
+        }
+        #endregion
     }
 }

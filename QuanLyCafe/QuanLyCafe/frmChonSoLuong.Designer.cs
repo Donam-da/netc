@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmChonSoLuong
     {
@@ -38,7 +38,7 @@
             // lblTenDoUong
             // 
             this.lblTenDoUong.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenDoUong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
+            this.lblTenDoUong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.lblTenDoUong.Location = new System.Drawing.Point(12, 9);
             this.lblTenDoUong.Name = "lblTenDoUong";
             this.lblTenDoUong.Size = new System.Drawing.Size(358, 32);
@@ -50,6 +50,7 @@
             // 
             this.nmSoLuong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.nmSoLuong.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.nmSoLuong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.nmSoLuong.Location = new System.Drawing.Point(131, 53);
             this.nmSoLuong.Minimum = new decimal(new int[] {
             1,
@@ -81,6 +82,8 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            this.btnThem.MouseEnter += new System.EventHandler(this.btnThem_MouseEnter);
+            this.btnThem.MouseLeave += new System.EventHandler(this.btnThem_MouseLeave);
             // 
             // btnHuy
             // 
@@ -97,6 +100,8 @@
             this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = false;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
+            this.btnHuy.MouseEnter += new System.EventHandler(this.btnHuy_MouseEnter);
+            this.btnHuy.MouseLeave += new System.EventHandler(this.btnHuy_MouseLeave);
             // 
             // frmChonSoLuong
             // 

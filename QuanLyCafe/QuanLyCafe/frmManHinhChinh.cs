@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -175,6 +175,11 @@ namespace QuanLyCafe
             dtgvHoaDon.Columns[3].HeaderText = "Đơn giá";
             dtgvHoaDon.Columns[4].HeaderText = "Thành tiền";
             dtgvHoaDon.Columns[5].Visible = false;
+
+            // Cho phép chỉnh sửa cột số lượng
+            dtgvHoaDon.ReadOnly = false;
+            foreach (DataGridViewColumn col in dtgvHoaDon.Columns) col.ReadOnly = true;
+            dtgvHoaDon.Columns["SoLuong"].ReadOnly = false;
             decimal total = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -210,26 +215,6 @@ namespace QuanLyCafe
             LoadDoUongDaGoi();
             LoadTable();
             MessageBox.Show("Thêm thành công");
-        }
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            if(btnBanDaChon.Text == "Chưa chọn bàn")
-            {
-                MessageBox.Show("Bạn hãy chọn bàn trước khi gọi món");
-                return;
-            }
-            //Hóa đơn chưa có món nào cả, thì phải thêm dữ liệu vào bảng HoaDon trước, xong thêm vào bảng
-            //Chi tiết hóa đơn.
-            if (dtgvDoUong.CurrentRow == null)
-            {
-                MessageBox.Show("Bạn chưa chọn đồ uống để thêm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string maDU = dtgvDoUong.CurrentRow.Cells[0].Value.ToString()!;
-            decimal donGia = Convert.ToDecimal(dtgvDoUong.CurrentRow.Cells[3].Value);
-            decimal soLuong = nmSoLuong.Value;
-            ThemMon(maDU, donGia, soLuong);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -299,6 +284,45 @@ namespace QuanLyCafe
             }
         }
 
+        private void dtgvHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Bỏ qua nếu không phải cột "Số lượng" hoặc form đang load
+            if (e.RowIndex < 0 || dtgvHoaDon.Columns[e.ColumnIndex].Name != "SoLuong")
+            {
+                return;
+            }
+
+            DataGridViewRow row = dtgvHoaDon.Rows[e.RowIndex];
+
+            // Lấy các giá trị cần thiết từ dòng
+            string maHD = row.Cells["MaHD"].Value.ToString()!;
+            string maDU = row.Cells["MaDU"].Value.ToString()!;
+            decimal donGia = Convert.ToDecimal(row.Cells["DonGia"].Value);
+
+            // Lấy và kiểm tra số lượng mới
+            if (!decimal.TryParse(row.Cells["SoLuong"].Value.ToString(), out decimal newSoLuong) || newSoLuong <= 0)
+            {
+                MessageBox.Show("Số lượng phải là một số lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Tải lại dữ liệu để hoàn tác thay đổi không hợp lệ
+                LoadDoUongDaGoi();
+                return;
+            }
+
+            // Cập nhật CSDL
+            string sqlUpdate = @"UPDATE ChiTietHoaDon 
+                                 SET SoLuong = @SoLuong, ThanhTien = @SoLuong * @DonGia 
+                                 WHERE MaDU = @MaDU AND MaHD = @MaHD";
+            var paramUpdate = new Dictionary<string, object>
+            {
+                { "@SoLuong", newSoLuong },
+                { "@DonGia", donGia },
+                { "@MaDU", maDU },
+                { "@MaHD", maHD }
+            };
+            ConnectSQL.RunQuery(sqlUpdate, paramUpdate);
+
+            LoadDoUongDaGoi(); // Tải lại để cập nhật tổng tiền
+        }
         #region Helper Methods for Adding Items
         private string TaoMaHoaDonMoi(string maBan)
         {
