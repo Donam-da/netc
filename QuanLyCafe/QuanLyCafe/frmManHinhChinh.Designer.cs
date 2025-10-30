@@ -31,20 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManHinhChinh));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.menuNhanVien = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuDoUong = new System.Windows.Forms.ToolStripButton();
-            this.menuLDU = new System.Windows.Forms.ToolStripButton();
-            this.menuBan = new System.Windows.Forms.ToolStripButton();
-            this.menuKH = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripButton();
-            this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripButton();
-            this.menuHangBanChay = new System.Windows.Forms.ToolStripButton();
-            this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuThongTinCaNhan = new System.Windows.Forms.ToolStripButton();
-            this.btnDX = new System.Windows.Forms.ToolStripButton();
+            this.btnHeThong = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menuThongTinCaNhan = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDX = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDanhMuc = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menuNhanVien = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuKH = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBan = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDoUong = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLDU = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnThongKe = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHangBanChay = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -97,163 +97,131 @@
             this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuNhanVien,
-            this.toolStripSeparator1,
-            this.menuDoUong,
-            this.menuLDU,
-            this.menuBan,
-            this.menuKH,
-            this.toolStripSeparator2,
-            this.menuDoanhThuNgay,
-            this.menuThongKeDoanhThuNV,
-            this.menuHangBanChay,
-            this.menuLichSuHoaDon,
-            this.toolStripSeparator3,
-            this.menuThongTinCaNhan,
-            this.btnDX});
+            this.btnHeThong,
+            this.btnDanhMuc,
+            this.btnThongKe});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1264, 56);
+            this.toolStrip1.Size = new System.Drawing.Size(1264, 53);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // menuNhanVien
+            // btnHeThong
             // 
-            this.menuNhanVien.ForeColor = System.Drawing.Color.White;
-            this.menuNhanVien.Image = ((System.Drawing.Image)(resources.GetObject("menuNhanVien.Image")));
-            this.menuNhanVien.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuNhanVien.Name = "menuNhanVien";
-            this.menuNhanVien.Size = new System.Drawing.Size(89, 53);
-            this.menuNhanVien.Text = "Nhân viên";
-            this.menuNhanVien.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuNhanVien.Click += new System.EventHandler(this.menuNhanVien_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 56);
-            // 
-            // menuDoUong
-            // 
-            this.menuDoUong.ForeColor = System.Drawing.Color.White;
-            this.menuDoUong.Image = ((System.Drawing.Image)(resources.GetObject("menuDoUong.Image")));
-            this.menuDoUong.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuDoUong.Name = "menuDoUong";
-            this.menuDoUong.Size = new System.Drawing.Size(78, 53);
-            this.menuDoUong.Text = "Đồ uống";
-            this.menuDoUong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuDoUong.Click += new System.EventHandler(this.menuDoUong_Click);
-            // 
-            // menuLDU
-            // 
-            this.menuLDU.ForeColor = System.Drawing.Color.White;
-            this.menuLDU.Image = ((System.Drawing.Image)(resources.GetObject("menuLDU.Image")));
-            this.menuLDU.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuLDU.Name = "menuLDU";
-            this.menuLDU.Size = new System.Drawing.Size(108, 53);
-            this.menuLDU.Text = "Loại đồ uống";
-            this.menuLDU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuLDU.Click += new System.EventHandler(this.menuLDU_Click);
-            // 
-            // menuBan
-            // 
-            this.menuBan.ForeColor = System.Drawing.Color.White;
-            this.menuBan.Image = ((System.Drawing.Image)(resources.GetObject("menuBan.Image")));
-            this.menuBan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuBan.Name = "menuBan";
-            this.menuBan.Size = new System.Drawing.Size(41, 53);
-            this.menuBan.Text = "Bàn";
-            this.menuBan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuBan.Click += new System.EventHandler(this.menuBan_Click);
-            // 
-            // menuKH
-            // 
-            this.menuKH.ForeColor = System.Drawing.Color.White;
-            this.menuKH.Image = ((System.Drawing.Image)(resources.GetObject("menuKH.Image")));
-            this.menuKH.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuKH.Name = "menuKH";
-            this.menuKH.Size = new System.Drawing.Size(98, 53);
-            this.menuKH.Text = "Khách hàng";
-            this.menuKH.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuKH.Click += new System.EventHandler(this.menuKH_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 56);
-            // 
-            // menuDoanhThuNgay
-            // 
-            this.menuDoanhThuNgay.ForeColor = System.Drawing.Color.White;
-            this.menuDoanhThuNgay.Image = ((System.Drawing.Image)(resources.GetObject("menuDoanhThuNgay.Image")));
-            this.menuDoanhThuNgay.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuDoanhThuNgay.Name = "menuDoanhThuNgay";
-            this.menuDoanhThuNgay.Size = new System.Drawing.Size(133, 53);
-            this.menuDoanhThuNgay.Text = "Doanh thu ngày";
-            this.menuDoanhThuNgay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuDoanhThuNgay.Click += new System.EventHandler(this.menuDoanhThuNgay_Click);
-            // 
-            // menuThongKeDoanhThuNV
-            // 
-            this.menuThongKeDoanhThuNV.ForeColor = System.Drawing.Color.White;
-            this.menuThongKeDoanhThuNV.Image = ((System.Drawing.Image)(resources.GetObject("menuThongKeDoanhThuNV.Image")));
-            this.menuThongKeDoanhThuNV.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuThongKeDoanhThuNV.Name = "menuThongKeDoanhThuNV";
-            this.menuThongKeDoanhThuNV.Size = new System.Drawing.Size(117, 53);
-            this.menuThongKeDoanhThuNV.Text = "Doanh thu NV";
-            this.menuThongKeDoanhThuNV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuThongKeDoanhThuNV.Click += new System.EventHandler(this.menuThongKeDoanhThuNV_Click);
-            // 
-            // menuHangBanChay
-            // 
-            this.menuHangBanChay.ForeColor = System.Drawing.Color.White;
-            this.menuHangBanChay.Image = ((System.Drawing.Image)(resources.GetObject("menuHangBanChay.Image")));
-            this.menuHangBanChay.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuHangBanChay.Name = "menuHangBanChay";
-            this.menuHangBanChay.Size = new System.Drawing.Size(116, 53);
-            this.menuHangBanChay.Text = "Hàng bán chạy";
-            this.menuHangBanChay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuHangBanChay.Click += new System.EventHandler(this.menuHangBanChay_Click);
-            // 
-            // menuLichSuHoaDon
-            // 
-            this.menuLichSuHoaDon.ForeColor = System.Drawing.Color.White;
-            this.menuLichSuHoaDon.Image = ((System.Drawing.Image)(resources.GetObject("menuLichSuHoaDon.Image")));
-            this.menuLichSuHoaDon.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuLichSuHoaDon.Name = "menuLichSuHoaDon";
-            this.menuLichSuHoaDon.Size = new System.Drawing.Size(126, 53);
-            this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
-            this.menuLichSuHoaDon.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 56);
+            this.btnHeThong.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuThongTinCaNhan,
+            this.menuNhanVien,
+            this.menuKH,
+            this.btnDX});
+            this.btnHeThong.ForeColor = System.Drawing.Color.White;
+            this.btnHeThong.Image = ((System.Drawing.Image)(resources.GetObject("btnHeThong.Image")));
+            this.btnHeThong.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHeThong.Name = "btnHeThong";
+            this.btnHeThong.Size = new System.Drawing.Size(105, 50);
+            this.btnHeThong.Text = "Hệ thống";
+            this.btnHeThong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // menuThongTinCaNhan
             // 
-            this.menuThongTinCaNhan.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.menuThongTinCaNhan.ForeColor = System.Drawing.Color.White;
-            this.menuThongTinCaNhan.Image = ((System.Drawing.Image)(resources.GetObject("menuThongTinCaNhan.Image")));
-            this.menuThongTinCaNhan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.menuThongTinCaNhan.Name = "menuThongTinCaNhan";
-            this.menuThongTinCaNhan.Size = new System.Drawing.Size(100, 53);
+            this.menuThongTinCaNhan.Size = new System.Drawing.Size(224, 28);
             this.menuThongTinCaNhan.Text = "Đổi mật khẩu";
-            this.menuThongTinCaNhan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuThongTinCaNhan.Click += new System.EventHandler(this.menuThongTinCaNhan_Click);
             // 
             // btnDX
             // 
-            this.btnDX.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnDX.ForeColor = System.Drawing.Color.White;
-            this.btnDX.Image = ((System.Drawing.Image)(resources.GetObject("btnDX.Image")));
-            this.btnDX.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDX.Name = "btnDX";
-            this.btnDX.Size = new System.Drawing.Size(81, 53);
+            this.btnDX.Size = new System.Drawing.Size(224, 28);
             this.btnDX.Text = "Đăng xuất";
-            this.btnDX.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDX.Click += new System.EventHandler(this.btnDX_Click);
+            // 
+            // btnDanhMuc
+            // 
+            this.btnDanhMuc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBan,
+            this.menuDoUong,
+            this.menuLDU});
+            this.btnDanhMuc.ForeColor = System.Drawing.Color.White;
+            this.btnDanhMuc.Image = ((System.Drawing.Image)(resources.GetObject("btnDanhMuc.Image")));
+            this.btnDanhMuc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDanhMuc.Name = "btnDanhMuc";
+            this.btnDanhMuc.Size = new System.Drawing.Size(109, 50);
+            this.btnDanhMuc.Text = "Danh mục";
+            this.btnDanhMuc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // menuNhanVien
+            // 
+            this.menuNhanVien.Size = new System.Drawing.Size(224, 28);
+            this.menuNhanVien.Text = "Quản lý nhân viên";
+            this.menuNhanVien.Click += new System.EventHandler(this.menuNhanVien_Click);
+            // 
+            // menuKH
+            // 
+            this.menuKH.Size = new System.Drawing.Size(224, 28);
+            this.menuKH.Text = "Quản lý khách hàng";
+            this.menuKH.Click += new System.EventHandler(this.menuKH_Click);
+            // 
+            // menuBan
+            // 
+            this.menuBan.Size = new System.Drawing.Size(224, 28);
+            this.menuBan.Text = "Quản lý bàn";
+            this.menuBan.Click += new System.EventHandler(this.menuBan_Click);
+            // 
+            // menuDoUong
+            // 
+            this.menuDoUong.Name = "menuDoUong";
+            this.menuDoUong.Size = new System.Drawing.Size(187, 28);
+            this.menuDoUong.Text = "Đồ uống";
+            this.menuDoUong.Click += new System.EventHandler(this.menuDoUong_Click);
+            // 
+            // menuLDU
+            // 
+            this.menuLDU.Name = "menuLDU";
+            this.menuLDU.Size = new System.Drawing.Size(187, 28);
+            this.menuLDU.Text = "Loại đồ uống";
+            this.menuLDU.Click += new System.EventHandler(this.menuLDU_Click);
+            // 
+            // btnThongKe
+            // 
+            this.btnThongKe.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuDoanhThuNgay,
+            this.menuThongKeDoanhThuNV,
+            this.menuHangBanChay,
+            this.menuLichSuHoaDon});
+            this.btnThongKe.ForeColor = System.Drawing.Color.White;
+            this.btnThongKe.Image = ((System.Drawing.Image)(resources.GetObject("btnThongKe.Image")));
+            this.btnThongKe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnThongKe.Name = "btnThongKe";
+            this.btnThongKe.Size = new System.Drawing.Size(100, 50);
+            this.btnThongKe.Text = "Thống kê";
+            this.btnThongKe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // menuDoanhThuNgay
+            // 
+            this.menuDoanhThuNgay.Name = "menuDoanhThuNgay";
+            this.menuDoanhThuNgay.Size = new System.Drawing.Size(212, 28);
+            this.menuDoanhThuNgay.Text = "Doanh thu ngày";
+            this.menuDoanhThuNgay.Click += new System.EventHandler(this.menuDoanhThuNgay_Click);
+            // 
+            // menuThongKeDoanhThuNV
+            // 
+            this.menuThongKeDoanhThuNV.Name = "menuThongKeDoanhThuNV";
+            this.menuThongKeDoanhThuNV.Size = new System.Drawing.Size(212, 28);
+            this.menuThongKeDoanhThuNV.Text = "Doanh thu NV";
+            this.menuThongKeDoanhThuNV.Click += new System.EventHandler(this.menuThongKeDoanhThuNV_Click);
+            // 
+            // menuHangBanChay
+            // 
+            this.menuHangBanChay.Name = "menuHangBanChay";
+            this.menuHangBanChay.Size = new System.Drawing.Size(212, 28);
+            this.menuHangBanChay.Text = "Hàng bán chạy";
+            this.menuHangBanChay.Click += new System.EventHandler(this.menuHangBanChay_Click);
+            // 
+            // menuLichSuHoaDon
+            // 
+            this.menuLichSuHoaDon.Name = "menuLichSuHoaDon";
+            this.menuLichSuHoaDon.Size = new System.Drawing.Size(212, 28);
+            this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
+            this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
             // 
             // statusStrip1
             // 
@@ -281,7 +249,7 @@
             this.tableLayoutPanel1.Controls.Add(this.pnlHoaDon, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlMenu, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 53);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -687,20 +655,20 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnThanhToan;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ToolStripButton menuNhanVien;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton menuDoUong;
-        private System.Windows.Forms.ToolStripButton menuLDU;
-        private System.Windows.Forms.ToolStripButton menuBan;
-        private System.Windows.Forms.ToolStripButton menuKH;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton menuDoanhThuNgay;
-        private System.Windows.Forms.ToolStripButton menuThongKeDoanhThuNV;
-        private System.Windows.Forms.ToolStripButton menuHangBanChay;
-        private System.Windows.Forms.ToolStripButton menuLichSuHoaDon;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton menuThongTinCaNhan;
-        private System.Windows.Forms.ToolStripButton btnDX;
         private System.Windows.Forms.ToolStripStatusLabel lblNhanVien;
+        private System.Windows.Forms.ToolStripDropDownButton btnHeThong;
+        private System.Windows.Forms.ToolStripMenuItem menuThongTinCaNhan;
+        private System.Windows.Forms.ToolStripMenuItem btnDX;
+        private System.Windows.Forms.ToolStripDropDownButton btnDanhMuc;
+        private System.Windows.Forms.ToolStripMenuItem menuNhanVien;
+        private System.Windows.Forms.ToolStripMenuItem menuKH;
+        private System.Windows.Forms.ToolStripMenuItem menuBan;
+        private System.Windows.Forms.ToolStripMenuItem menuDoUong;
+        private System.Windows.Forms.ToolStripMenuItem menuLDU;
+        private System.Windows.Forms.ToolStripDropDownButton btnThongKe;
+        private System.Windows.Forms.ToolStripMenuItem menuDoanhThuNgay;
+        private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
+        private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
+        private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
     }
 }
