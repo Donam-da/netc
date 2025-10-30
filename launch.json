@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Launch (WinForms)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/QuanLyCafe/bin/Debug/net8.0-windows/QuanLyCafe.exe",
+      "cwd": "${workspaceFolder}/QuanLyCafe",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
+}

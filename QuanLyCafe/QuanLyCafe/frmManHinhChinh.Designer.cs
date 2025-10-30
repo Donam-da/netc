@@ -1,0 +1,681 @@
+﻿namespace QuanLyCafe
+{
+    partial class frmManHinhChinh
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManHinhChinh));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.menuNhanVien = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuDoUong = new System.Windows.Forms.ToolStripButton();
+            this.menuLDU = new System.Windows.Forms.ToolStripButton();
+            this.menuBan = new System.Windows.Forms.ToolStripButton();
+            this.menuKH = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripButton();
+            this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripButton();
+            this.menuHangBanChay = new System.Windows.Forms.ToolStripButton();
+            this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuThongTinCaNhan = new System.Windows.Forms.ToolStripButton();
+            this.btnDX = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlBan = new System.Windows.Forms.Panel();
+            this.lstBan = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.pnlLocBan = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbAll = new System.Windows.Forms.RadioButton();
+            this.rbNo = new System.Windows.Forms.RadioButton();
+            this.rbYes = new System.Windows.Forms.RadioButton();
+            this.pnlHoaDon = new System.Windows.Forms.Panel();
+            this.dtgvHoaDon = new System.Windows.Forms.DataGridView();
+            this.pnlThanhToan = new System.Windows.Forms.Panel();
+            this.btnThanhToan = new System.Windows.Forms.Button();
+            this.lblTongTien = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pnlGoiMon = new System.Windows.Forms.Panel();
+            this.btnXoa = new System.Windows.Forms.Button();
+            this.btnThem = new System.Windows.Forms.Button();
+            this.nmSoLuong = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnBanDaChon = new System.Windows.Forms.Button();
+            this.pnlMenu = new System.Windows.Forms.Panel();
+            this.dtgvDoUong = new System.Windows.Forms.DataGridView();
+            this.pnlTimMon = new System.Windows.Forms.Panel();
+            this.btnTim = new System.Windows.Forms.Button();
+            this.txtTenDoUong = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.pnlBan.SuspendLayout();
+            this.pnlLocBan.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.pnlHoaDon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvHoaDon)).BeginInit();
+            this.pnlThanhToan.SuspendLayout();
+            this.pnlGoiMon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmSoLuong)).BeginInit();
+            this.pnlMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvDoUong)).BeginInit();
+            this.pnlTimMon.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuNhanVien,
+            this.toolStripSeparator1,
+            this.menuDoUong,
+            this.menuLDU,
+            this.menuBan,
+            this.menuKH,
+            this.toolStripSeparator2,
+            this.menuDoanhThuNgay,
+            this.menuThongKeDoanhThuNV,
+            this.menuHangBanChay,
+            this.menuLichSuHoaDon,
+            this.toolStripSeparator3,
+            this.menuThongTinCaNhan,
+            this.btnDX});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1264, 56);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // menuNhanVien
+            // 
+            this.menuNhanVien.Image = ((System.Drawing.Image)(resources.GetObject("menuNhanVien.Image")));
+            this.menuNhanVien.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuNhanVien.Name = "menuNhanVien";
+            this.menuNhanVien.Size = new System.Drawing.Size(89, 53);
+            this.menuNhanVien.Text = "Nhân viên";
+            this.menuNhanVien.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuNhanVien.Click += new System.EventHandler(this.menuNhanVien_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 56);
+            // 
+            // menuDoUong
+            // 
+            this.menuDoUong.Image = ((System.Drawing.Image)(resources.GetObject("menuDoUong.Image")));
+            this.menuDoUong.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuDoUong.Name = "menuDoUong";
+            this.menuDoUong.Size = new System.Drawing.Size(78, 53);
+            this.menuDoUong.Text = "Đồ uống";
+            this.menuDoUong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuDoUong.Click += new System.EventHandler(this.menuDoUong_Click);
+            // 
+            // menuLDU
+            // 
+            this.menuLDU.Image = ((System.Drawing.Image)(resources.GetObject("menuLDU.Image")));
+            this.menuLDU.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuLDU.Name = "menuLDU";
+            this.menuLDU.Size = new System.Drawing.Size(108, 53);
+            this.menuLDU.Text = "Loại đồ uống";
+            this.menuLDU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuLDU.Click += new System.EventHandler(this.menuLDU_Click);
+            // 
+            // menuBan
+            // 
+            this.menuBan.Image = ((System.Drawing.Image)(resources.GetObject("menuBan.Image")));
+            this.menuBan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuBan.Name = "menuBan";
+            this.menuBan.Size = new System.Drawing.Size(41, 53);
+            this.menuBan.Text = "Bàn";
+            this.menuBan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuBan.Click += new System.EventHandler(this.menuBan_Click);
+            // 
+            // menuKH
+            // 
+            this.menuKH.Image = ((System.Drawing.Image)(resources.GetObject("menuKH.Image")));
+            this.menuKH.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuKH.Name = "menuKH";
+            this.menuKH.Size = new System.Drawing.Size(98, 53);
+            this.menuKH.Text = "Khách hàng";
+            this.menuKH.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuKH.Click += new System.EventHandler(this.menuKH_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 56);
+            // 
+            // menuDoanhThuNgay
+            // 
+            this.menuDoanhThuNgay.Image = ((System.Drawing.Image)(resources.GetObject("menuDoanhThuNgay.Image")));
+            this.menuDoanhThuNgay.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuDoanhThuNgay.Name = "menuDoanhThuNgay";
+            this.menuDoanhThuNgay.Size = new System.Drawing.Size(133, 53);
+            this.menuDoanhThuNgay.Text = "Doanh thu ngày";
+            this.menuDoanhThuNgay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuDoanhThuNgay.Click += new System.EventHandler(this.menuDoanhThuNgay_Click);
+            // 
+            // menuThongKeDoanhThuNV
+            // 
+            this.menuThongKeDoanhThuNV.Image = ((System.Drawing.Image)(resources.GetObject("menuThongKeDoanhThuNV.Image")));
+            this.menuThongKeDoanhThuNV.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuThongKeDoanhThuNV.Name = "menuThongKeDoanhThuNV";
+            this.menuThongKeDoanhThuNV.Size = new System.Drawing.Size(117, 53);
+            this.menuThongKeDoanhThuNV.Text = "Doanh thu NV";
+            this.menuThongKeDoanhThuNV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuThongKeDoanhThuNV.Click += new System.EventHandler(this.menuThongKeDoanhThuNV_Click);
+            // 
+            // menuHangBanChay
+            // 
+            this.menuHangBanChay.Image = ((System.Drawing.Image)(resources.GetObject("menuHangBanChay.Image")));
+            this.menuHangBanChay.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuHangBanChay.Name = "menuHangBanChay";
+            this.menuHangBanChay.Size = new System.Drawing.Size(116, 53);
+            this.menuHangBanChay.Text = "Hàng bán chạy";
+            this.menuHangBanChay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuHangBanChay.Click += new System.EventHandler(this.menuHangBanChay_Click);
+            // 
+            // menuLichSuHoaDon
+            // 
+            this.menuLichSuHoaDon.Image = ((System.Drawing.Image)(resources.GetObject("menuLichSuHoaDon.Image")));
+            this.menuLichSuHoaDon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuLichSuHoaDon.Name = "menuLichSuHoaDon";
+            this.menuLichSuHoaDon.Size = new System.Drawing.Size(126, 53);
+            this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
+            this.menuLichSuHoaDon.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 56);
+            // 
+            // menuThongTinCaNhan
+            // 
+            this.menuThongTinCaNhan.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menuThongTinCaNhan.Image = ((System.Drawing.Image)(resources.GetObject("menuThongTinCaNhan.Image")));
+            this.menuThongTinCaNhan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.menuThongTinCaNhan.Name = "menuThongTinCaNhan";
+            this.menuThongTinCaNhan.Size = new System.Drawing.Size(100, 53);
+            this.menuThongTinCaNhan.Text = "Đổi mật khẩu";
+            this.menuThongTinCaNhan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuThongTinCaNhan.Click += new System.EventHandler(this.menuThongTinCaNhan_Click);
+            // 
+            // btnDX
+            // 
+            this.btnDX.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnDX.Image = ((System.Drawing.Image)(resources.GetObject("btnDX.Image")));
+            this.btnDX.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDX.Name = "btnDX";
+            this.btnDX.Size = new System.Drawing.Size(81, 53);
+            this.btnDX.Text = "Đăng xuất";
+            this.btnDX.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDX.Click += new System.EventHandler(this.btnDX_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblNhanVien});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 659);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1264, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblNhanVien
+            // 
+            this.lblNhanVien.Name = "lblNhanVien";
+            this.lblNhanVien.Size = new System.Drawing.Size(118, 17);
+            this.lblNhanVien.Text = "toolStripStatusLabel1";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlBan, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pnlHoaDon, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pnlMenu, 2, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 56);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1264, 603);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // pnlBan
+            // 
+            this.pnlBan.Controls.Add(this.lstBan);
+            this.pnlBan.Controls.Add(this.pnlLocBan);
+            this.pnlBan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBan.Location = new System.Drawing.Point(3, 3);
+            this.pnlBan.Name = "pnlBan";
+            this.pnlBan.Size = new System.Drawing.Size(436, 597);
+            this.pnlBan.TabIndex = 0;
+            // 
+            // lstBan
+            // 
+            this.lstBan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBan.LargeImageList = this.imageList1;
+            this.lstBan.Location = new System.Drawing.Point(0, 60);
+            this.lstBan.MultiSelect = false;
+            this.lstBan.Name = "lstBan";
+            this.lstBan.Size = new System.Drawing.Size(436, 537);
+            this.lstBan.TabIndex = 1;
+            this.lstBan.UseCompatibleStateImageBehavior = false;
+            this.lstBan.Click += new System.EventHandler(this.lstBan_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "table_busy.png");
+            this.imageList1.Images.SetKeyName(1, "table_free.png");
+            // 
+            // pnlLocBan
+            // 
+            this.pnlLocBan.Controls.Add(this.groupBox1);
+            this.pnlLocBan.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlLocBan.Location = new System.Drawing.Point(0, 0);
+            this.pnlLocBan.Name = "pnlLocBan";
+            this.pnlLocBan.Size = new System.Drawing.Size(436, 60);
+            this.pnlLocBan.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbAll);
+            this.groupBox1.Controls.Add(this.rbNo);
+            this.groupBox1.Controls.Add(this.rbYes);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(436, 60);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Trạng thái bàn";
+            // 
+            // rbAll
+            // 
+            this.rbAll.AutoSize = true;
+            this.rbAll.Checked = true;
+            this.rbAll.Location = new System.Drawing.Point(25, 25);
+            this.rbAll.Name = "rbAll";
+            this.rbAll.Size = new System.Drawing.Size(62, 21);
+            this.rbAll.TabIndex = 2;
+            this.rbAll.TabStop = true;
+            this.rbAll.Text = "Tất cả";
+            this.rbAll.UseVisualStyleBackColor = true;
+            this.rbAll.CheckedChanged += new System.EventHandler(this.rbAll_CheckedChanged);
+            // 
+            // rbNo
+            // 
+            this.rbNo.AutoSize = true;
+            this.rbNo.Location = new System.Drawing.Point(230, 25);
+            this.rbNo.Name = "rbNo";
+            this.rbNo.Size = new System.Drawing.Size(83, 21);
+            this.rbNo.TabIndex = 1;
+            this.rbNo.Text = "Bàn trống";
+            this.rbNo.UseVisualStyleBackColor = true;
+            this.rbNo.CheckedChanged += new System.EventHandler(this.rbNo_CheckedChanged);
+            // 
+            // rbYes
+            // 
+            this.rbYes.AutoSize = true;
+            this.rbYes.Location = new System.Drawing.Point(120, 25);
+            this.rbYes.Name = "rbYes";
+            this.rbYes.Size = new System.Drawing.Size(97, 21);
+            this.rbYes.TabIndex = 0;
+            this.rbYes.Text = "Bàn có người";
+            this.rbYes.UseVisualStyleBackColor = true;
+            this.rbYes.CheckedChanged += new System.EventHandler(this.rbYes_CheckedChanged);
+            // 
+            // pnlHoaDon
+            // 
+            this.pnlHoaDon.Controls.Add(this.dtgvHoaDon);
+            this.pnlHoaDon.Controls.Add(this.pnlThanhToan);
+            this.pnlHoaDon.Controls.Add(this.pnlGoiMon);
+            this.pnlHoaDon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlHoaDon.Location = new System.Drawing.Point(445, 3);
+            this.pnlHoaDon.Name = "pnlHoaDon";
+            this.pnlHoaDon.Size = new System.Drawing.Size(436, 597);
+            this.pnlHoaDon.TabIndex = 1;
+            // 
+            // dtgvHoaDon
+            // 
+            this.dtgvHoaDon.AllowUserToAddRows = false;
+            this.dtgvHoaDon.AllowUserToDeleteRows = false;
+            this.dtgvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvHoaDon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvHoaDon.Location = new System.Drawing.Point(0, 60);
+            this.dtgvHoaDon.Name = "dtgvHoaDon";
+            this.dtgvHoaDon.ReadOnly = true;
+            this.dtgvHoaDon.RowHeadersWidth = 51;
+            this.dtgvHoaDon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvHoaDon.Size = new System.Drawing.Size(436, 457);
+            this.dtgvHoaDon.TabIndex = 2;
+            // 
+            // pnlThanhToan
+            // 
+            this.pnlThanhToan.Controls.Add(this.btnThanhToan);
+            this.pnlThanhToan.Controls.Add(this.lblTongTien);
+            this.pnlThanhToan.Controls.Add(this.label4);
+            this.pnlThanhToan.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlThanhToan.Location = new System.Drawing.Point(0, 517);
+            this.pnlThanhToan.Name = "pnlThanhToan";
+            this.pnlThanhToan.Size = new System.Drawing.Size(436, 80);
+            this.pnlThanhToan.TabIndex = 1;
+            // 
+            // btnThanhToan
+            // 
+            this.btnThanhToan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnThanhToan.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnThanhToan.FlatAppearance.BorderSize = 0;
+            this.btnThanhToan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnThanhToan.ForeColor = System.Drawing.Color.White;
+            this.btnThanhToan.Location = new System.Drawing.Point(294, 15);
+            this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.Size = new System.Drawing.Size(130, 50);
+            this.btnThanhToan.TabIndex = 2;
+            this.btnThanhToan.Text = "Thanh toán";
+            this.btnThanhToan.UseVisualStyleBackColor = false;
+            this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
+            // 
+            // lblTongTien
+            // 
+            this.lblTongTien.AutoSize = true;
+            this.lblTongTien.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTongTien.ForeColor = System.Drawing.Color.Red;
+            this.lblTongTien.Location = new System.Drawing.Point(110, 28);
+            this.lblTongTien.Name = "lblTongTien";
+            this.lblTongTien.Size = new System.Drawing.Size(73, 25);
+            this.lblTongTien.TabIndex = 1;
+            this.lblTongTien.Text = "0 VNĐ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(15, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 21);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Tổng tiền:";
+            // 
+            // pnlGoiMon
+            // 
+            this.pnlGoiMon.Controls.Add(this.btnXoa);
+            this.pnlGoiMon.Controls.Add(this.btnThem);
+            this.pnlGoiMon.Controls.Add(this.nmSoLuong);
+            this.pnlGoiMon.Controls.Add(this.label2);
+            this.pnlGoiMon.Controls.Add(this.btnBanDaChon);
+            this.pnlGoiMon.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlGoiMon.Location = new System.Drawing.Point(0, 0);
+            this.pnlGoiMon.Name = "pnlGoiMon";
+            this.pnlGoiMon.Size = new System.Drawing.Size(436, 60);
+            this.pnlGoiMon.TabIndex = 0;
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnXoa.FlatAppearance.BorderSize = 0;
+            this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnXoa.ForeColor = System.Drawing.Color.White;
+            this.btnXoa.Location = new System.Drawing.Point(365, 12);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(60, 35);
+            this.btnXoa.TabIndex = 4;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnThem.FlatAppearance.BorderSize = 0;
+            this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnThem.ForeColor = System.Drawing.Color.White;
+            this.btnThem.Location = new System.Drawing.Point(295, 12);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(64, 35);
+            this.btnThem.TabIndex = 3;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.UseVisualStyleBackColor = false;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            // 
+            // nmSoLuong
+            // 
+            this.nmSoLuong.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.nmSoLuong.Location = new System.Drawing.Point(215, 16);
+            this.nmSoLuong.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nmSoLuong.Name = "nmSoLuong";
+            this.nmSoLuong.Size = new System.Drawing.Size(65, 29);
+            this.nmSoLuong.TabIndex = 2;
+            this.nmSoLuong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nmSoLuong.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(145, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Số lượng:";
+            // 
+            // btnBanDaChon
+            // 
+            this.btnBanDaChon.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.btnBanDaChon.FlatAppearance.BorderSize = 0;
+            this.btnBanDaChon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBanDaChon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnBanDaChon.ForeColor = System.Drawing.Color.White;
+            this.btnBanDaChon.Location = new System.Drawing.Point(9, 8);
+            this.btnBanDaChon.Name = "btnBanDaChon";
+            this.btnBanDaChon.Size = new System.Drawing.Size(130, 45);
+            this.btnBanDaChon.TabIndex = 0;
+            this.btnBanDaChon.Text = "Chưa chọn bàn";
+            this.btnBanDaChon.UseVisualStyleBackColor = false;
+            // 
+            // pnlMenu
+            // 
+            this.pnlMenu.Controls.Add(this.dtgvDoUong);
+            this.pnlMenu.Controls.Add(this.pnlTimMon);
+            this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMenu.Location = new System.Drawing.Point(887, 3);
+            this.pnlMenu.Name = "pnlMenu";
+            this.pnlMenu.Size = new System.Drawing.Size(374, 597);
+            this.pnlMenu.TabIndex = 2;
+            // 
+            // dtgvDoUong
+            // 
+            this.dtgvDoUong.AllowUserToAddRows = false;
+            this.dtgvDoUong.AllowUserToDeleteRows = false;
+            this.dtgvDoUong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvDoUong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvDoUong.Location = new System.Drawing.Point(0, 60);
+            this.dtgvDoUong.Name = "dtgvDoUong";
+            this.dtgvDoUong.ReadOnly = true;
+            this.dtgvDoUong.RowHeadersWidth = 51;
+            this.dtgvDoUong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvDoUong.Size = new System.Drawing.Size(374, 537);
+            this.dtgvDoUong.TabIndex = 1;
+            // 
+            // pnlTimMon
+            // 
+            this.pnlTimMon.Controls.Add(this.btnTim);
+            this.pnlTimMon.Controls.Add(this.txtTenDoUong);
+            this.pnlTimMon.Controls.Add(this.label1);
+            this.pnlTimMon.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTimMon.Location = new System.Drawing.Point(0, 0);
+            this.pnlTimMon.Name = "pnlTimMon";
+            this.pnlTimMon.Size = new System.Drawing.Size(374, 60);
+            this.pnlTimMon.TabIndex = 0;
+            // 
+            // btnTim
+            // 
+            this.btnTim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnTim.FlatAppearance.BorderSize = 0;
+            this.btnTim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTim.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnTim.ForeColor = System.Drawing.Color.White;
+            this.btnTim.Location = new System.Drawing.Point(295, 13);
+            this.btnTim.Name = "btnTim";
+            this.btnTim.Size = new System.Drawing.Size(70, 35);
+            this.btnTim.TabIndex = 2;
+            this.btnTim.Text = "Tìm";
+            this.btnTim.UseVisualStyleBackColor = false;
+            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
+            // 
+            // txtTenDoUong
+            // 
+            this.txtTenDoUong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTenDoUong.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtTenDoUong.Location = new System.Drawing.Point(80, 16);
+            this.txtTenDoUong.Name = "txtTenDoUong";
+            this.txtTenDoUong.Size = new System.Drawing.Size(209, 29);
+            this.txtTenDoUong.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tìm món:";
+            // 
+            // frmManHinhChinh
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.MainMenuStrip = null;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
+            this.Name = "frmManHinhChinh";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Phần mềm quản lý quán Cafe";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmManHinhChinh_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.pnlBan.ResumeLayout(false);
+            this.pnlLocBan.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.pnlHoaDon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvHoaDon)).EndInit();
+            this.pnlThanhToan.ResumeLayout(false);
+            this.pnlThanhToan.PerformLayout();
+            this.pnlGoiMon.ResumeLayout(false);
+            this.pnlGoiMon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmSoLuong)).EndInit();
+            this.pnlMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvDoUong)).EndInit();
+            this.pnlTimMon.ResumeLayout(false);
+            this.pnlTimMon.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel pnlBan;
+        private System.Windows.Forms.Panel pnlHoaDon;
+        private System.Windows.Forms.Panel pnlMenu;
+        private System.Windows.Forms.Panel pnlLocBan;
+        private System.Windows.Forms.ListView lstBan;
+        private System.Windows.Forms.Panel pnlGoiMon;
+        private System.Windows.Forms.Panel pnlThanhToan;
+        private System.Windows.Forms.DataGridView dtgvHoaDon;
+        private System.Windows.Forms.Panel pnlTimMon;
+        private System.Windows.Forms.DataGridView dtgvDoUong;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbNo;
+        private System.Windows.Forms.RadioButton rbYes;
+        private System.Windows.Forms.RadioButton rbAll;
+        private System.Windows.Forms.Button btnBanDaChon;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtTenDoUong;
+        private System.Windows.Forms.Button btnTim;
+        private System.Windows.Forms.NumericUpDown nmSoLuong;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.Label lblTongTien;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnThanhToan;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripButton menuNhanVien;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton menuDoUong;
+        private System.Windows.Forms.ToolStripButton menuLDU;
+        private System.Windows.Forms.ToolStripButton menuBan;
+        private System.Windows.Forms.ToolStripButton menuKH;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton menuDoanhThuNgay;
+        private System.Windows.Forms.ToolStripButton menuThongKeDoanhThuNV;
+        private System.Windows.Forms.ToolStripButton menuHangBanChay;
+        private System.Windows.Forms.ToolStripButton menuLichSuHoaDon;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton menuThongTinCaNhan;
+        private System.Windows.Forms.ToolStripButton btnDX;
+        private System.Windows.Forms.ToolStripStatusLabel lblNhanVien;
+    }
+}

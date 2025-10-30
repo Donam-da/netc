@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Cấu hình chính -->
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>QuanLyCafe</RootNamespace>
+    <AssemblyName>QuanLyCafe</AssemblyName>
+
+    <!-- Ngăn .NET tự sinh AssemblyInfo.cs để tránh trùng lặp -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+    <!-- Tắt cảnh báo về BinaryFormatter trong resx -->
+    <GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
+
+    <!-- Cho phép WinForms chạy trên Windows -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Thông tin Assembly -->
+    <AssemblyTitle>QuanLyCafe</AssemblyTitle>
+    <AssemblyDescription>Ứng dụng quản lý quán cafe</AssemblyDescription>
+    <AssemblyCompany>QuanLyCafe Team</AssemblyCompany>
+    <AssemblyProduct>QuanLyCafe</AssemblyProduct>
+    <AssemblyCopyright>Copyright © 2025</AssemblyCopyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Gói tương thích với .NET 8 -->
+    <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.26" />
+  </ItemGroup>
+
+  <!-- Copy thư mục Images vào thư mục xuất bản -->
+  <ItemGroup>
+    <Content Include="Images\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
