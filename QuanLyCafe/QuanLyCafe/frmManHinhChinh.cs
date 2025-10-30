@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -119,6 +119,9 @@ namespace QuanLyCafe
             {
                 menuNhanVien.Enabled = false;
             }
+            // Áp dụng renderer tùy chỉnh cho ToolStrip
+            toolStrip1.Renderer = new MyMenuRenderer();
+
             LoadTable();
             LoadMenuDoUong();
         }
@@ -181,6 +184,33 @@ namespace QuanLyCafe
             TongTienThanhToan = total.ToString();
         }
 
+        private void ThemMon(string maDU, decimal donGia, decimal soLuong)
+        {
+            string maBan = btnBanDaChon.Text;
+            // Hóa đơn chưa có món nào
+            if (dtgvHoaDon.Rows.Count == 0)
+            {
+                string maHD = TaoMaHoaDonMoi(maBan);
+                ThemChiTietHoaDon(maHD, maDU, soLuong, donGia);
+                CapNhatTrangThaiBan(maBan, 1); // Bàn có người
+            }
+            // Hóa đơn đã có món
+            else
+            {
+                string maHD = dtgvHoaDon.Rows[0].Cells["MaHD"].Value.ToString()!;
+                if (KiemTraMonDaTonTai(maHD, maDU))
+                {
+                    CapNhatSoLuongMon(maHD, maDU, soLuong, donGia);
+                }
+                else
+                {
+                    ThemChiTietHoaDon(maHD, maDU, soLuong, donGia);
+                }
+            }
+            LoadDoUongDaGoi();
+            LoadTable();
+            MessageBox.Show("Thêm thành công");
+        }
         private void btnThem_Click(object sender, EventArgs e)
         {
             if(btnBanDaChon.Text == "Chưa chọn bàn")
@@ -199,74 +229,7 @@ namespace QuanLyCafe
             string maDU = dtgvDoUong.CurrentRow.Cells[0].Value.ToString()!;
             decimal donGia = Convert.ToDecimal(dtgvDoUong.CurrentRow.Cells[3].Value);
             decimal soLuong = nmSoLuong.Value;
-            string maBan = btnBanDaChon.Text;
-
-            if (dtgvHoaDon.Rows.Count == 0) 
-            {      
-                string MaHD = DateTime.Now.ToString("HDssmmhhddMMyyyy");
-                //Thêm vào bảng hóa đơn
-                string sqlInsertHD = "INSERT INTO HoaDon(MaHD, NgayLap, MaNV, MaBan, TongTien, TrangThai) VALUES (@MaHD, @NgayLap, @MaNV, @MaBan, 0, 0)";
-                var paramHD = new Dictionary<string, object>
-                {
-                    { "@MaHD", MaHD },
-                    { "@NgayLap", DateTime.Now },
-                    { "@MaNV", frmDangNhap.MaNV ?? string.Empty },
-                    { "@MaBan", maBan }
-                };
-                ConnectSQL.RunQuery(sqlInsertHD, paramHD);
-
-                //Thêm vào bảng chi tiết hóa đơn
-                string sqlInsertCTHD = "INSERT INTO ChiTietHoaDon(MaHD, MaDU, SoLuong, DonGia, ThanhTien) VALUES (@MaHD, @MaDU, @SoLuong, @DonGia, @ThanhTien)";
-                var paramCTHD = new Dictionary<string, object>
-                {
-                    { "@MaHD", MaHD }, { "@MaDU", maDU }, { "@SoLuong", soLuong }, { "@DonGia", donGia }, { "@ThanhTien", soLuong * donGia }
-                };
-                ConnectSQL.RunQuery(sqlInsertCTHD, paramCTHD);
-
-                // Cập nhật trạng thái bàn
-                string sqlUpdateBan = "UPDATE Ban SET TrangThai = 1 WHERE MaBan = @MaBan";
-                ConnectSQL.RunQuery(sqlUpdateBan, new Dictionary<string, object> { { "@MaBan", maBan } });
-
-                LoadDoUongDaGoi();
-                LoadTable();
-                MessageBox.Show("Thêm thành công");
-            }   
-            //Hóa đơn đã có món rồi, muốn thêm món khác, tức là bảng hóa đơn đã có dữ liệu
-            //Giờ chỉ thêm vào bảng chi tiết hóa đơn
-            else
-            {
-                string maHD = dtgvHoaDon.CurrentRow.Cells[5].Value.ToString()!;
-                string sqlCheck = "SELECT MaDU FROM ChiTietHoaDon WHERE MaHD = @MaHD AND MaDU = @MaDU";
-                var paramCheck = new Dictionary<string, object> { { "@MaHD", maHD }, { "@MaDU", maDU } };
-
-                if(ConnectSQL.ExcuteReader_bool(sqlCheck, paramCheck))
-                {
-                    //Đã có rồi thì update số lượng
-                    string sqlUpdate = @"UPDATE ChiTietHoaDon 
-                                         SET SoLuong = SoLuong + @SoLuong, ThanhTien = (SoLuong + @SoLuong) * @DonGia 
-                                         WHERE MaDU = @MaDU AND MaHD = @MaHD";
-                    var paramUpdate = new Dictionary<string, object>
-                    {
-                        { "@SoLuong", soLuong }, { "@DonGia", donGia }, { "@MaDU", maDU }, { "@MaHD", maHD }
-                    };
-                    ConnectSQL.RunQuery(sqlUpdate, paramUpdate);
-                }
-                else
-                {
-                    //Thêm vào bảng chi tiết hóa đơn
-                    string sqlInsert = @"INSERT INTO ChiTietHoaDon(MaHD, MaDU, SoLuong, DonGia, ThanhTien)
-                                         VALUES(@MaHD, @MaDU, @SoLuong, @DonGia, @ThanhTien)";
-                    var paramInsert = new Dictionary<string, object>
-                    {
-                        { "@MaHD", maHD }, { "@MaDU", maDU }, { "@SoLuong", soLuong }, { "@DonGia", donGia }, { "@ThanhTien", soLuong * donGia }
-                    };
-                    ConnectSQL.RunQuery(sqlInsert, paramInsert);
-                }
-
-                LoadDoUongDaGoi();
-                LoadTable();
-                MessageBox.Show("Thêm thành công");
-            }    
+            ThemMon(maDU, donGia, soLuong);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -312,6 +275,85 @@ namespace QuanLyCafe
             LoadTable();
             LoadDoUongDaGoi();
         }
+
+        private void dtgvDoUong_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // Bỏ qua nếu double click vào header
+
+            if (btnBanDaChon.Text == "Chưa chọn bàn")
+            {
+                MessageBox.Show("Bạn hãy chọn bàn trước khi gọi món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string tenDU = dtgvDoUong.Rows[e.RowIndex].Cells["TenDU"].Value.ToString()!;
+            using (var formChonSL = new frmChonSoLuong(tenDU))
+            {
+                if (formChonSL.ShowDialog() == DialogResult.OK)
+                {
+                    string maDU = dtgvDoUong.Rows[e.RowIndex].Cells["MaDU"].Value.ToString()!;
+                    decimal donGia = Convert.ToDecimal(dtgvDoUong.Rows[e.RowIndex].Cells["DonGia"].Value);
+                    decimal soLuong = formChonSL.SoLuong;
+                    ThemMon(maDU, donGia, soLuong);
+                }
+            }
+        }
+
+        #region Helper Methods for Adding Items
+        private string TaoMaHoaDonMoi(string maBan)
+        {
+            string maHD = DateTime.Now.ToString("HDssmmhhddMMyyyy");
+            string sqlInsertHD = "INSERT INTO HoaDon(MaHD, NgayLap, MaNV, MaBan, TongTien, TrangThai) VALUES (@MaHD, @NgayLap, @MaNV, @MaBan, 0, 0)";
+            var paramHD = new Dictionary<string, object>
+            {
+                { "@MaHD", maHD },
+                { "@NgayLap", DateTime.Now },
+                { "@MaNV", frmDangNhap.MaNV ?? string.Empty },
+                { "@MaBan", maBan }
+            };
+            ConnectSQL.RunQuery(sqlInsertHD, paramHD);
+            return maHD;
+        }
+
+        private void ThemChiTietHoaDon(string maHD, string maDU, decimal soLuong, decimal donGia)
+        {
+            string sqlInsertCTHD = "INSERT INTO ChiTietHoaDon(MaHD, MaDU, SoLuong, DonGia, ThanhTien) VALUES (@MaHD, @MaDU, @SoLuong, @DonGia, @ThanhTien)";
+            var paramCTHD = new Dictionary<string, object>
+            {
+                { "@MaHD", maHD },
+                { "@MaDU", maDU },
+                { "@SoLuong", soLuong },
+                { "@DonGia", donGia },
+                { "@ThanhTien", soLuong * donGia }
+            };
+            ConnectSQL.RunQuery(sqlInsertCTHD, paramCTHD);
+        }
+
+        private void CapNhatTrangThaiBan(string maBan, int trangThai)
+        {
+            string sqlUpdateBan = "UPDATE Ban SET TrangThai = @TrangThai WHERE MaBan = @MaBan";
+            ConnectSQL.RunQuery(sqlUpdateBan, new Dictionary<string, object> { { "@TrangThai", trangThai }, { "@MaBan", maBan } });
+        }
+
+        private bool KiemTraMonDaTonTai(string maHD, string maDU)
+        {
+            string sqlCheck = "SELECT MaDU FROM ChiTietHoaDon WHERE MaHD = @MaHD AND MaDU = @MaDU";
+            var paramCheck = new Dictionary<string, object> { { "@MaHD", maHD }, { "@MaDU", maDU } };
+            return ConnectSQL.ExcuteReader_bool(sqlCheck, paramCheck);
+        }
+
+        private void CapNhatSoLuongMon(string maHD, string maDU, decimal soLuong, decimal donGia)
+        {
+            string sqlUpdate = @"UPDATE ChiTietHoaDon 
+                                 SET SoLuong = SoLuong + @SoLuong, ThanhTien = (SoLuong + @SoLuong) * @DonGia 
+                                 WHERE MaDU = @MaDU AND MaHD = @MaHD";
+            var paramUpdate = new Dictionary<string, object>
+            {
+                { "@SoLuong", soLuong }, { "@DonGia", donGia }, { "@MaDU", maDU }, { "@MaHD", maHD }
+            };
+            ConnectSQL.RunQuery(sqlUpdate, paramUpdate);
+        }
+        #endregion
 
         private void menuDoanhThuNgay_Click(object sender, EventArgs e)
         {

@@ -108,7 +108,6 @@
             // 
             // btnHeThong
             // 
-            this.btnHeThong.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuThongTinCaNhan,
             this.menuNhanVien,
@@ -141,7 +140,7 @@
             this.menuDoUong,
             this.menuLDU});
             this.btnDanhMuc.ForeColor = System.Drawing.Color.White;
-            this.btnDanhMuc.Image = ((System.Drawing.Image)(resources.GetObject("btnDanhMuc.Image")));
+            this.btnDanhMuc.Image = null;
             this.btnDanhMuc.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDanhMuc.Name = "btnDanhMuc";
             this.btnDanhMuc.Size = new System.Drawing.Size(109, 50);
@@ -170,14 +169,14 @@
             // 
             this.menuDoUong.Name = "menuDoUong";
             this.menuDoUong.Size = new System.Drawing.Size(187, 28);
-            this.menuDoUong.Text = "Đồ uống";
+            this.menuDoUong.Text = "Quản lý đồ uống";
             this.menuDoUong.Click += new System.EventHandler(this.menuDoUong_Click);
             // 
             // menuLDU
             // 
             this.menuLDU.Name = "menuLDU";
             this.menuLDU.Size = new System.Drawing.Size(187, 28);
-            this.menuLDU.Text = "Loại đồ uống";
+            this.menuLDU.Text = "Quản lý loại đồ uống";
             this.menuLDU.Click += new System.EventHandler(this.menuLDU_Click);
             // 
             // btnThongKe
@@ -245,9 +244,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlMenu, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pnlHoaDon, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlBan, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlHoaDon, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlMenu, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 53);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -497,10 +496,10 @@
             // 
             // btnBanDaChon
             // 
-            this.btnBanDaChon.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.btnBanDaChon.BackColor = System.Drawing.Color.Gray;
             this.btnBanDaChon.FlatAppearance.BorderSize = 0;
             this.btnBanDaChon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBanDaChon.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnBanDaChon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnBanDaChon.ForeColor = System.Drawing.Color.White;
             this.btnBanDaChon.Location = new System.Drawing.Point(9, 8);
             this.btnBanDaChon.Name = "btnBanDaChon";
@@ -532,6 +531,7 @@
             this.dtgvDoUong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvDoUong.Size = new System.Drawing.Size(374, 537);
             this.dtgvDoUong.TabIndex = 1;
+            this.dtgvDoUong.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDoUong_CellDoubleClick);
             // 
             // pnlTimMon
             // 
