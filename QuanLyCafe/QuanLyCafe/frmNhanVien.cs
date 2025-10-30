@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,16 +19,24 @@ namespace QuanLyCafe
         public static void SetupDataGridView(DataGridView dgvMain)
         {
             dgvMain.AllowUserToAddRows = false;
-            dgvMain.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvMain.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dgvMain.ColumnHeadersHeight = 30;
             dgvMain.ReadOnly = true;
-            dgvMain.ColumnHeadersDefaultCellStyle.BackColor = Color.Blue;
+            dgvMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMain.RowHeadersVisible = false;
+            dgvMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Styling
+            dgvMain.BackgroundColor = Color.FromArgb(240, 228, 215); // #F0E4D7
+            dgvMain.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(255, 248, 240); // #FFF8F0
+            dgvMain.DefaultCellStyle.BackColor = Color.FromArgb(240, 228, 215); // #F0E4D7
+            dgvMain.DefaultCellStyle.SelectionBackColor = Color.FromArgb(203, 165, 126); // #CBA57E
+            dgvMain.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            dgvMain.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvMain.ColumnHeadersHeight = 30;
+            dgvMain.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(90, 59, 46); // #5A3B2E
             dgvMain.EnableHeadersVisualStyles = false;
             dgvMain.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvMain.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Bold);
-            dgvMain.BackgroundColor = Color.White;
         }
         private void LoadData()
         {
@@ -115,7 +123,7 @@ namespace QuanLyCafe
         {
             if (dtgvData.Columns[e.ColumnIndex].Name == "MatKhau" && e.Value != null)
             {
-                e.Value = new string('*', e.Value.ToString().Length); 
+                e.Value = new string('*', e.Value.ToString()!.Length); 
                 e.FormattingApplied = true;
             }
         }
@@ -155,7 +163,12 @@ namespace QuanLyCafe
                 return;
             }
             string strSQL = $@"SELECT * FROM NhanVien WHERE MaNV = '{txtMaNV.Text}'";
-            string MaNVSua = dtgvData.CurrentRow.Cells[0].Value.ToString().Trim();
+            if (dtgvData.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string MaNVSua = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
             if (ConnectSQL.ExcuteReader_bool(strSQL) && txtMaNV.Text.Trim() != MaNVSua)
             {
                 MessageBox.Show("Mã nhân viên này đã tồn tại, vui lòng tạo mã khác");
@@ -196,7 +209,13 @@ namespace QuanLyCafe
 
             if (result == DialogResult.Yes)
             {
-                string strSQL = $@"DELETE NhanVien WHERE MaNV = '{dtgvData.CurrentRow.Cells[0].Value.ToString().Trim()}'";
+                if (dtgvData.CurrentRow == null)
+                {
+                    MessageBox.Show("Vui lòng chọn một nhân viên để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string maNVXoa = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
+                string strSQL = $@"DELETE NhanVien WHERE MaNV = '{maNVXoa}'";
                 ConnectSQL.RunQuery(strSQL);
                 MessageBox.Show("Xóa thành công");
                 LoadData();

@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmDoanhThuTheoNhanVien
@@ -46,7 +46,7 @@
             // 
             // panelTop
             // 
-            this.panelTop.BackColor = System.Drawing.SystemColors.Control;
+            this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.panelTop.Controls.Add(this.btnLocDuLieu);
             this.panelTop.Controls.Add(this.dtDTo);
             this.panelTop.Controls.Add(this.label2);
@@ -62,7 +62,7 @@
             // btnLocDuLieu
             // 
             this.btnLocDuLieu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLocDuLieu.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnLocDuLieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
             this.btnLocDuLieu.FlatAppearance.BorderSize = 0;
             this.btnLocDuLieu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLocDuLieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
@@ -89,6 +89,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label2.Location = new System.Drawing.Point(385, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 23);
@@ -109,6 +110,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label1.Location = new System.Drawing.Point(30, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 23);
@@ -121,7 +123,8 @@
             this.dtgvData.AllowUserToDeleteRows = false;
             this.dtgvData.AllowUserToResizeRows = false;
             this.dtgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvData.BackgroundColor = System.Drawing.Color.Silver;
+            this.dtgvData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.dtgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(170)))), ((int)(((byte)(164)))));
             this.dtgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvData.Location = new System.Drawing.Point(0, 60);
@@ -137,7 +140,7 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.panelBottom.Controls.Add(this.lblTongTien);
             this.panelBottom.Controls.Add(this.lblTotalCaption);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -151,7 +154,7 @@
             this.lblTongTien.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTongTien.AutoSize = true;
             this.lblTongTien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTongTien.ForeColor = System.Drawing.Color.Red;
+            this.lblTongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.lblTongTien.Location = new System.Drawing.Point(881, 6);
             this.lblTongTien.Name = "lblTongTien";
             this.lblTongTien.Size = new System.Drawing.Size(74, 28);
@@ -163,6 +166,7 @@
             this.lblTotalCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalCaption.AutoSize = true;
             this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTotalCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.lblTotalCaption.Location = new System.Drawing.Point(792, 6);
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(74, 28);
@@ -173,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(999, 554);
             this.Controls.Add(this.dtgvData);
             this.Controls.Add(this.panelBottom);

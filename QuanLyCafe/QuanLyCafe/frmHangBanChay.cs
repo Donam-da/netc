@@ -1,9 +1,12 @@
-﻿using System;
+﻿﻿using System;
 using System.Data;
+using System.Drawing;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace QuanLyCafe
 {
+    [SupportedOSPlatform("windows")]
     public partial class frmHangBanChay : Form
     {
         public frmHangBanChay()
@@ -93,15 +96,24 @@ namespace QuanLyCafe
                 lblTongTien.Text = tong.ToString("N0") + " VNĐ"; // Hiển thị tổng doanh thu ở dưới
 
                 // Cập nhật tiêu đề form với Top 1 (dòng đầu tiên sau khi ORDER BY)
-                string tenTop1 = dt.Rows[0]["Đồ uống"].ToString();
-                string slTop1 = dt.Rows[0]["Số lượng"].ToString();
-                string dtTop1 = Convert.ToDecimal(dt.Rows[0]["Doanh thu"]).ToString("N0");
+                string tenTop1 = dt.Rows[0]["Đồ uống"]?.ToString() ?? "";
+                string slTop1 = dt.Rows[0]["Số lượng"]?.ToString() ?? "";
+                string dtTop1 = Convert.ToDecimal(dt.Rows[0]["Doanh thu"] ?? 0).ToString("N0");
                 this.Text = $"Top hàng bán chạy (Top 1: {tenTop1} - SL: {slTop1}, DT: {dtTop1} VNĐ)";
             }
             else
             {
                 lblTongTien.Text = "0 VNĐ";           // Không có dữ liệu: tổng = 0
                 this.Text = "Top hàng bán chạy";      // Tiêu đề mặc định
+            }
+        }
+
+        private void dtgvData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Tô màu cho hàng đầu tiên (Top 1)
+            if (e.RowIndex == 0 && e.CellStyle != null)
+            {
+                e.CellStyle.BackColor = Color.FromArgb(215, 204, 200); // #D7CCC8
             }
         }
 

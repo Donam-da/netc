@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -97,7 +97,13 @@ namespace QuanLyCafe
                 return;
             }
             string strSQL = $@"SELECT * FROM Ban WHERE MaBan = '{txtMaBan.Text}'";
-            string MaBanSua = dtgvData.CurrentRow.Cells[0].Value.ToString().Trim();
+            if (dtgvData.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một bàn để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string MaBanSua = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
+
             if (ConnectSQL.ExcuteReader_bool(strSQL) && txtMaBan.Text.Trim() != MaBanSua)
             {
                 MessageBox.Show("Mã bàn này đã tồn tại, vui lòng tạo mã khác");
@@ -112,6 +118,23 @@ namespace QuanLyCafe
             LoadData();
         }
 
+        private void dtgvData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Kiểm tra nếu đây là cột "Trạng thái" và cell style không null
+            if (dtgvData.Columns[e.ColumnIndex].Name == "TrangThai" && e.Value != null && e.CellStyle != null)
+            {
+                if (e.Value.ToString() == "Bàn có người")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(255, 171, 145); // #FFAB91
+                }
+                else if (e.Value.ToString() == "Bàn trống")
+                {
+                    e.CellStyle.BackColor = Color.FromArgb(165, 214, 167); // #A5D6A7
+                }
+            }
+        }
         private void menuXoa_Click(object sender, EventArgs e)
         {
             if (dtgvData.Rows.Count == 0)
@@ -119,7 +142,13 @@ namespace QuanLyCafe
                 MessageBox.Show("Chưa có dữ liệu để xóa");
                 return;
             }
-            string strCheck = $@"SELECT * FROM HoaDon WHERE MaBan = '{dtgvData.CurrentRow.Cells["MaBan"].Value.ToString().Trim()}'";
+            if (dtgvData.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một bàn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string maBanXoa = dtgvData.CurrentRow.Cells["MaBan"].Value?.ToString()?.Trim() ?? string.Empty;
+            string strCheck = $@"SELECT * FROM HoaDon WHERE MaBan = '{maBanXoa}'";
             if (ConnectSQL.ExcuteReader_bool(strCheck))
             {
                 MessageBox.Show("Dữ liệu đã phát sinh khóa ngoại trong bảng HoaDon, không xóa được");
@@ -129,7 +158,7 @@ namespace QuanLyCafe
 
             if (result == DialogResult.Yes)
             {
-                string strSQL = $@"DELETE Ban WHERE MaBan = '{dtgvData.CurrentRow.Cells[0].Value.ToString().Trim()}'";
+                string strSQL = $@"DELETE Ban WHERE MaBan = '{maBanXoa}'";
                 ConnectSQL.RunQuery(strSQL);
                 MessageBox.Show("Xóa thành công");
                 LoadData();

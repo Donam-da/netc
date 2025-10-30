@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,6 +62,28 @@ namespace QuanLyCafe
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        // Hiệu ứng hover cho nút "Đổi mật khẩu"
+        private void btnDoiMatKhau_MouseEnter(object sender, EventArgs e)
+        {
+            btnDoiMatKhau.BackColor = Color.FromArgb(109, 76, 65); // #6D4C41
+        }
+
+        private void btnDoiMatKhau_MouseLeave(object sender, EventArgs e)
+        {
+            btnDoiMatKhau.BackColor = Color.FromArgb(90, 59, 46); // #5A3B2E
+        }
+
+        // Hiệu ứng hover cho nút "Thoát"
+        private void btnThoat_MouseEnter(object sender, EventArgs e)
+        {
+            btnThoat.BackColor = Color.FromArgb(161, 136, 127); // #A1887F
+        }
+
+        private void btnThoat_MouseLeave(object sender, EventArgs e)
+        {
+            btnThoat.BackColor = Color.FromArgb(188, 170, 164); // #BCAAA4
         }
     }
 }

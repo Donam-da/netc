@@ -1,4 +1,4 @@
-﻿namespace QuanLyCafe
+﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -77,6 +77,7 @@
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.pnlBan.SuspendLayout();
             this.pnlLocBan.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -92,6 +93,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
             this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -117,6 +119,7 @@
             // 
             // menuNhanVien
             // 
+            this.menuNhanVien.ForeColor = System.Drawing.Color.White;
             this.menuNhanVien.Image = ((System.Drawing.Image)(resources.GetObject("menuNhanVien.Image")));
             this.menuNhanVien.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuNhanVien.Name = "menuNhanVien";
@@ -132,6 +135,7 @@
             // 
             // menuDoUong
             // 
+            this.menuDoUong.ForeColor = System.Drawing.Color.White;
             this.menuDoUong.Image = ((System.Drawing.Image)(resources.GetObject("menuDoUong.Image")));
             this.menuDoUong.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuDoUong.Name = "menuDoUong";
@@ -142,6 +146,7 @@
             // 
             // menuLDU
             // 
+            this.menuLDU.ForeColor = System.Drawing.Color.White;
             this.menuLDU.Image = ((System.Drawing.Image)(resources.GetObject("menuLDU.Image")));
             this.menuLDU.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuLDU.Name = "menuLDU";
@@ -152,6 +157,7 @@
             // 
             // menuBan
             // 
+            this.menuBan.ForeColor = System.Drawing.Color.White;
             this.menuBan.Image = ((System.Drawing.Image)(resources.GetObject("menuBan.Image")));
             this.menuBan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuBan.Name = "menuBan";
@@ -162,6 +168,7 @@
             // 
             // menuKH
             // 
+            this.menuKH.ForeColor = System.Drawing.Color.White;
             this.menuKH.Image = ((System.Drawing.Image)(resources.GetObject("menuKH.Image")));
             this.menuKH.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuKH.Name = "menuKH";
@@ -177,6 +184,7 @@
             // 
             // menuDoanhThuNgay
             // 
+            this.menuDoanhThuNgay.ForeColor = System.Drawing.Color.White;
             this.menuDoanhThuNgay.Image = ((System.Drawing.Image)(resources.GetObject("menuDoanhThuNgay.Image")));
             this.menuDoanhThuNgay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuDoanhThuNgay.Name = "menuDoanhThuNgay";
@@ -187,6 +195,7 @@
             // 
             // menuThongKeDoanhThuNV
             // 
+            this.menuThongKeDoanhThuNV.ForeColor = System.Drawing.Color.White;
             this.menuThongKeDoanhThuNV.Image = ((System.Drawing.Image)(resources.GetObject("menuThongKeDoanhThuNV.Image")));
             this.menuThongKeDoanhThuNV.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuThongKeDoanhThuNV.Name = "menuThongKeDoanhThuNV";
@@ -197,6 +206,7 @@
             // 
             // menuHangBanChay
             // 
+            this.menuHangBanChay.ForeColor = System.Drawing.Color.White;
             this.menuHangBanChay.Image = ((System.Drawing.Image)(resources.GetObject("menuHangBanChay.Image")));
             this.menuHangBanChay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuHangBanChay.Name = "menuHangBanChay";
@@ -207,6 +217,7 @@
             // 
             // menuLichSuHoaDon
             // 
+            this.menuLichSuHoaDon.ForeColor = System.Drawing.Color.White;
             this.menuLichSuHoaDon.Image = ((System.Drawing.Image)(resources.GetObject("menuLichSuHoaDon.Image")));
             this.menuLichSuHoaDon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuLichSuHoaDon.Name = "menuLichSuHoaDon";
@@ -223,6 +234,7 @@
             // menuThongTinCaNhan
             // 
             this.menuThongTinCaNhan.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menuThongTinCaNhan.ForeColor = System.Drawing.Color.White;
             this.menuThongTinCaNhan.Image = ((System.Drawing.Image)(resources.GetObject("menuThongTinCaNhan.Image")));
             this.menuThongTinCaNhan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuThongTinCaNhan.Name = "menuThongTinCaNhan";
@@ -234,6 +246,7 @@
             // btnDX
             // 
             this.btnDX.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnDX.ForeColor = System.Drawing.Color.White;
             this.btnDX.Image = ((System.Drawing.Image)(resources.GetObject("btnDX.Image")));
             this.btnDX.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDX.Name = "btnDX";
@@ -277,6 +290,7 @@
             // 
             // pnlBan
             // 
+            this.pnlBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(165)))), ((int)(((byte)(126)))));
             this.pnlBan.Controls.Add(this.lstBan);
             this.pnlBan.Controls.Add(this.pnlLocBan);
             this.pnlBan.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -287,6 +301,7 @@
             // 
             // lstBan
             // 
+            this.lstBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(213)))), ((int)(((byte)(183)))));
             this.lstBan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstBan.LargeImageList = this.imageList1;
             this.lstBan.Location = new System.Drawing.Point(0, 60);
@@ -315,6 +330,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(165)))), ((int)(((byte)(126)))));
             this.groupBox1.Controls.Add(this.rbAll);
             this.groupBox1.Controls.Add(this.rbNo);
             this.groupBox1.Controls.Add(this.rbYes);
@@ -324,12 +340,14 @@
             this.groupBox1.Size = new System.Drawing.Size(436, 60);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.groupBox1.Text = "Trạng thái bàn";
             // 
             // rbAll
             // 
             this.rbAll.AutoSize = true;
             this.rbAll.Checked = true;
+            this.rbAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.rbAll.Location = new System.Drawing.Point(25, 25);
             this.rbAll.Name = "rbAll";
             this.rbAll.Size = new System.Drawing.Size(62, 21);
@@ -342,6 +360,7 @@
             // rbNo
             // 
             this.rbNo.AutoSize = true;
+            this.rbNo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.rbNo.Location = new System.Drawing.Point(230, 25);
             this.rbNo.Name = "rbNo";
             this.rbNo.Size = new System.Drawing.Size(83, 21);
@@ -353,6 +372,7 @@
             // rbYes
             // 
             this.rbYes.AutoSize = true;
+            this.rbYes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.rbYes.Location = new System.Drawing.Point(120, 25);
             this.rbYes.Name = "rbYes";
             this.rbYes.Size = new System.Drawing.Size(97, 21);
@@ -400,7 +420,7 @@
             // btnThanhToan
             // 
             this.btnThanhToan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThanhToan.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnThanhToan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
             this.btnThanhToan.FlatAppearance.BorderSize = 0;
             this.btnThanhToan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -427,6 +447,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label4.Location = new System.Drawing.Point(15, 30);
             this.label4.Name = "label4";
@@ -449,7 +470,7 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.btnXoa.FlatAppearance.BorderSize = 0;
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -464,7 +485,7 @@
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(142)))), ((int)(((byte)(65)))));
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -499,6 +520,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.label2.Location = new System.Drawing.Point(145, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 17);
@@ -557,7 +579,7 @@
             // btnTim
             // 
             this.btnTim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnTim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
             this.btnTim.FlatAppearance.BorderSize = 0;
             this.btnTim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTim.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -583,6 +605,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.label1.Location = new System.Drawing.Point(10, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
@@ -593,6 +616,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
@@ -610,6 +634,7 @@
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.pnlBan.ResumeLayout(false);
             this.pnlLocBan.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmLichSuHoaDon
@@ -51,7 +51,7 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.pnlTop.Controls.Add(this.btnLocDuLieu);
             this.pnlTop.Controls.Add(this.dtDTo);
             this.pnlTop.Controls.Add(this.label2);
@@ -67,7 +67,7 @@
             // btnLocDuLieu
             // 
             this.btnLocDuLieu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLocDuLieu.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnLocDuLieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
             this.btnLocDuLieu.FlatAppearance.BorderSize = 0;
             this.btnLocDuLieu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLocDuLieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
@@ -83,6 +83,7 @@
             // dtDTo
             // 
             this.dtDTo.CustomFormat = "dd/MM/yyyy";
+            this.dtDTo.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.dtDTo.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtDTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtDTo.Location = new System.Drawing.Point(369, 16);
@@ -94,6 +95,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label2.Location = new System.Drawing.Point(280, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 23);
@@ -103,6 +105,7 @@
             // dtDFrom
             // 
             this.dtDFrom.CustomFormat = "dd/MM/yyyy";
+            this.dtDFrom.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.dtDFrom.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtDFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtDFrom.Location = new System.Drawing.Point(99, 16);
@@ -114,6 +117,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label1.Location = new System.Drawing.Point(22, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 23);
@@ -148,7 +152,8 @@
             this.dtgvHD.AllowUserToDeleteRows = false;
             this.dtgvHD.AllowUserToResizeRows = false;
             this.dtgvHD.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvHD.BackgroundColor = System.Drawing.Color.Silver;
+            this.dtgvHD.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.dtgvHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(170)))), ((int)(((byte)(164)))));
             this.dtgvHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvHD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvHD.Location = new System.Drawing.Point(10, 28);
@@ -167,6 +172,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label3.Location = new System.Drawing.Point(10, 0);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
@@ -180,7 +186,8 @@
             this.dtgvCTHD.AllowUserToDeleteRows = false;
             this.dtgvCTHD.AllowUserToResizeRows = false;
             this.dtgvCTHD.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvCTHD.BackgroundColor = System.Drawing.Color.Silver;
+            this.dtgvCTHD.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.dtgvCTHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(170)))), ((int)(((byte)(164)))));
             this.dtgvCTHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvCTHD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvCTHD.Location = new System.Drawing.Point(10, 33);
@@ -198,6 +205,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label4.Location = new System.Drawing.Point(10, 5);
             this.label4.Name = "label4";
             this.label4.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
@@ -209,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1084, 661);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.pnlTop);

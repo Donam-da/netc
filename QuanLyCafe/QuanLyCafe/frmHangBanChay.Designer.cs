@@ -1,4 +1,4 @@
-﻿﻿// frmHangBanChay.Designer.cs
+﻿﻿﻿﻿// frmHangBanChay.Designer.cs
 namespace QuanLyCafe
 {
     partial class frmHangBanChay
@@ -16,8 +16,8 @@ namespace QuanLyCafe
         private void InitializeComponent()
         {
             this.panelTop = new System.Windows.Forms.Panel();
-            this.btnThanhToan = new System.Windows.Forms.Button();
             this.dtDTo = new System.Windows.Forms.DateTimePicker();
+            this.btnLocDuLieu = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dtDFrom = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -32,8 +32,8 @@ namespace QuanLyCafe
             // 
             // panelTop
             // 
-            this.panelTop.BackColor = System.Drawing.SystemColors.Control;
-            this.panelTop.Controls.Add(this.btnThanhToan);
+            this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
+            this.panelTop.Controls.Add(this.btnLocDuLieu);
             this.panelTop.Controls.Add(this.dtDTo);
             this.panelTop.Controls.Add(this.label2);
             this.panelTop.Controls.Add(this.dtDFrom);
@@ -45,22 +45,6 @@ namespace QuanLyCafe
             this.panelTop.Size = new System.Drawing.Size(1000, 60);
             this.panelTop.TabIndex = 0;
             // 
-            // btnThanhToan
-            // 
-            this.btnThanhToan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThanhToan.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnThanhToan.FlatAppearance.BorderSize = 0;
-            this.btnThanhToan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btnThanhToan.ForeColor = System.Drawing.Color.White;
-            this.btnThanhToan.Location = new System.Drawing.Point(835, 12);
-            this.btnThanhToan.Name = "btnThanhToan";
-            this.btnThanhToan.Size = new System.Drawing.Size(145, 36);
-            this.btnThanhToan.TabIndex = 4;
-            this.btnThanhToan.Text = "Lọc dữ liệu";
-            this.btnThanhToan.UseVisualStyleBackColor = false;
-            this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
-            // 
             // dtDTo
             // 
             this.dtDTo.CustomFormat = "dd/MM/yyyy";
@@ -71,10 +55,27 @@ namespace QuanLyCafe
             this.dtDTo.TabIndex = 3;
             this.dtDTo.ValueChanged += new System.EventHandler(this.dtDTo_ValueChanged);
             // 
+            // btnLocDuLieu
+            // 
+            this.btnLocDuLieu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLocDuLieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
+            this.btnLocDuLieu.FlatAppearance.BorderSize = 0;
+            this.btnLocDuLieu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLocDuLieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnLocDuLieu.ForeColor = System.Drawing.Color.White;
+            this.btnLocDuLieu.Location = new System.Drawing.Point(835, 12);
+            this.btnLocDuLieu.Name = "btnLocDuLieu";
+            this.btnLocDuLieu.Size = new System.Drawing.Size(145, 36);
+            this.btnLocDuLieu.TabIndex = 4;
+            this.btnLocDuLieu.Text = "Lọc dữ liệu";
+            this.btnLocDuLieu.UseVisualStyleBackColor = false;
+            this.btnLocDuLieu.Click += new System.EventHandler(this.btnThanhToan_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(385, 22);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 23);
             this.label2.TabIndex = 2;
@@ -95,6 +96,7 @@ namespace QuanLyCafe
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(30, 22);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 23);
             this.label1.TabIndex = 0;
@@ -107,7 +109,8 @@ namespace QuanLyCafe
             this.dtgvData.AllowUserToDeleteRows = false;
             this.dtgvData.AllowUserToResizeRows = false;
             this.dtgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtgvData.BackgroundColor = System.Drawing.Color.Silver;
+            this.dtgvData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.dtgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(170)))), ((int)(((byte)(164)))));
             this.dtgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvData.Location = new System.Drawing.Point(0, 60);
@@ -119,11 +122,11 @@ namespace QuanLyCafe
             this.dtgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvData.Size = new System.Drawing.Size(1000, 470);
             this.dtgvData.TabIndex = 1;
-            this.dtgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvData_CellContentClick);
+            this.dtgvData.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgvData_CellFormatting);
             // 
             // panelBottom
             // 
-            this.panelBottom.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.panelBottom.Controls.Add(this.lblTongTien);
             this.panelBottom.Controls.Add(this.lblTotalCaption);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -136,7 +139,7 @@ namespace QuanLyCafe
             // 
             this.lblTongTien.AutoSize = true;
             this.lblTongTien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTongTien.ForeColor = System.Drawing.Color.Red;
+            this.lblTongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.lblTongTien.Location = new System.Drawing.Point(782, 6);
             this.lblTongTien.Name = "lblTongTien";
             this.lblTongTien.Size = new System.Drawing.Size(74, 28);
@@ -148,6 +151,7 @@ namespace QuanLyCafe
             // 
             this.lblTotalCaption.AutoSize = true;
             this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTotalCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.lblTotalCaption.Location = new System.Drawing.Point(693, 6);
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(74, 28);
@@ -158,7 +162,7 @@ namespace QuanLyCafe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1000, 570);
             this.Controls.Add(this.dtgvData);
             this.Controls.Add(this.panelBottom);
@@ -181,7 +185,7 @@ namespace QuanLyCafe
         #endregion
 
         private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Button btnThanhToan;
+        private System.Windows.Forms.Button btnLocDuLieu;
         private System.Windows.Forms.DateTimePicker dtDTo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtDFrom;

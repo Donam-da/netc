@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmNhanVien
@@ -62,6 +62,7 @@
             // 
             // pnlLeft
             // 
+            this.pnlLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(213)))), ((int)(((byte)(183)))));
             this.pnlLeft.Controls.Add(this.grbThongTin);
             this.pnlLeft.Controls.Add(this.pnlChucNang);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
@@ -87,6 +88,7 @@
             this.grbThongTin.Controls.Add(this.label1);
             this.grbThongTin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbThongTin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold);
+            this.grbThongTin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.grbThongTin.Location = new System.Drawing.Point(10, 10);
             this.grbThongTin.Name = "grbThongTin";
             this.grbThongTin.Size = new System.Drawing.Size(330, 581);
@@ -96,6 +98,7 @@
             // 
             // cboQuyen
             // 
+            this.cboQuyen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.cboQuyen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboQuyen.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cboQuyen.FormattingEnabled = true;
@@ -108,6 +111,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label7.Location = new System.Drawing.Point(16, 304);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 23);
@@ -116,6 +120,7 @@
             // 
             // txtDiaChi
             // 
+            this.txtDiaChi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtDiaChi.Location = new System.Drawing.Point(20, 270);
             this.txtDiaChi.Name = "txtDiaChi";
@@ -126,6 +131,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label5.Location = new System.Drawing.Point(16, 244);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 23);
@@ -134,6 +140,7 @@
             // 
             // txtSDT
             // 
+            this.txtSDT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtSDT.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtSDT.Location = new System.Drawing.Point(20, 210);
             this.txtSDT.Name = "txtSDT";
@@ -144,6 +151,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label4.Location = new System.Drawing.Point(16, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 23);
@@ -152,6 +160,7 @@
             // 
             // txtMatKhau
             // 
+            this.txtMatKhau.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtMatKhau.Location = new System.Drawing.Point(20, 150);
             this.txtMatKhau.Name = "txtMatKhau";
@@ -163,6 +172,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label3.Location = new System.Drawing.Point(16, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 23);
@@ -171,6 +181,7 @@
             // 
             // txtTenNV
             // 
+            this.txtTenNV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtTenNV.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtTenNV.Location = new System.Drawing.Point(20, 90);
             this.txtTenNV.Name = "txtTenNV";
@@ -181,6 +192,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label2.Location = new System.Drawing.Point(16, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 23);
@@ -189,6 +201,7 @@
             // 
             // txtMaNV
             // 
+            this.txtMaNV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtMaNV.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtMaNV.Location = new System.Drawing.Point(20, 30);
             this.txtMaNV.Name = "txtMaNV";
@@ -199,6 +212,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.label1.Location = new System.Drawing.Point(16, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 23);
@@ -218,7 +232,7 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.btnXoa.FlatAppearance.BorderSize = 0;
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
@@ -233,11 +247,11 @@
             // 
             // btnSua
             // 
-            this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
             this.btnSua.FlatAppearance.BorderSize = 0;
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSua.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSua.ForeColor = System.Drawing.Color.Black;
+            this.btnSua.ForeColor = System.Drawing.Color.White;
             this.btnSua.Location = new System.Drawing.Point(117, 10);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(100, 40);
@@ -248,7 +262,7 @@
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(142)))), ((int)(((byte)(65)))));
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
@@ -263,6 +277,7 @@
             // 
             // pnlRight
             // 
+            this.pnlRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.pnlRight.Controls.Add(this.dtgvData);
             this.pnlRight.Controls.Add(this.pnlTimKiem);
             this.pnlRight.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -274,6 +289,7 @@
             // 
             // dtgvData
             // 
+            this.dtgvData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.dtgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvData.Location = new System.Drawing.Point(0, 60);
@@ -298,7 +314,7 @@
             // btnTimKiem
             // 
             this.btnTimKiem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTimKiem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnTimKiem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
             this.btnTimKiem.FlatAppearance.BorderSize = 0;
             this.btnTimKiem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTimKiem.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
@@ -315,6 +331,7 @@
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtSearch.Location = new System.Drawing.Point(10, 8);
             this.txtSearch.Name = "txtSearch";
@@ -325,7 +342,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(233)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1084, 661);
             this.Controls.Add(this.pnlRight);
             this.Controls.Add(this.pnlLeft);
