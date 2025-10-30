@@ -80,7 +80,7 @@
             // 
             this.pnlTotal.Controls.Add(this.lblTotalAmount);
             this.pnlTotal.Controls.Add(this.lblTotalCaption);
-            this.pnlTotal.Location = new System.Drawing.Point(20, 430);
+            this.pnlTotal.Location = new System.Drawing.Point(20, 420);
             this.pnlTotal.Name = "pnlTotal";
             this.pnlTotal.Size = new System.Drawing.Size(392, 40);
             this.pnlTotal.TabIndex = 5;
@@ -88,7 +88,7 @@
             // lblTotalAmount
             // 
             this.lblTotalAmount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             this.lblTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
             this.lblTotalAmount.Location = new System.Drawing.Point(120, 0);
             this.lblTotalAmount.Name = "lblTotalAmount";
@@ -100,14 +100,14 @@
             // lblTotalCaption
             // 
             this.lblTotalCaption.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             this.lblTotalCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
             this.lblTotalCaption.Location = new System.Drawing.Point(0, 0);
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(120, 40);
             this.lblTotalCaption.TabIndex = 0;
             this.lblTotalCaption.Text = "TỔNG CỘNG:";
-            this.lblTotalCaption.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTotalCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnClose
             // 
@@ -117,7 +117,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(166, 500);
+            this.btnClose.Location = new System.Drawing.Point(166, 530);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 40);
             this.btnClose.TabIndex = 6;
@@ -128,7 +128,7 @@
             // 
             this.lblThanks.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic);
             this.lblThanks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.lblThanks.Location = new System.Drawing.Point(20, 473);
+            this.lblThanks.Location = new System.Drawing.Point(20, 503);
             this.lblThanks.Name = "lblThanks";
             this.lblThanks.Size = new System.Drawing.Size(392, 23);
             this.lblThanks.TabIndex = 7;
