@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmHienThiHoaDon
     {
@@ -53,6 +53,7 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(432, 551);
             this.pnlMain.TabIndex = 0;
+            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // lblTitle
             // 
@@ -73,7 +74,7 @@
             this.rtbCustomer.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbCustomer.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.rtbCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbCustomer.Location = new System.Drawing.Point(20, 100);
+            this.rtbCustomer.Location = new System.Drawing.Point(20, 120);
             this.rtbCustomer.Name = "rtbCustomer";
             this.rtbCustomer.ReadOnly = true;
             this.rtbCustomer.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -87,7 +88,7 @@
             this.rtbStaff.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbStaff.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.rtbStaff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbStaff.Location = new System.Drawing.Point(20, 125);
+            this.rtbStaff.Location = new System.Drawing.Point(20, 145);
             this.rtbStaff.Name = "rtbStaff";
             this.rtbStaff.ReadOnly = true;
             this.rtbStaff.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -101,7 +102,7 @@
             this.rtbDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbDate.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.rtbDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbDate.Location = new System.Drawing.Point(20, 150);
+            this.rtbDate.Location = new System.Drawing.Point(20, 170);
             this.rtbDate.Name = "rtbDate";
             this.rtbDate.ReadOnly = true;
             this.rtbDate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -115,7 +116,7 @@
             this.rtbPaymentDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbPaymentDate.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.rtbPaymentDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbPaymentDate.Location = new System.Drawing.Point(20, 175);
+            this.rtbPaymentDate.Location = new System.Drawing.Point(20, 195);
             this.rtbPaymentDate.Name = "rtbPaymentDate";
             this.rtbPaymentDate.ReadOnly = true;
             this.rtbPaymentDate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -130,7 +131,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtgvDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgvDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvDetails.Location = new System.Drawing.Point(20, 210);
+            this.dtgvDetails.Location = new System.Drawing.Point(20, 225);
             this.dtgvDetails.Name = "dtgvDetails";
             this.dtgvDetails.RowHeadersWidth = 51;
             this.dtgvDetails.Size = new System.Drawing.Size(392, 210);
@@ -198,7 +199,7 @@
             // lblShopName
             // 
             this.lblShopName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblShopName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblShopName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShopName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
             this.lblShopName.Location = new System.Drawing.Point(0, 60);
             this.lblShopName.Name = "lblShopName";
@@ -225,7 +226,6 @@
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvDetails)).EndInit();
             this.pnlTotal.ResumeLayout(false);
-            this.ResumeLayout(false);
 
         }
 
@@ -244,5 +244,5 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblThanks;
         private System.Windows.Forms.Label lblShopName;
-    }
+    } // This closing brace might be incorrect depending on the exact state of your file.
 }

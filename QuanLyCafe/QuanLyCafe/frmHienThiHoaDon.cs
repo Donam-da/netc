@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ namespace QuanLyCafe
     {
         private readonly DataTable _dtDetail;
         private readonly Dictionary<string, string> _hoaDonInfo;
+        private Image? _watermarkLogo = null;
 
         public frmHienThiHoaDon(DataTable dtDetail, Dictionary<string, string> hoaDonInfo)
         {
@@ -23,6 +25,17 @@ namespace QuanLyCafe
 
         private void frmHienThiHoaDon_Load(object sender, EventArgs e)
         {
+            // Tải logo và chuẩn bị để vẽ
+            try
+            {
+                string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "logo.png");
+                if (File.Exists(logoPath))
+                {
+                    _watermarkLogo = SetImageOpacity(Image.FromFile(logoPath), 0.1f); // 10% độ mờ
+                }
+            }
+            catch { /* Bỏ qua nếu có lỗi tải logo */ }
+
             // Hàm trợ giúp để định dạng RichTextBox
             void SetRichText(RichTextBox rtb, string label, string value)
             {
@@ -61,6 +74,44 @@ namespace QuanLyCafe
             dtgvDetails.Columns["SoLuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvDetails.Columns["DonGia"].DefaultCellStyle.Format = "N0";
             dtgvDetails.Columns["ThanhTien"].DefaultCellStyle.Format = "N0";
+        }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+            // Vẽ logo chìm vào giữa panel
+            if (_watermarkLogo != null)
+            {
+                int x = (pnlMain.Width - _watermarkLogo.Width) / 2;
+                int y = (pnlMain.Height - _watermarkLogo.Height) / 2;
+                e.Graphics.DrawImage(_watermarkLogo, x, y, _watermarkLogo.Width, _watermarkLogo.Height);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Tạo một bản sao của hình ảnh với độ mờ được chỉ định.
+        /// </summary>
+        /// <param name="image">Hình ảnh gốc.</param>
+        /// <param name="opacity">Độ mờ, từ 0.0 (trong suốt) đến 1.0 (rõ nét).</param>
+        /// <returns>Một hình ảnh mới đã được làm mờ.</returns>
+        private Image SetImageOpacity(Image image, float opacity)
+        {
+            Bitmap bmp = new Bitmap(image.Width, image.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.Matrix33 = opacity; // Thiết lập độ mờ
+
+                ImageAttributes attributes = new ImageAttributes();
+                attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                g.DrawImage(image, new Rectangle(0, 0, bmp.Width, bmp.Height),
+                                   0, 0, image.Width, image.Height,
+                                   GraphicsUnit.Pixel, attributes);
+            }
+            return bmp;
         }
     }
 }
