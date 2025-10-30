@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -103,16 +103,16 @@ namespace QuanLyCafe
             Font boldFont = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             Font regularFont = new Font("Segoe UI", 9.75F, FontStyle.Regular);
             Brush textBrush = new SolidBrush(Color.FromArgb(90, 59, 46));
-            int startY = 120; // Vị trí bắt đầu vẽ
+            int startY = 115; // Vị trí bắt đầu vẽ
             int lineSpacing = 25; // Khoảng cách giữa các dòng
 
             // Hàm trợ giúp để vẽ một dòng thông tin
             void DrawInfoLine(string label, string value, int yPos)
             {
-                g.DrawString(label, boldFont, textBrush, new PointF(15, yPos));
+                g.DrawString(label, boldFont, textBrush, new PointF(17, yPos));
                 // Đo kích thước của label để vẽ value ngay sau đó
                 SizeF labelSize = g.MeasureString(label, boldFont);
-                g.DrawString(value, regularFont, textBrush, new PointF(15 + labelSize.Width, yPos));
+                g.DrawString(value, regularFont, textBrush, new PointF(17 + labelSize.Width, yPos));
             }
 
             DrawInfoLine("Khách hàng: ", _hoaDonInfo["TenKH"], startY);
@@ -126,8 +126,8 @@ namespace QuanLyCafe
             int rowHeight = 25;
 
             // Vẽ header
-            g.FillRectangle(new SolidBrush(dtgvDetails.ColumnHeadersDefaultCellStyle.BackColor), 15, tableY, dtgvDetails.Width, headerHeight);
-            int currentX = 15;
+            g.FillRectangle(new SolidBrush(dtgvDetails.ColumnHeadersDefaultCellStyle.BackColor), 17, tableY, dtgvDetails.Width, headerHeight);
+            int currentX = 17;
             for (int i = 0; i < dtgvDetails.Columns.Count; i++)
             {
                 TextRenderer.DrawText(g, dtgvDetails.Columns[i].HeaderText, dtgvDetails.ColumnHeadersDefaultCellStyle.Font,
@@ -143,7 +143,7 @@ namespace QuanLyCafe
             for (int rowIndex = 0; rowIndex < rowsToDraw; rowIndex++)
             {
                 DataGridViewRow row = dtgvDetails.Rows[_firstDisplayedRow + rowIndex];
-                currentX = 15;
+                currentX = 17;
                 for (int i = 0; i < dtgvDetails.Columns.Count; i++)
                 {
                     string cellValue = row.Cells[i].FormattedValue.ToString() ?? "";

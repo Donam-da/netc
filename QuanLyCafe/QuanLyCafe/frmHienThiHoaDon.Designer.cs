@@ -1,4 +1,4 @@
-﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmHienThiHoaDon
     {
@@ -117,7 +117,7 @@
             // 
             this.vScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.vScrollBar.Location = new System.Drawing.Point(410, 225);
+            this.vScrollBar.Location = new System.Drawing.Point(408, 225);
             this.vScrollBar.Name = "vScrollBar";
             this.vScrollBar.Size = new System.Drawing.Size(17, 210);
             this.vScrollBar.TabIndex = 11;

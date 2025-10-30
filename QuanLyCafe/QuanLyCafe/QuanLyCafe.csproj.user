@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="frmBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmCanhBao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmChonSoLuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDoanhThuTheoNgay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDoanhThuTheoNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDoUong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmHangBanChay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmHienThiHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmInHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLichSuHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLoaiDoUong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmManHinhChinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmThanhToan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

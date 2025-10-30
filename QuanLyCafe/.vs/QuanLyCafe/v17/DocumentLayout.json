@@ -11,15 +11,15 @@
       "RelativeMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|solutionrelative:quanlycafe\\frmloaidouong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\quanlycafe\\frmdouong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|c:\\users\\admin\\onedrive\\desktop\\qlcafe\\quanlycafe\\quanlycafe\\frmdouong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|solutionrelative:quanlycafe\\frmdouong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\quanlycafe\\frmhangbanchay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|c:\\users\\admin\\onedrive\\desktop\\qlcafe\\quanlycafe\\quanlycafe\\frmhangbanchay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|solutionrelative:quanlycafe\\frmhangbanchay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\quanlycafe\\frmmanhinhchinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|c:\\users\\admin\\onedrive\\desktop\\qlcafe\\quanlycafe\\quanlycafe\\frmmanhinhchinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B90519D4-B85A-458B-994B-72A11CC8D3EE}|QuanLyCafe\\QuanLyCafe.csproj|solutionrelative:quanlycafe\\frmmanhinhchinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,30 +30,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "frmLoaiDoUong.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmLoaiDoUong.cs",
-              "RelativeDocumentMoniker": "QuanLyCafe\\frmLoaiDoUong.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmLoaiDoUong.cs [Design]",
-              "RelativeToolTip": "QuanLyCafe\\frmLoaiDoUong.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T09:59:15.095Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "frmDoUong.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmDoUong.cs",
-              "RelativeDocumentMoniker": "QuanLyCafe\\frmDoUong.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmDoUong.cs",
-              "RelativeToolTip": "QuanLyCafe\\frmDoUong.cs",
-              "ViewState": "AgIAAMAAAAAAAAAAAADwv98AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T01:09:28.827Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -67,6 +48,18 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-07T04:12:49.499Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmDoUong.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmDoUong.cs",
+              "RelativeDocumentMoniker": "QuanLyCafe\\frmDoUong.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmDoUong.cs",
+              "RelativeToolTip": "QuanLyCafe\\frmDoUong.cs",
+              "ViewState": "AgIAAMAAAAAAAAAAAADwv98AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:09:28.827Z"
             },
             {
               "$type": "Document",
@@ -91,6 +84,17 @@
               "ViewState": "AgIAABQBAAAAAAAAAAApwCABAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-28T01:35:48.986Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmLoaiDoUong.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmLoaiDoUong.cs",
+              "RelativeDocumentMoniker": "QuanLyCafe\\frmLoaiDoUong.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Desktop\\QLCafe\\QuanLyCafe\\QuanLyCafe\\frmLoaiDoUong.cs [Design]",
+              "RelativeToolTip": "QuanLyCafe\\frmLoaiDoUong.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T09:59:15.095Z"
             }
           ]
         }
