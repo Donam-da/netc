@@ -8,6 +8,7 @@
         {
             if (disposing && (components != null))
             {
+                _watermarkLogo?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -19,10 +20,6 @@
         {
             this.pnlMain = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.rtbCustomer = new System.Windows.Forms.RichTextBox();
-            this.rtbStaff = new System.Windows.Forms.RichTextBox();
-            this.rtbDate = new System.Windows.Forms.RichTextBox();
-            this.rtbPaymentDate = new System.Windows.Forms.RichTextBox();
             this.dtgvDetails = new System.Windows.Forms.DataGridView();
             this.pnlTotal = new System.Windows.Forms.Panel();
             this.lblTotalAmount = new System.Windows.Forms.Label();
@@ -43,10 +40,6 @@
             this.pnlMain.Controls.Add(this.pnlTotal);
             this.pnlMain.Controls.Add(this.dtgvDetails);
             this.pnlMain.Controls.Add(this.lblShopName);
-            this.pnlMain.Controls.Add(this.rtbDate);
-            this.pnlMain.Controls.Add(this.rtbPaymentDate);
-            this.pnlMain.Controls.Add(this.rtbStaff);
-            this.pnlMain.Controls.Add(this.rtbCustomer);
             this.pnlMain.Controls.Add(this.lblTitle);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(5, 5);
@@ -68,67 +61,12 @@
             this.lblTitle.Text = "HÓA ĐƠN THANH TOÁN";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // rtbCustomer
-            // 
-            this.rtbCustomer.BackColor = System.Drawing.Color.White;
-            this.rtbCustomer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbCustomer.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rtbCustomer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbCustomer.Location = new System.Drawing.Point(20, 120);
-            this.rtbCustomer.Name = "rtbCustomer";
-            this.rtbCustomer.ReadOnly = true;
-            this.rtbCustomer.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbCustomer.Size = new System.Drawing.Size(392, 24);
-            this.rtbCustomer.TabIndex = 11;
-            this.rtbCustomer.Text = "Khách hàng:";
-            // 
-            // rtbStaff
-            // 
-            this.rtbStaff.BackColor = System.Drawing.Color.White;
-            this.rtbStaff.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbStaff.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rtbStaff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbStaff.Location = new System.Drawing.Point(20, 145);
-            this.rtbStaff.Name = "rtbStaff";
-            this.rtbStaff.ReadOnly = true;
-            this.rtbStaff.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbStaff.Size = new System.Drawing.Size(392, 24);
-            this.rtbStaff.TabIndex = 12;
-            this.rtbStaff.Text = "Người lập:";
-            // 
-            // rtbDate
-            // 
-            this.rtbDate.BackColor = System.Drawing.Color.White;
-            this.rtbDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbDate.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rtbDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbDate.Location = new System.Drawing.Point(20, 170);
-            this.rtbDate.Name = "rtbDate";
-            this.rtbDate.ReadOnly = true;
-            this.rtbDate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbDate.Size = new System.Drawing.Size(392, 24);
-            this.rtbDate.TabIndex = 13;
-            this.rtbDate.Text = "Thời gian tạo:";
-            // 
-            // rtbPaymentDate
-            // 
-            this.rtbPaymentDate.BackColor = System.Drawing.Color.White;
-            this.rtbPaymentDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbPaymentDate.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rtbPaymentDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.rtbPaymentDate.Location = new System.Drawing.Point(20, 195);
-            this.rtbPaymentDate.Name = "rtbPaymentDate";
-            this.rtbPaymentDate.ReadOnly = true;
-            this.rtbPaymentDate.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbPaymentDate.Size = new System.Drawing.Size(392, 24);
-            this.rtbPaymentDate.TabIndex = 14;
-            this.rtbPaymentDate.Text = "Thời gian thanh toán:";
-            // 
             // dtgvDetails
             // 
             this.dtgvDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtgvDetails.BackgroundColor = System.Drawing.Color.White;
             this.dtgvDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgvDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDetails.Location = new System.Drawing.Point(20, 225);
@@ -136,6 +74,7 @@
             this.dtgvDetails.RowHeadersWidth = 51;
             this.dtgvDetails.Size = new System.Drawing.Size(392, 210);
             this.dtgvDetails.TabIndex = 4;
+            this.dtgvDetails.Visible = false;
             // 
             // pnlTotal
             // 
@@ -233,10 +172,6 @@
 
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.RichTextBox rtbCustomer;
-        private System.Windows.Forms.RichTextBox rtbStaff;
-        private System.Windows.Forms.RichTextBox rtbDate;
-        private System.Windows.Forms.RichTextBox rtbPaymentDate;
         private System.Windows.Forms.DataGridView dtgvDetails;
         private System.Windows.Forms.Panel pnlTotal;
         private System.Windows.Forms.Label lblTotalAmount;

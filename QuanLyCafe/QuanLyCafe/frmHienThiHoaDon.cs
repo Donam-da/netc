@@ -36,20 +36,7 @@ namespace QuanLyCafe
             }
             catch { /* Bỏ qua nếu có lỗi tải logo */ }
 
-            // Hàm trợ giúp để định dạng RichTextBox
-            void SetRichText(RichTextBox rtb, string label, string value)
-            {
-                rtb.Text = $"{label} {value}";
-                rtb.Select(0, label.Length);
-                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Bold);
-                rtb.DeselectAll();
-            }
-
             // Gán thông tin hóa đơn
-            SetRichText(rtbCustomer, "Khách hàng:", _hoaDonInfo["TenKH"]);
-            SetRichText(rtbStaff, "Người lập:", _hoaDonInfo["NguoiLap"]);
-            SetRichText(rtbDate, "Thời gian tạo:", _hoaDonInfo["NgayLap"]);
-            SetRichText(rtbPaymentDate, "Thời gian thanh toán:", _hoaDonInfo["NgayThanhToan"]);
             lblTotalAmount.Text = $"{decimal.Parse(_hoaDonInfo["TongTien"]):N0} VNĐ";
 
             // Gán dữ liệu chi tiết
@@ -78,18 +65,72 @@ namespace QuanLyCafe
 
         private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g = e.Graphics; // Lấy đối tượng Graphics để vẽ
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // Bật khử răng cưa
+
             // Vẽ logo chìm vào giữa panel
             if (_watermarkLogo != null)
             {
                 int x = (pnlMain.Width - _watermarkLogo.Width) / 2;
                 int y = (pnlMain.Height - _watermarkLogo.Height) / 2;
-                e.Graphics.DrawImage(_watermarkLogo, x, y, _watermarkLogo.Width, _watermarkLogo.Height);
+                g.DrawImage(_watermarkLogo, x, y, _watermarkLogo.Width, _watermarkLogo.Height);
+            }
+
+            // --- Vẽ thông tin hóa đơn ---
+            Font boldFont = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            Font regularFont = new Font("Segoe UI", 9.75F, FontStyle.Regular);
+            Brush textBrush = new SolidBrush(Color.FromArgb(90, 59, 46));
+            int startY = 120; // Vị trí bắt đầu vẽ
+            int lineSpacing = 25; // Khoảng cách giữa các dòng
+
+            // Hàm trợ giúp để vẽ một dòng thông tin
+            void DrawInfoLine(string label, string value, int yPos)
+            {
+                g.DrawString(label, boldFont, textBrush, new PointF(20, yPos));
+                // Đo kích thước của label để vẽ value ngay sau đó
+                SizeF labelSize = g.MeasureString(label, boldFont);
+                g.DrawString(value, regularFont, textBrush, new PointF(20 + labelSize.Width, yPos));
+            }
+
+            DrawInfoLine("Khách hàng: ", _hoaDonInfo["TenKH"], startY);
+            DrawInfoLine("Người lập: ", _hoaDonInfo["NguoiLap"], startY + lineSpacing);
+            DrawInfoLine("Thời gian tạo: ", _hoaDonInfo["NgayLap"], startY + lineSpacing * 2);
+            DrawInfoLine("Thời gian thanh toán: ", _hoaDonInfo["NgayThanhToan"], startY + lineSpacing * 3);
+
+            // --- Vẽ bảng chi tiết hóa đơn ---
+            int tableY = 225; // Vị trí bắt đầu của bảng
+            int headerHeight = 30;
+            int rowHeight = 25;
+
+            // Vẽ header
+            g.FillRectangle(new SolidBrush(dtgvDetails.ColumnHeadersDefaultCellStyle.BackColor), 20, tableY, dtgvDetails.Width, headerHeight);
+            int currentX = 20;
+            for (int i = 0; i < dtgvDetails.Columns.Count; i++)
+            {
+                TextRenderer.DrawText(g, dtgvDetails.Columns[i].HeaderText, dtgvDetails.ColumnHeadersDefaultCellStyle.Font,
+                    new Rectangle(currentX, tableY, dtgvDetails.Columns[i].Width, headerHeight),
+                    dtgvDetails.ColumnHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+                currentX += dtgvDetails.Columns[i].Width;
+            }
+
+            // Vẽ các dòng dữ liệu
+            int currentY = tableY + headerHeight;
+            foreach (DataGridViewRow row in dtgvDetails.Rows)
+            {
+                currentX = 20;
+                for (int i = 0; i < dtgvDetails.Columns.Count; i++)
+                {
+                    string cellValue = row.Cells[i].FormattedValue.ToString() ?? "";
+                    TextRenderer.DrawText(g, cellValue, dtgvDetails.DefaultCellStyle.Font,
+                        new Rectangle(currentX, currentY, dtgvDetails.Columns[i].Width, rowHeight),
+                        dtgvDetails.DefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+                    currentX += dtgvDetails.Columns[i].Width;
+                }
+                currentY += rowHeight;
             }
         }
 
-
-
-
+        
         /// <summary>
         /// Tạo một bản sao của hình ảnh với độ mờ được chỉ định.
         /// </summary>
