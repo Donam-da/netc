@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,7 +40,8 @@ namespace QuanLyCafe
             }
             else
             {
-                LoadDataChiTietHoaDon(dtgvHD.CurrentRow.Cells[0].Value.ToString().Trim());
+                string? maHD = dtgvHD.CurrentRow?.Cells[0]?.Value?.ToString()?.Trim();
+                LoadDataChiTietHoaDon(maHD ?? string.Empty);
             }    
         }
         private void LoadDataChiTietHoaDon(string MaHD)
@@ -71,7 +72,8 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dtgvHD.Rows[e.RowIndex];
-                LoadDataChiTietHoaDon(row.Cells[0].Value.ToString());
+                string? maHD = row.Cells[0]?.Value?.ToString();
+                LoadDataChiTietHoaDon(maHD ?? string.Empty);
             }
         }
     }
