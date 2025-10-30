@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -79,6 +79,14 @@ namespace QuanLyCafe
                 string maHD = frmManHinhChinh.MaHDThanhToan;
 
                 // 2. Lấy dữ liệu chi tiết hóa đơn và thông tin chung để in
+                string sqlTruTonKho = @"UPDATE DoUong 
+                                        SET SoLuongTon = SoLuongTon - cthd.SoLuong
+                                        FROM DoUong du
+                                        INNER JOIN ChiTietHoaDon cthd ON du.MaDU = cthd.MaDU
+                                        WHERE cthd.MaHD = @MaHD";
+                ConnectSQL.RunQuery(sqlTruTonKho, new Dictionary<string, object> { { "@MaHD", maHD } });
+
+
                 string sqlDetail = "SELECT b.TenDU, a.DonGia, a.SoLuong, a.ThanhTien FROM ChiTietHoaDon a INNER JOIN DoUong b ON a.MaDU = b.MaDU WHERE a.MaHD = @MaHD";
                 DataTable dtDetail = ConnectSQL.Load(sqlDetail, new Dictionary<string, object> { { "@MaHD", maHD } });
 

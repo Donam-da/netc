@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +27,7 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia FROM DoUong WHERE TenDU LIKE @TenDU";
+            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon FROM DoUong WHERE TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtSearch.Text}%" }
@@ -39,12 +39,14 @@ namespace QuanLyCafe
             dtgvData.Columns[1].HeaderText = "Tên đồ uống";
             dtgvData.Columns[2].HeaderText = "Mã loại";
             dtgvData.Columns[3].HeaderText = "Đơn giá";
+            dtgvData.Columns[4].HeaderText = "Tồn kho";
             if (dtgvData.Rows.Count == 0)
             {
                 txtMaDU.Text = "";
                 txtTenDU.Text = "";
                 txtDonGia.Text = "";
                 picHinhAnh.Image = null;
+                txtSoLuongTon.Text = "0";
             }
             else
             {
@@ -53,6 +55,7 @@ namespace QuanLyCafe
                 txtTenDU.Text = drow.Cells[1].Value.ToString();
                 cboMaLoai.SelectedValue = drow.Cells[2].Value.ToString();
                 txtDonGia.Text = drow.Cells[3].Value.ToString();
+                txtSoLuongTon.Text = drow.Cells[4].Value.ToString();
 
                 string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
                 var paramHinhAnh = new Dictionary<string, object>
@@ -123,13 +126,14 @@ namespace QuanLyCafe
                 return;
             }
 
-            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia)";
+            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia, SoLuongTon) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia, @SoLuongTon)";
             var paramInsert = new Dictionary<string, object>
             {
                 { "@MaDU", txtMaDU.Text },
                 { "@TenDU", txtTenDU.Text },
                 { "@MaLoai", cboMaLoai.SelectedValue! },
-                { "@DonGia", decimal.Parse(txtDonGia.Text) }
+                { "@DonGia", decimal.Parse(txtDonGia.Text) },
+                { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) }
             };
 
             ConnectSQL.RunQuery(sqlInsert, paramInsert);
@@ -182,10 +186,10 @@ namespace QuanLyCafe
                 }
             }
 
-            string strSQL = "UPDATE DoUong SET MaDU = @MaDU, TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia WHERE MaDU = @MaDUSua";
+            string strSQL = "UPDATE DoUong SET MaDU = @MaDU, TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia, SoLuongTon = @SoLuongTon WHERE MaDU = @MaDUSua";
             var parameters = new Dictionary<string, object> {
                 { "@MaDU", txtMaDU.Text }, { "@TenDU", txtTenDU.Text }, { "@MaLoai", cboMaLoai.SelectedValue! },
-                { "@DonGia", decimal.Parse(txtDonGia.Text) }, { "@MaDUSua", MaDUSua }
+                { "@DonGia", decimal.Parse(txtDonGia.Text) }, { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) }, { "@MaDUSua", MaDUSua }
             };
             ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Sửa thành công");
@@ -201,6 +205,7 @@ namespace QuanLyCafe
                 txtTenDU.Text = row.Cells["TenDU"].Value.ToString();
                 cboMaLoai.SelectedValue = row.Cells["MaLoai"].Value.ToString();
                 txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
+                txtSoLuongTon.Text = row.Cells["SoLuongTon"].Value.ToString();
 
                 string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
                 var paramHinhAnh = new Dictionary<string, object>

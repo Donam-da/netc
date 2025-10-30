@@ -1,4 +1,4 @@
-﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmDoUong
@@ -33,6 +33,8 @@
             this.grbThongTin = new System.Windows.Forms.GroupBox();
             this.btnXoaHinh = new System.Windows.Forms.LinkLabel();
             this.btnThemHinh = new System.Windows.Forms.LinkLabel();
+            this.txtSoLuongTon = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.picHinhAnh = new System.Windows.Forms.PictureBox();
             this.txtDonGia = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -76,6 +78,8 @@
             // 
             this.grbThongTin.Controls.Add(this.btnXoaHinh);
             this.grbThongTin.Controls.Add(this.btnThemHinh);
+            this.grbThongTin.Controls.Add(this.txtSoLuongTon);
+            this.grbThongTin.Controls.Add(this.label5);
             this.grbThongTin.Controls.Add(this.picHinhAnh);
             this.grbThongTin.Controls.Add(this.txtDonGia);
             this.grbThongTin.Controls.Add(this.label4);
@@ -100,7 +104,7 @@
             this.btnXoaHinh.AutoSize = true;
             this.btnXoaHinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnXoaHinh.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.btnXoaHinh.Location = new System.Drawing.Point(259, 250);
+            this.btnXoaHinh.Location = new System.Drawing.Point(259, 500);
             this.btnXoaHinh.Name = "btnXoaHinh";
             this.btnXoaHinh.Size = new System.Drawing.Size(65, 20);
             this.btnXoaHinh.TabIndex = 10;
@@ -113,7 +117,7 @@
             this.btnThemHinh.AutoSize = true;
             this.btnThemHinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnThemHinh.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.btnThemHinh.Location = new System.Drawing.Point(16, 250);
+            this.btnThemHinh.Location = new System.Drawing.Point(16, 500);
             this.btnThemHinh.Name = "btnThemHinh";
             this.btnThemHinh.Size = new System.Drawing.Size(78, 20);
             this.btnThemHinh.TabIndex = 9;
@@ -121,10 +125,31 @@
             this.btnThemHinh.Text = "Thêm hình";
             this.btnThemHinh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnThemHinh_LinkClicked);
             // 
+            // txtSoLuongTon
+            // 
+            this.txtSoLuongTon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.txtSoLuongTon.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtSoLuongTon.Location = new System.Drawing.Point(20, 270);
+            this.txtSoLuongTon.Name = "txtSoLuongTon";
+            this.txtSoLuongTon.Size = new System.Drawing.Size(290, 29);
+            this.txtSoLuongTon.TabIndex = 8;
+            this.txtSoLuongTon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDonGia_KeyPress);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.label5.Location = new System.Drawing.Point(16, 244);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(112, 23);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Số lượng tồn:";
+            // 
             // picHinhAnh
             // 
             this.picHinhAnh.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.picHinhAnh.Location = new System.Drawing.Point(20, 280);
+            this.picHinhAnh.Location = new System.Drawing.Point(20, 315);
             this.picHinhAnh.Name = "picHinhAnh";
             this.picHinhAnh.Size = new System.Drawing.Size(290, 180);
             this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -384,5 +409,7 @@
         private System.Windows.Forms.LinkLabel btnXoaHinh;
         private System.Windows.Forms.LinkLabel btnThemHinh;
         private System.Windows.Forms.PictureBox picHinhAnh;
+        private System.Windows.Forms.TextBox txtSoLuongTon;
+        private System.Windows.Forms.Label label5;
     }
 }

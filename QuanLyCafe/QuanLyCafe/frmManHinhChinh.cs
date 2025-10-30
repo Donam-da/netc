@@ -99,7 +99,7 @@ namespace QuanLyCafe
         }
         private void LoadMenuDoUong()
         {
-            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia FROM DoUong WHERE TenDU LIKE @TenDU";
+            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon FROM DoUong WHERE TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtTenDoUong.Text}%" }
@@ -112,6 +112,7 @@ namespace QuanLyCafe
             dtgvDoUong.Columns[1].HeaderText = "Tên đồ uống";
             dtgvDoUong.Columns[2].HeaderText = "Mã loại";
             dtgvDoUong.Columns[3].HeaderText = "Đơn giá";
+            dtgvDoUong.Columns[4].HeaderText = "Tồn kho";
 
             // Thêm cột nút bấm "Chỉnh sửa" nếu chưa có
             if (dtgvDoUong.Columns["SuaDoUong"] == null)
@@ -123,7 +124,7 @@ namespace QuanLyCafe
                 btnCol.UseColumnTextForButtonValue = true;
                 dtgvDoUong.Columns.Add(btnCol);
             }
-            dtgvDoUong.Columns["SuaDoUong"].DisplayIndex = 4; // Hiển thị sau cột Đơn giá
+            dtgvDoUong.Columns["SuaDoUong"].DisplayIndex = 5; // Hiển thị sau cột Tồn kho
         }
         private void frmManHinhChinh_Load(object sender, EventArgs e)
         {
@@ -319,11 +320,23 @@ namespace QuanLyCafe
                     return;
                 }
 
+                int soLuongTon = Convert.ToInt32(dtgvDoUong.Rows[e.RowIndex].Cells["SoLuongTon"].Value);
+                if (soLuongTon <= 0)
+                {
+                    MessageBox.Show("Đồ uống này đã hết hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 string tenDU = dtgvDoUong.Rows[e.RowIndex].Cells["TenDU"].Value?.ToString() ?? string.Empty;
                 using (var formChonSL = new frmChonSoLuong(tenDU))
                 {
                     if (formChonSL.ShowDialog() == DialogResult.OK)
                     {
+                        if (formChonSL.SoLuong > soLuongTon)
+                        {
+                            MessageBox.Show($"Số lượng tồn không đủ. Chỉ còn {soLuongTon}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         string maDU = dtgvDoUong.Rows[e.RowIndex].Cells["MaDU"].Value.ToString()!;
                         decimal donGia = Convert.ToDecimal(dtgvDoUong.Rows[e.RowIndex].Cells["DonGia"].Value);
                         decimal soLuong = formChonSL.SoLuong;
