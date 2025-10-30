@@ -95,6 +95,7 @@ namespace QuanLyCafe
             dtgvBan.Columns["MaBan"].HeaderText = "Mã Bàn";
             dtgvBan.Columns["SucChua"].HeaderText = "Sức chứa";
             dtgvBan.Columns["TrangThai"].HeaderText = "Trạng thái";
+            dtgvBan.Columns["STT"].Width = 50;
         }
         private void LoadMenuDoUong()
         {
@@ -147,6 +148,7 @@ namespace QuanLyCafe
 
         private void dtgvBan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Bỏ qua nếu click vào header
             if (e.RowIndex >= 0)
             {
                 btnBanDaChon.Text = dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value?.ToString() ?? string.Empty;
@@ -154,10 +156,22 @@ namespace QuanLyCafe
             }
         }
 
+        private void dtgvBan_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Bỏ qua nếu nhấn đúp vào header
+            if (e.RowIndex >= 0)
+            {
+                frmBan frm = new frmBan();
+                frm.ShowDialog();
+                LoadTable(); // Tải lại danh sách bàn sau khi form quản lý đóng
+            }
+        }
+
         private void dtgvBan_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Tô màu và đổi text cho cột "Trạng thái"
-            if (e.RowIndex >= 0 && e.ColumnIndex == dtgvBan.Columns["TrangThai"].Index && e.Value != null)
+            var trangThaiCol = dtgvBan.Columns["TrangThai"];
+            if (trangThaiCol != null && e.RowIndex >= 0 && e.ColumnIndex == trangThaiCol.Index && e.Value != null)
             {
                 bool coNguoi = e.Value.ToString() == "1";
                 e.Value = coNguoi ? "Chưa thanh toán" : "Bàn trống";

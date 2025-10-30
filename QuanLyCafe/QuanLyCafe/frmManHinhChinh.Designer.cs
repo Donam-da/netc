@@ -290,6 +290,7 @@
             this.dtgvBan.Size = new System.Drawing.Size(436, 537);
             this.dtgvBan.TabIndex = 1;
             this.dtgvBan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBan_CellClick);
+            this.dtgvBan.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBan_CellDoubleClick);
             this.dtgvBan.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgvBan_CellFormatting);
             // 
             // pnlLocBan
@@ -532,16 +533,15 @@
             // btnRefreshDoUong
             // 
             this.btnRefreshDoUong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefreshDoUong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(142)))), ((int)(((byte)(65)))));
+            this.btnRefreshDoUong.BackColor = System.Drawing.Color.Transparent;
             this.btnRefreshDoUong.FlatAppearance.BorderSize = 0;
             this.btnRefreshDoUong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefreshDoUong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnRefreshDoUong.ForeColor = System.Drawing.Color.White;
-            this.btnRefreshDoUong.Location = new System.Drawing.Point(296, 13);
+            this.btnRefreshDoUong.Image = ((System.Drawing.Image)(resources.GetObject("btnRefreshDoUong.Image")));
+            this.btnRefreshDoUong.Location = new System.Drawing.Point(296, 14);
             this.btnRefreshDoUong.Name = "btnRefreshDoUong";
-            this.btnRefreshDoUong.Size = new System.Drawing.Size(70, 35);
+            this.btnRefreshDoUong.Size = new System.Drawing.Size(35, 35);
             this.btnRefreshDoUong.TabIndex = 3;
-            this.btnRefreshDoUong.Text = "Làm mới";
             this.btnRefreshDoUong.UseVisualStyleBackColor = false;
             this.btnRefreshDoUong.Click += new System.EventHandler(this.btnRefreshDoUong_Click);
             // 
