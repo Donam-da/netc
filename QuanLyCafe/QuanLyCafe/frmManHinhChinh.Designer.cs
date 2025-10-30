@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.MaDU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenDU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SoLuongTon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SuaDoUong = new System.Windows.Forms.DataGridViewButtonColumn();
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManHinhChinh));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -491,6 +497,13 @@
             // 
             this.dtgvDoUong.AllowUserToAddRows = false;
             this.dtgvDoUong.AllowUserToDeleteRows = false;
+            this.dtgvDoUong.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MaDU,
+            this.TenDU,
+            this.MaLoai,
+            this.DonGia,
+            this.SoLuongTon,
+            this.SuaDoUong});
             this.dtgvDoUong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvDoUong.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgvDoUong.Location = new System.Drawing.Point(0, 60);
@@ -569,6 +582,49 @@
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tìm món:";
+            // 
+            // MaDU
+            // 
+            this.MaDU.DataPropertyName = "MaDU";
+            this.MaDU.HeaderText = "Mã đồ uống";
+            this.MaDU.Name = "MaDU";
+            this.MaDU.ReadOnly = true;
+            // 
+            // TenDU
+            // 
+            this.TenDU.DataPropertyName = "TenDU";
+            this.TenDU.HeaderText = "Tên đồ uống";
+            this.TenDU.Name = "TenDU";
+            this.TenDU.ReadOnly = true;
+            // 
+            // MaLoai
+            // 
+            this.MaLoai.DataPropertyName = "MaLoai";
+            this.MaLoai.HeaderText = "Mã loại";
+            this.MaLoai.Name = "MaLoai";
+            this.MaLoai.ReadOnly = true;
+            // 
+            // DonGia
+            // 
+            this.DonGia.DataPropertyName = "DonGia";
+            this.DonGia.HeaderText = "Đơn giá";
+            this.DonGia.Name = "DonGia";
+            this.DonGia.ReadOnly = true;
+            // 
+            // SoLuongTon
+            // 
+            this.SoLuongTon.DataPropertyName = "SoLuongTon";
+            this.SoLuongTon.HeaderText = "Tồn kho";
+            this.SoLuongTon.Name = "SoLuongTon";
+            this.SoLuongTon.ReadOnly = true;
+            // 
+            // SuaDoUong
+            // 
+            this.SuaDoUong.HeaderText = "Thao tác";
+            this.SuaDoUong.Name = "SuaDoUong";
+            this.SuaDoUong.ReadOnly = true;
+            this.SuaDoUong.Text = "Sửa";
+            this.SuaDoUong.UseColumnTextForButtonValue = true;
             // 
             // frmManHinhChinh
             // 
@@ -663,5 +719,11 @@
         private System.Windows.Forms.Button btnRefreshDoUong;
         private System.Windows.Forms.Timer tmrStatus;
         private System.Windows.Forms.DataGridView dtgvBan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaDU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenDU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaLoai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuongTon;
+        private System.Windows.Forms.DataGridViewButtonColumn SuaDoUong;
     }
 }

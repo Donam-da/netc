@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +12,17 @@ namespace QuanLyCafe
 {
     public partial class frmBan: Form
     {
+        public string? SelectedMaBan { get; set; }
+
         public frmBan()
         {
             InitializeComponent();
+        }
+
+        // Constructor mới để nhận mã bàn từ form chính
+        public frmBan(string maBan) : this()
+        {
+            this.SelectedMaBan = maBan;
         }
 
         private void txtSucChua_KeyPress(object sender, KeyPressEventArgs e)
@@ -37,11 +45,29 @@ namespace QuanLyCafe
                 txtMaBan.Text = "";
                 txtSucChua.Text = "";
             }
-            else
+            else if (!string.IsNullOrEmpty(SelectedMaBan))
             {
-                DataGridViewRow drow = dtgvData.Rows[0];
-                txtMaBan.Text = drow.Cells[0].Value.ToString();
-                txtSucChua.Text = drow.Cells[1].Value.ToString();
+                // Tìm và chọn dòng có mã bàn được truyền vào
+                foreach (DataGridViewRow row in dtgvData.Rows)
+                {
+                    if (row.Cells["MaBan"].Value?.ToString() == SelectedMaBan)
+                    {
+                        dtgvData.CurrentCell = row.Cells[0]; // Chọn dòng này
+                        // Cập nhật thông tin vào các ô text
+                        txtMaBan.Text = row.Cells["MaBan"].Value.ToString();
+                        txtSucChua.Text = row.Cells["SucChua"].Value.ToString();
+                        break; // Dừng vòng lặp khi đã tìm thấy
+                    }
+                }
+            }
+            else // Nếu không có mã bàn nào được truyền, hiển thị dòng đầu tiên
+            {
+                DataGridViewRow firstRow = dtgvData.Rows[0];
+                if (firstRow != null)
+                {
+                    txtMaBan.Text = firstRow.Cells[0].Value.ToString();
+                    txtSucChua.Text = firstRow.Cells[1].Value.ToString();
+                }
             }
         }
         private void frmBan_Load(object sender, EventArgs e)

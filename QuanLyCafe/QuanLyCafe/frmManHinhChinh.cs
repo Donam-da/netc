@@ -27,42 +27,54 @@ namespace QuanLyCafe
         {
             frmNhanVien frm = new frmNhanVien();
             frm.ShowDialog();
+            RefreshAllData();
         }
 
         private void hệThốngToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
-
+        
         private void menuThongTinCaNhan_Click(object sender, EventArgs e)
         {
             frmDoiMatKhau frm = new frmDoiMatKhau();
             frm.ShowDialog();
         }
-
+        
         private void menuLDU_Click(object sender, EventArgs e)
         {
             frmLoaiDoUong frm = new frmLoaiDoUong();
             frm.ShowDialog();
+            RefreshAllData();
         }
 
         private void menuBan_Click(object sender, EventArgs e)
         {
             frmBan frm = new frmBan();
             frm.ShowDialog();
+            RefreshAllData();
         }
 
         private void menuDoUong_Click(object sender, EventArgs e)
         {
             frmDoUong frm = new frmDoUong();
             frm.ShowDialog();
+            RefreshAllData();
         }
 
         private void menuKH_Click(object sender, EventArgs e)
         {
             frmKhachHang frm = new frmKhachHang();
             frm.ShowDialog();
+            RefreshAllData();
         }
+        private void RefreshAllData()
+        {
+            LoadTable();
+            LoadMenuDoUong();
+            LoadDoUongDaGoi();
+        }
+
         private void LoadTable()
         {
             string strSQL = "SELECT MaBan, SucChua, TrangThai FROM Ban";
@@ -99,32 +111,23 @@ namespace QuanLyCafe
         }
         private void LoadMenuDoUong()
         {
+            // Ngăn DataGridView tự động tạo cột, để chúng ta có thể kiểm soát hoàn toàn.
+            dtgvDoUong.AutoGenerateColumns = false;
+
             string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon FROM DoUong WHERE TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtTenDoUong.Text}%" }
             };
-
             DataTable dt = ConnectSQL.Load(strSQL, parameters);
             dtgvDoUong.DataSource = dt;
-            frmNhanVien.SetupDataGridView(dtgvDoUong);
-            dtgvDoUong.Columns[0].HeaderText = "Mã đồ uống";
-            dtgvDoUong.Columns[1].HeaderText = "Tên đồ uống";
-            dtgvDoUong.Columns[2].HeaderText = "Mã loại";
-            dtgvDoUong.Columns[3].HeaderText = "Đơn giá";
-            dtgvDoUong.Columns[4].HeaderText = "Tồn kho";
 
-            // Thêm cột nút bấm "Chỉnh sửa" nếu chưa có
-            if (dtgvDoUong.Columns["SuaDoUong"] == null)
-            {
-                var btnCol = new DataGridViewButtonColumn();
-                btnCol.Name = "SuaDoUong";
-                btnCol.HeaderText = "Thao tác";
-                btnCol.Text = "Sửa";
-                btnCol.UseColumnTextForButtonValue = true;
-                dtgvDoUong.Columns.Add(btnCol);
-            }
-            dtgvDoUong.Columns["SuaDoUong"].DisplayIndex = 5; // Hiển thị sau cột Tồn kho
+            frmNhanVien.SetupDataGridView(dtgvDoUong);
+            dtgvDoUong.Columns["MaDU"].DataPropertyName = "MaDU";
+            dtgvDoUong.Columns["TenDU"].DataPropertyName = "TenDU";
+            dtgvDoUong.Columns["MaLoai"].DataPropertyName = "MaLoai";
+            dtgvDoUong.Columns["DonGia"].DataPropertyName = "DonGia";
+            dtgvDoUong.Columns["SoLuongTon"].DataPropertyName = "SoLuongTon";
         }
         private void frmManHinhChinh_Load(object sender, EventArgs e)
         {
@@ -174,9 +177,10 @@ namespace QuanLyCafe
             // Bỏ qua nếu nhấn đúp vào header
             if (e.RowIndex >= 0)
             {
-                frmBan frm = new frmBan();
+                string maBan = dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value?.ToString() ?? string.Empty;
+                frmBan frm = new frmBan(maBan); // Truyền mã bàn được chọn sang form sửa
                 frm.ShowDialog();
-                LoadTable(); // Tải lại danh sách bàn sau khi form quản lý đóng
+                RefreshAllData();
             }
         }
 
@@ -308,9 +312,7 @@ namespace QuanLyCafe
             // Nếu click vào cột nút "Sửa"
             if (e.ColumnIndex == dtgvDoUong.Columns["SuaDoUong"].Index)
             {
-                frmDoUong frm = new frmDoUong();
-                frm.ShowDialog();
-                LoadMenuDoUong(); // Tải lại menu sau khi chỉnh sửa
+                menuDoUong_Click(sender, e); // Gọi lại sự kiện click menu để mở form và tự động refresh
             }
             else // Nếu click vào các cột khác để thêm món
             {
@@ -348,10 +350,7 @@ namespace QuanLyCafe
 
         private void dtgvDoUong_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Mở form quản lý đồ uống để chỉnh sửa
-            frmDoUong frm = new frmDoUong();
-            frm.ShowDialog();
-            LoadMenuDoUong(); // Tải lại menu sau khi chỉnh sửa
+            menuDoUong_Click(sender, e); // Gọi lại sự kiện click menu để mở form và tự động refresh
         }
 
         private void dtgvHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)
