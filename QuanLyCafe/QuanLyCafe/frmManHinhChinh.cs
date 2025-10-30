@@ -57,7 +57,16 @@ namespace QuanLyCafe
 
         private void menuDoUong_Click(object sender, EventArgs e)
         {
-            frmDoUong frm = new frmDoUong();
+            string? selectedMaDU = null;
+            // Kiểm tra xem có dòng nào đang được chọn trong dtgvDoUong không
+            if (dtgvDoUong.CurrentRow != null && dtgvDoUong.CurrentRow.Index >= 0)
+            {
+                // Lấy MaDU từ dòng đang được chọn
+                selectedMaDU = dtgvDoUong.CurrentRow.Cells["MaDU"].Value?.ToString();
+            }
+
+            // Mở form DoUong, truyền MaDU đã chọn (hoặc null nếu không có)
+            frmDoUong frm = new frmDoUong(selectedMaDU!);
             frm.ShowDialog();
             RefreshAllData();
         }
@@ -90,6 +99,9 @@ namespace QuanLyCafe
                 strSQL += " WHERE TrangThai = @TrangThai";
                 parameters.Add("@TrangThai", "0");
             }
+
+            // Thêm sắp xếp theo phần số của MaBan để có thứ tự tự nhiên (BAN1, BAN2, ..., BAN10)
+            strSQL += " ORDER BY CAST(SUBSTRING(MaBan, 4, LEN(MaBan)) AS INT)";
             DataTable dt = ConnectSQL.Load(strSQL, parameters);
 
             // Thêm cột STT vào DataTable
@@ -107,6 +119,10 @@ namespace QuanLyCafe
             dtgvBan.Columns["MaBan"].HeaderText = "Mã Bàn";
             dtgvBan.Columns["SucChua"].HeaderText = "Sức chứa";
             dtgvBan.Columns["TrangThai"].HeaderText = "Trạng thái";
+            dtgvBan.Columns["MaBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvBan.Columns["SucChua"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvBan.Columns["TrangThai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvBan.Columns["STT"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvBan.Columns["STT"].Width = 50;
         }
         private void LoadMenuDoUong()
@@ -312,7 +328,11 @@ namespace QuanLyCafe
             // Nếu click vào cột nút "Sửa"
             if (e.ColumnIndex == dtgvDoUong.Columns["SuaDoUong"].Index)
             {
-                menuDoUong_Click(sender, e); // Gọi lại sự kiện click menu để mở form và tự động refresh
+                // Lấy MaDU từ dòng được click và mở form DoUong
+                string maDU = dtgvDoUong.Rows[e.RowIndex].Cells["MaDU"].Value?.ToString() ?? string.Empty;
+                frmDoUong frm = new frmDoUong(maDU);
+                frm.ShowDialog();
+                RefreshAllData(); // Tải lại dữ liệu sau khi form DoUong đóng
             }
             else // Nếu click vào các cột khác để thêm món
             {

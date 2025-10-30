@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,11 +13,18 @@ namespace QuanLyCafe
 {
     public partial class frmDoUong: Form
     {
+        public string? SelectedMaDU { get; set; }
         public frmDoUong()
         {
             InitializeComponent();
         }
-        
+
+        // Constructor mới để nhận mã đồ uống từ form chính
+        public frmDoUong(string maDU) : this()
+        {
+            this.SelectedMaDU = maDU;
+        }
+
         private void txtDonGia_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -48,31 +55,47 @@ namespace QuanLyCafe
                 picHinhAnh.Image = null;
                 txtSoLuongTon.Text = "0";
             }
+            else if (!string.IsNullOrEmpty(SelectedMaDU))
+            {
+                // Tìm và chọn dòng có mã đồ uống được truyền vào
+                foreach (DataGridViewRow row in dtgvData.Rows)
+                {
+                    if (row.Cells["MaDU"].Value?.ToString() == SelectedMaDU)
+                    {
+                        dtgvData.CurrentCell = row.Cells[0]; // Chọn dòng này
+                        DisplayRowData(row); // Hiển thị dữ liệu của dòng được chọn
+                        break; // Dừng vòng lặp khi đã tìm thấy
+                    }
+                }
+            }
             else
             {
-                DataGridViewRow drow = dtgvData.Rows[0];
-                txtMaDU.Text = drow.Cells[0].Value.ToString();
-                txtTenDU.Text = drow.Cells[1].Value.ToString();
-                cboMaLoai.SelectedValue = drow.Cells[2].Value.ToString();
-                txtDonGia.Text = drow.Cells[3].Value.ToString();
-                txtSoLuongTon.Text = drow.Cells[4].Value.ToString();
+                // Nếu không có mã nào được truyền, hiển thị dòng đầu tiên
+                DisplayRowData(dtgvData.Rows[0]);
+            }
+        }
+        private void DisplayRowData(DataGridViewRow row)
+        {
+            if (row == null) return;
 
-                string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
-                var paramHinhAnh = new Dictionary<string, object>
-                {
-                    { "@MaDU", txtMaDU.Text }
-                };
-                object? resultObj = ConnectSQL.ExecuteScalar(sqlHinhAnh, paramHinhAnh);
-                string result = resultObj?.ToString() ?? string.Empty;
+            txtMaDU.Text = row.Cells["MaDU"].Value.ToString();
+            txtTenDU.Text = row.Cells["TenDU"].Value.ToString();
+            cboMaLoai.SelectedValue = row.Cells["MaLoai"].Value.ToString();
+            txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
+            txtSoLuongTon.Text = row.Cells["SoLuongTon"].Value.ToString();
 
-                if (!string.IsNullOrEmpty(result))
-                {
-                    picHinhAnh.Image = Base64ToImage(result);
-                }    
-                else
-                {
-                    picHinhAnh.Image = null;
-                }    
+            string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
+            var paramHinhAnh = new Dictionary<string, object> { { "@MaDU", txtMaDU.Text } };
+            object? resultObj = ConnectSQL.ExecuteScalar(sqlHinhAnh, paramHinhAnh);
+            string result = resultObj?.ToString() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                picHinhAnh.Image = Base64ToImage(result);
+            }
+            else
+            {
+                picHinhAnh.Image = null;
             }
         }
         private void frmDoUong_Load(object sender, EventArgs e)
@@ -201,27 +224,7 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dtgvData.Rows[e.RowIndex];
-                txtMaDU.Text = row.Cells["MaDU"].Value.ToString();
-                txtTenDU.Text = row.Cells["TenDU"].Value.ToString();
-                cboMaLoai.SelectedValue = row.Cells["MaLoai"].Value.ToString();
-                txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
-                txtSoLuongTon.Text = row.Cells["SoLuongTon"].Value.ToString();
-
-                string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
-                var paramHinhAnh = new Dictionary<string, object>
-                {
-                    { "@MaDU", txtMaDU.Text }
-                };
-                object? resultObj = ConnectSQL.ExecuteScalar(sqlHinhAnh, paramHinhAnh);
-                string result = resultObj?.ToString() ?? string.Empty;
-                if (!string.IsNullOrEmpty(result))
-                {
-                    picHinhAnh.Image = Base64ToImage(result);
-                }
-                else
-                {
-                    picHinhAnh.Image = null;
-                }
+                DisplayRowData(row);
             }
         }
         public Image Base64ToImage(string base64String)

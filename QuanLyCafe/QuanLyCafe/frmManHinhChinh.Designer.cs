@@ -35,6 +35,12 @@
             this.SoLuongTon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SuaDoUong = new System.Windows.Forms.DataGridViewButtonColumn();
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManHinhChinh));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnHeThong = new System.Windows.Forms.ToolStripDropDownButton();
@@ -586,6 +592,9 @@
             // MaDU
             // 
             this.MaDU.DataPropertyName = "MaDU";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MaDU.DefaultCellStyle = dataGridViewCellStyle2;
+            this.MaDU.HeaderCell.Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.MaDU.HeaderText = "Mã đồ uống";
             this.MaDU.Name = "MaDU";
             this.MaDU.ReadOnly = true;
@@ -593,6 +602,9 @@
             // TenDU
             // 
             this.TenDU.DataPropertyName = "TenDU";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TenDU.DefaultCellStyle = dataGridViewCellStyle1;
+            this.TenDU.HeaderCell.Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.TenDU.HeaderText = "Tên đồ uống";
             this.TenDU.Name = "TenDU";
             this.TenDU.ReadOnly = true;
@@ -600,6 +612,9 @@
             // MaLoai
             // 
             this.MaLoai.DataPropertyName = "MaLoai";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MaLoai.DefaultCellStyle = dataGridViewCellStyle6;
+            this.MaLoai.HeaderCell.Style.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.MaLoai.HeaderText = "Mã loại";
             this.MaLoai.Name = "MaLoai";
             this.MaLoai.ReadOnly = true;
@@ -607,6 +622,13 @@
             // DonGia
             // 
             this.DonGia.DataPropertyName = "DonGia";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter; // Giữ nguyên căn giữa
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0); // Thêm thuộc tính Padding cho các ô dữ liệu
+            this.DonGia.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter; // Giữ nguyên căn giữa cho tiêu đề
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0); // Thêm thuộc tính Padding cho tiêu đề cột
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DonGia.HeaderCell.Style = dataGridViewCellStyle4;
             this.DonGia.HeaderText = "Đơn giá";
             this.DonGia.Name = "DonGia";
             this.DonGia.ReadOnly = true;
@@ -614,6 +636,11 @@
             // SoLuongTon
             // 
             this.SoLuongTon.DataPropertyName = "SoLuongTon";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SoLuongTon.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SoLuongTon.HeaderCell.Style = dataGridViewCellStyle5;
             this.SoLuongTon.HeaderText = "Tồn kho";
             this.SoLuongTon.Name = "SoLuongTon";
             this.SoLuongTon.ReadOnly = true;
