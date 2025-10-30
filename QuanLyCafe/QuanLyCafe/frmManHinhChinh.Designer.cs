@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -39,6 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManHinhChinh));
@@ -49,6 +50,7 @@
             this.btnDanhMuc = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuNhanVien = new System.Windows.Forms.ToolStripMenuItem();
             this.menuKH = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblLowStockWarning = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuBan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDoUong = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLDU = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,6 +89,8 @@
             this.btnRefreshDoUong = new System.Windows.Forms.Button();
             this.tmrStatus = new System.Windows.Forms.Timer(this.components);
             this.txtTenDoUong = new System.Windows.Forms.TextBox();
+            this.tmrLowStockWarning = new System.Windows.Forms.Timer(this.components);
+            this.lblWarningNote = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -114,7 +118,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnHeThong,
             this.btnDanhMuc,
-            this.btnThongKe});
+            this.btnThongKe,
+            this.lblLowStockWarning});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1264, 53);
@@ -147,6 +152,16 @@
             this.btnDX.Size = new System.Drawing.Size(224, 28);
             this.btnDX.Text = "Đăng xuất";
             this.btnDX.Click += new System.EventHandler(this.btnDX_Click);
+            //
+            // lblLowStockWarning
+            //
+            this.lblLowStockWarning.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblLowStockWarning.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblLowStockWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblLowStockWarning.Name = "lblLowStockWarning";
+            this.lblLowStockWarning.Size = new System.Drawing.Size(130, 50);
+            this.lblLowStockWarning.Text = "Cảnh báo tồn kho";
+            this.lblLowStockWarning.Visible = false;
             // 
             // btnDanhMuc
             // 
@@ -525,13 +540,14 @@
             // pnlTimMon
             // 
             this.pnlTimMon.Controls.Add(this.btnRefreshDoUong);
+            this.pnlTimMon.Controls.Add(this.lblWarningNote);
             this.pnlTimMon.Controls.Add(this.btnTim);
             this.pnlTimMon.Controls.Add(this.txtTenDoUong);
             this.pnlTimMon.Controls.Add(this.label1);
             this.pnlTimMon.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTimMon.Location = new System.Drawing.Point(0, 0);
             this.pnlTimMon.Name = "pnlTimMon";
-            this.pnlTimMon.Size = new System.Drawing.Size(374, 60);
+            this.pnlTimMon.Size = new System.Drawing.Size(374, 80);
             this.pnlTimMon.TabIndex = 0;
             // 
             // btnTim
@@ -578,6 +594,18 @@
             this.txtTenDoUong.Name = "txtTenDoUong";
             this.txtTenDoUong.Size = new System.Drawing.Size(134, 29);
             this.txtTenDoUong.TabIndex = 1;
+            // 
+            // lblWarningNote
+            // 
+            this.lblWarningNote.AutoSize = true;
+            this.lblWarningNote.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.lblWarningNote.ForeColor = System.Drawing.Color.Red;
+            this.lblWarningNote.Location = new System.Drawing.Point(10, 55);
+            this.lblWarningNote.Name = "lblWarningNote";
+            this.lblWarningNote.Size = new System.Drawing.Size(296, 19);
+            this.lblWarningNote.TabIndex = 4;
+            this.lblWarningNote.Text = "Note: Bôi đỏ là những món trong ngưỡng cảnh báo.";
+            this.lblWarningNote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -730,6 +758,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblNhanVien;
         private System.Windows.Forms.ToolStripDropDownButton btnHeThong;
         private System.Windows.Forms.ToolStripMenuItem menuThongTinCaNhan;
+        private System.Windows.Forms.ToolStripStatusLabel lblLowStockWarning;
         private System.Windows.Forms.ToolStripMenuItem btnDX;
         private System.Windows.Forms.ToolStripDropDownButton btnDanhMuc;
         private System.Windows.Forms.ToolStripMenuItem menuNhanVien;
@@ -745,6 +774,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnRefreshDoUong;
         private System.Windows.Forms.Timer tmrStatus;
+        private System.Windows.Forms.Timer tmrLowStockWarning;
         private System.Windows.Forms.DataGridView dtgvBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDU;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenDU;
@@ -752,5 +782,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
         private System.Windows.Forms.DataGridViewTextBoxColumn SoLuongTon;
         private System.Windows.Forms.DataGridViewButtonColumn SuaDoUong;
+        private System.Windows.Forms.Label lblWarningNote;
     }
 }

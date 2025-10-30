@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Versioning;
 
 namespace QuanLyCafe
 {
-    static class Program
+    [SupportedOSPlatform("windows")]
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.

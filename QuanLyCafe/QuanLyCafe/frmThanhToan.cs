@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,9 +25,13 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = $@"SELECT * FROM KhachHang WHERE TenKH LIKE N'%{txtTenKH.Text}%'
-                                AND SDT LIKE N'%{txtSDT.Text}%' AND DiaChi LIKE N'%{txtDiaChi.Text}%'";
-            dtgvData.DataSource = ConnectSQL.Load(strSQl);
+            string strSQl = "SELECT * FROM KhachHang WHERE TenKH LIKE @TenKH AND SDT LIKE @SDT AND DiaChi LIKE @DiaChi";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@TenKH", $"%{txtTenKH.Text}%" }, { "@SDT", $"%{txtSDT.Text}%" }, { "@DiaChi", $"%{txtDiaChi.Text}%" }
+            };
+
+            dtgvData.DataSource = ConnectSQL.Load(strSQl, parameters);
             frmNhanVien.SetupDataGridView(dtgvData);
             dtgvData.Columns[0].HeaderText = "Mã KH";
             dtgvData.Columns[1].HeaderText = "Tên KH";
@@ -49,9 +53,12 @@ namespace QuanLyCafe
                 return;
             }
             string MaKH = DateTime.Now.ToString("mmsshhddMMyyyy");
-            string strSQL = $@"INSERT INTO KhachHang(MaKH,TenKH,SDT,DiaChi)
-                        VALUES ('{MaKH}',N'{txtTenKH.Text}','{txtSDT.Text}',N'{txtDiaChi.Text}')";
-            ConnectSQL.RunQuery(strSQL);
+            string strSQL = "INSERT INTO KhachHang(MaKH,TenKH,SDT,DiaChi) VALUES (@MaKH, @TenKH, @SDT, @DiaChi)";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaKH", MaKH }, { "@TenKH", txtTenKH.Text }, { "@SDT", txtSDT.Text }, { "@DiaChi", txtDiaChi.Text }
+            };
+            ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Thêm thành công");
             LoadData();
         }

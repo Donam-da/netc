@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +25,7 @@ namespace QuanLyCafe
             this.SelectedMaDU = maDU;
         }
 
-        private void txtDonGia_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtDonGia_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -34,10 +34,11 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon FROM DoUong WHERE TenDU LIKE @TenDU";
+            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, HinhAnh FROM DoUong WHERE TenDU LIKE @TenDU";
+            string searchText = txtSearch?.Text ?? string.Empty; // Kiểm tra null cho txtSearch
             var parameters = new Dictionary<string, object>
             {
-                { "@TenDU", $"%{txtSearch.Text}%" }
+                { "@TenDU", $"%{searchText}%" }
             };
 
             dtgvData.DataSource = ConnectSQL.Load(strSQl, parameters);
@@ -47,6 +48,10 @@ namespace QuanLyCafe
             dtgvData.Columns[2].HeaderText = "Mã loại";
             dtgvData.Columns[3].HeaderText = "Đơn giá";
             dtgvData.Columns[4].HeaderText = "Tồn kho";
+            dtgvData.Columns[5].Visible = true; // Hiện cột ngưỡng cảnh báo
+            dtgvData.Columns[5].HeaderText = "Ngưỡng C.Báo";
+            dtgvData.Columns[6].Visible = false; // Ẩn cột hình ảnh
+            dtgvData.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             if (dtgvData.Rows.Count == 0)
             {
                 txtMaDU.Text = "";
@@ -54,6 +59,8 @@ namespace QuanLyCafe
                 txtDonGia.Text = "";
                 picHinhAnh.Image = null;
                 txtSoLuongTon.Text = "0";
+                nmNguongCanhBao.Value = 0; // Đặt giá trị về 0
+                nmNguongCanhBao.Text = "";  // Xóa văn bản hiển thị
             }
             else if (!string.IsNullOrEmpty(SelectedMaDU))
             {
@@ -70,26 +77,38 @@ namespace QuanLyCafe
             }
             else
             {
-                // Nếu không có mã nào được truyền, hiển thị dòng đầu tiên
-                DisplayRowData(dtgvData.Rows[0]);
+                // Nếu không có mã nào được truyền, chỉ cần chọn dòng đầu tiên.
+                // Sự kiện CellClick sẽ tự động được kích hoạt để hiển thị dữ liệu.
+                if (dtgvData.Rows.Count > 0)
+                {
+                    dtgvData.CurrentCell = dtgvData.Rows[0].Cells[0];
+                    DisplayRowData(dtgvData.Rows[0]); // Gọi trực tiếp để đảm bảo hiển thị ngay lập tức
+                }
             }
         }
         private void DisplayRowData(DataGridViewRow row)
         {
             if (row == null) return;
 
-            txtMaDU.Text = row.Cells["MaDU"].Value.ToString();
-            txtTenDU.Text = row.Cells["TenDU"].Value.ToString();
-            cboMaLoai.SelectedValue = row.Cells["MaLoai"].Value.ToString();
-            txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
-            txtSoLuongTon.Text = row.Cells["SoLuongTon"].Value.ToString();
+            txtMaDU.Text = row.Cells["MaDU"].Value?.ToString() ?? string.Empty;
+            txtTenDU.Text = row.Cells["TenDU"].Value?.ToString() ?? string.Empty;
+            cboMaLoai.SelectedValue = row.Cells["MaLoai"].Value?.ToString() ?? string.Empty;
+            txtDonGia.Text = row.Cells["DonGia"].Value?.ToString() ?? string.Empty;
+            txtSoLuongTon.Text = row.Cells["SoLuongTon"].Value?.ToString() ?? string.Empty;
+            // Lấy ngưỡng cảnh báo, nếu null thì mặc định là 0
+            if (row.Cells["NguongCanhBao"].Value != DBNull.Value)
+            {
+                // Sử dụng Convert.ToDecimal để xử lý chính xác các kiểu số khác nhau
+                nmNguongCanhBao.Value = Convert.ToDecimal(row.Cells["NguongCanhBao"].Value);
+            }
+            else
+            {
+                nmNguongCanhBao.Value = 0;
+                nmNguongCanhBao.Text = ""; // Xóa văn bản nếu giá trị là 0
+            }
 
-            string sqlHinhAnh = "SELECT HinhAnh FROM DoUong WHERE MaDU = @MaDU";
-            var paramHinhAnh = new Dictionary<string, object> { { "@MaDU", txtMaDU.Text } };
-            object? resultObj = ConnectSQL.ExecuteScalar(sqlHinhAnh, paramHinhAnh);
-            string result = resultObj?.ToString() ?? string.Empty;
-
-            if (!string.IsNullOrEmpty(result))
+            string? result = row.Cells["HinhAnh"].Value?.ToString();
+            if (!string.IsNullOrEmpty(result) && result != DBNull.Value.ToString())
             {
                 picHinhAnh.Image = Base64ToImage(result);
             }
@@ -98,10 +117,11 @@ namespace QuanLyCafe
                 picHinhAnh.Image = null;
             }
         }
-        private void frmDoUong_Load(object sender, EventArgs e)
+        private void frmDoUong_Load(object? sender, EventArgs e)
         {
             LoadData();
             LoadComboboxLoaiDoUong();
+            dtgvData.CellFormatting += dtgvData_CellFormatting;
         }
         private void LoadComboboxLoaiDoUong()
         {
@@ -113,7 +133,7 @@ namespace QuanLyCafe
             cboMaLoai.ValueMember = "MaLoai";
         }
 
-        private void menuThem_Click(object sender, EventArgs e)
+        private void menuThem_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMaDU.Text))
             {
@@ -149,14 +169,15 @@ namespace QuanLyCafe
                 return;
             }
 
-            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia, SoLuongTon) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia, @SoLuongTon)";
+            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia, @SoLuongTon, @NguongCanhBao)";
             var paramInsert = new Dictionary<string, object>
             {
                 { "@MaDU", txtMaDU.Text },
                 { "@TenDU", txtTenDU.Text },
                 { "@MaLoai", cboMaLoai.SelectedValue! },
                 { "@DonGia", decimal.Parse(txtDonGia.Text) },
-                { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) }
+                { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) },
+                { "@NguongCanhBao", nmNguongCanhBao.Value }
             };
 
             ConnectSQL.RunQuery(sqlInsert, paramInsert);
@@ -164,8 +185,11 @@ namespace QuanLyCafe
             LoadData();
         }
 
-        private void menuSua_Click(object sender, EventArgs e)
+        private void menuSua_Click(object? sender, EventArgs e)
         {
+            // Buộc control mất focus và xác thực dữ liệu đang chờ xử lý trên DataGridView
+            this.Validate();
+
             if (dtgvData.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một đồ uống để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -209,17 +233,21 @@ namespace QuanLyCafe
                 }
             }
 
-            string strSQL = "UPDATE DoUong SET MaDU = @MaDU, TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia, SoLuongTon = @SoLuongTon WHERE MaDU = @MaDUSua";
+            string strSQL = "UPDATE DoUong SET MaDU = @MaDU, TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia, SoLuongTon = @SoLuongTon, NguongCanhBao = @NguongCanhBao WHERE MaDU = @MaDUSua";
             var parameters = new Dictionary<string, object> {
                 { "@MaDU", txtMaDU.Text }, { "@TenDU", txtTenDU.Text }, { "@MaLoai", cboMaLoai.SelectedValue! },
-                { "@DonGia", decimal.Parse(txtDonGia.Text) }, { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) }, { "@MaDUSua", MaDUSua }
+                { "@DonGia", decimal.Parse(txtDonGia.Text) }, 
+                // Sửa lỗi: Lấy giá trị từ ô txtSoLuongTon.Text thay vì txtDonGia.Text
+                { "@SoLuongTon", int.Parse(txtSoLuongTon.Text) },
+                { "@NguongCanhBao", nmNguongCanhBao.Value }, 
+                { "@MaDUSua", MaDUSua }
             };
             ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Sửa thành công");
             LoadData();
         }
 
-        private void dtgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvData_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -227,6 +255,26 @@ namespace QuanLyCafe
                 DisplayRowData(row);
             }
         }
+
+        private void dtgvData_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Lấy giá trị tồn kho và ngưỡng cảnh báo một cách an toàn
+            object soLuongTonObj = dtgvData.Rows[e.RowIndex].Cells["SoLuongTon"].Value;
+            object nguongCanhBaoObj = dtgvData.Rows[e.RowIndex].Cells["NguongCanhBao"].Value;
+
+            int soLuongTon = (soLuongTonObj != DBNull.Value) ? Convert.ToInt32(soLuongTonObj) : 0;
+            int nguongCanhBao = (nguongCanhBaoObj != DBNull.Value) ? Convert.ToInt32(nguongCanhBaoObj) : 0;
+
+            // Nếu tồn kho thấp hơn hoặc bằng ngưỡng (và ngưỡng > 0), tô màu đỏ nhạt
+            if (nguongCanhBao > 0 && soLuongTon <= nguongCanhBao)
+            {
+                e.CellStyle.BackColor = Color.LightCoral;
+                e.CellStyle.SelectionBackColor = Color.DarkRed;
+            }
+        }
+
         public Image Base64ToImage(string base64String)
         {
             // Chuyển chuỗi base64 thành mảng byte
@@ -239,7 +287,7 @@ namespace QuanLyCafe
                 return Image.FromStream(ms);
             }
         }
-        private void menuXoa_Click(object sender, EventArgs e)
+        private void menuXoa_Click(object? sender, EventArgs e)
         {
             if (dtgvData.CurrentRow == null)
             {
@@ -258,24 +306,27 @@ namespace QuanLyCafe
             }
         }
 
-        private void menuXoaTrang_Click(object sender, EventArgs e)
+        private void menuXoaTrang_Click(object? sender, EventArgs e)
         {
-            txtMaDU.Text = "";
-            txtTenDU.Text = "";
-            txtDonGia.Text = "";
+            if (txtMaDU != null) txtMaDU.Text = "";
+            if (txtTenDU != null) txtTenDU.Text = "";
+            if (txtDonGia != null) txtDonGia.Text = "";
+            if (txtSoLuongTon != null) txtSoLuongTon.Text = "0";
+            nmNguongCanhBao.Value = 0;
+            nmNguongCanhBao.Text = "";
         }
 
-        private void menuThoat_Click(object sender, EventArgs e)
+        private void menuThoat_Click(object? sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void menuTimKiem_Click(object sender, EventArgs e)
+        private void menuTimKiem_Click(object? sender, EventArgs e)
         {
             LoadData();
         }
 
-        private void btnThemHinh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void btnThemHinh_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e)
         {
             if (dtgvData.CurrentRow == null)
             {
@@ -327,7 +378,7 @@ namespace QuanLyCafe
             }
         }
 
-        private void btnXoaHinh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void btnXoaHinh_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e)
         {
             if (dtgvData.CurrentRow == null)
             {
@@ -345,6 +396,20 @@ namespace QuanLyCafe
                 picHinhAnh.Image = null;
                 MessageBox.Show("Xóa thành công");
                 LoadData();
+            }
+        }
+
+        private void nmNguongCanhBao_Enter(object? sender, EventArgs e)
+        {
+            // Khi người dùng focus vào ô, chọn toàn bộ nội dung
+            // để có thể dễ dàng nhập giá trị mới.
+            if (sender is NumericUpDown numericUpDown)
+            {
+                // Nếu ô đang trống, không cần chọn gì cả
+                if (!string.IsNullOrEmpty(numericUpDown.Text))
+                {
+                    numericUpDown.Select(0, numericUpDown.Text.Length);
+                }
             }
         }
     }

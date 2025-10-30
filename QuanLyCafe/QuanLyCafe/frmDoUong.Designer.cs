@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmDoUong
@@ -31,6 +31,8 @@
         {
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.grbThongTin = new System.Windows.Forms.GroupBox();
+            this.nmNguongCanhBao = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnXoaHinh = new System.Windows.Forms.LinkLabel();
             this.btnThemHinh = new System.Windows.Forms.LinkLabel();
             this.txtSoLuongTon = new System.Windows.Forms.TextBox();
@@ -55,6 +57,7 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.pnlLeft.SuspendLayout();
             this.grbThongTin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmNguongCanhBao)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHinhAnh)).BeginInit();
             this.pnlChucNang.SuspendLayout();
             this.pnlRight.SuspendLayout();
@@ -76,6 +79,8 @@
             // 
             // grbThongTin
             // 
+            this.grbThongTin.Controls.Add(this.nmNguongCanhBao);
+            this.grbThongTin.Controls.Add(this.label6);
             this.grbThongTin.Controls.Add(this.btnXoaHinh);
             this.grbThongTin.Controls.Add(this.btnThemHinh);
             this.grbThongTin.Controls.Add(this.txtSoLuongTon);
@@ -99,12 +104,33 @@
             this.grbThongTin.TabStop = false;
             this.grbThongTin.Text = "Thông tin chi tiết";
             // 
+            // nmNguongCanhBao
+            // 
+            this.nmNguongCanhBao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.nmNguongCanhBao.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.nmNguongCanhBao.Location = new System.Drawing.Point(20, 330);
+            this.nmNguongCanhBao.Name = "nmNguongCanhBao";
+            this.nmNguongCanhBao.Size = new System.Drawing.Size(290, 29);
+            this.nmNguongCanhBao.TabIndex = 9;
+            this.nmNguongCanhBao.Enter += new System.EventHandler(this.nmNguongCanhBao_Enter);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.label6.Location = new System.Drawing.Point(16, 304);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(149, 23);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Ngưỡng cảnh báo:";
+            // 
             // btnXoaHinh
             // 
             this.btnXoaHinh.AutoSize = true;
             this.btnXoaHinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnXoaHinh.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.btnXoaHinh.Location = new System.Drawing.Point(259, 500);
+            this.btnXoaHinh.Location = new System.Drawing.Point(259, 555);
             this.btnXoaHinh.Name = "btnXoaHinh";
             this.btnXoaHinh.Size = new System.Drawing.Size(65, 20);
             this.btnXoaHinh.TabIndex = 10;
@@ -117,7 +143,7 @@
             this.btnThemHinh.AutoSize = true;
             this.btnThemHinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnThemHinh.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.btnThemHinh.Location = new System.Drawing.Point(16, 500);
+            this.btnThemHinh.Location = new System.Drawing.Point(16, 555);
             this.btnThemHinh.Name = "btnThemHinh";
             this.btnThemHinh.Size = new System.Drawing.Size(78, 20);
             this.btnThemHinh.TabIndex = 9;
@@ -127,7 +153,7 @@
             // 
             // txtSoLuongTon
             // 
-            this.txtSoLuongTon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.txtSoLuongTon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240))))); // Same as before
             this.txtSoLuongTon.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtSoLuongTon.Location = new System.Drawing.Point(20, 270);
             this.txtSoLuongTon.Name = "txtSoLuongTon";
@@ -149,7 +175,7 @@
             // picHinhAnh
             // 
             this.picHinhAnh.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.picHinhAnh.Location = new System.Drawing.Point(20, 315);
+            this.picHinhAnh.Location = new System.Drawing.Point(20, 370);
             this.picHinhAnh.Name = "picHinhAnh";
             this.picHinhAnh.Size = new System.Drawing.Size(290, 180);
             this.picHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -276,7 +302,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(100, 40);
             this.btnSua.TabIndex = 1;
-            this.btnSua.Text = "Sửa";
+            this.btnSua.Text = "Lưu";
             this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.menuSua_Click);
             // 
@@ -411,5 +437,7 @@
         private System.Windows.Forms.PictureBox picHinhAnh;
         private System.Windows.Forms.TextBox txtSoLuongTon;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nmNguongCanhBao;
+        private System.Windows.Forms.Label label6;
     }
 }

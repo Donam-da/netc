@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmBan
@@ -114,8 +114,6 @@
             this.txtMaBan.Size = new System.Drawing.Size(260, 29);
             this.txtMaBan.TabIndex = 1;
             this.txtMaBan.TextChanged += new System.EventHandler(this.txtMaBan_TextChanged);
-            this.txtMaBan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaBan_KeyDown);
-            this.txtMaBan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaBan_KeyPress);
             // 
             // label1
             // 
@@ -165,7 +163,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(90, 40);
             this.btnSua.TabIndex = 1;
-            this.btnSua.Text = "Sửa";
+            this.btnSua.Text = "Lưu";
             this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.menuSua_Click);
             // 

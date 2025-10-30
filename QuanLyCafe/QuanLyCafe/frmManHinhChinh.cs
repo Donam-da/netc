@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,39 +23,39 @@ namespace QuanLyCafe
         {
             InitializeComponent();
         }
-        private void menuNhanVien_Click(object sender, EventArgs e)
+        private void menuNhanVien_Click(object? sender, EventArgs e)
         {
             frmNhanVien frm = new frmNhanVien();
             frm.ShowDialog();
             RefreshAllData();
         }
 
-        private void hệThốngToolStripMenuItem_Click(object sender, EventArgs e)
+        private void hệThốngToolStripMenuItem_Click(object? sender, EventArgs e)
         {
 
         }
         
-        private void menuThongTinCaNhan_Click(object sender, EventArgs e)
+        private void menuThongTinCaNhan_Click(object? sender, EventArgs e)
         {
             frmDoiMatKhau frm = new frmDoiMatKhau();
             frm.ShowDialog();
         }
         
-        private void menuLDU_Click(object sender, EventArgs e)
+        private void menuLDU_Click(object? sender, EventArgs e)
         {
             frmLoaiDoUong frm = new frmLoaiDoUong();
             frm.ShowDialog();
             RefreshAllData();
         }
 
-        private void menuBan_Click(object sender, EventArgs e)
+        private void menuBan_Click(object? sender, EventArgs e)
         {
             frmBan frm = new frmBan();
             frm.ShowDialog();
             RefreshAllData();
         }
 
-        private void menuDoUong_Click(object sender, EventArgs e)
+        private void menuDoUong_Click(object? sender, EventArgs e)
         {
             string? selectedMaDU = null;
             // Kiểm tra xem có dòng nào đang được chọn trong dtgvDoUong không
@@ -71,7 +71,7 @@ namespace QuanLyCafe
             RefreshAllData();
         }
 
-        private void menuKH_Click(object sender, EventArgs e)
+        private void menuKH_Click(object? sender, EventArgs e)
         {
             frmKhachHang frm = new frmKhachHang();
             frm.ShowDialog();
@@ -82,6 +82,7 @@ namespace QuanLyCafe
             LoadTable();
             LoadMenuDoUong();
             LoadDoUongDaGoi();
+            CheckLowStock(); // Thêm kiểm tra tồn kho vào hàm refresh chung
         }
 
         private void LoadTable()
@@ -130,7 +131,8 @@ namespace QuanLyCafe
             // Ngăn DataGridView tự động tạo cột, để chúng ta có thể kiểm soát hoàn toàn.
             dtgvDoUong.AutoGenerateColumns = false;
 
-            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon FROM DoUong WHERE TenDU LIKE @TenDU";
+            // Lấy thêm cột NguongCanhBao để kiểm tra và tô màu
+            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao FROM DoUong WHERE TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtTenDoUong.Text}%" }
@@ -145,7 +147,7 @@ namespace QuanLyCafe
             dtgvDoUong.Columns["DonGia"].DataPropertyName = "DonGia";
             dtgvDoUong.Columns["SoLuongTon"].DataPropertyName = "SoLuongTon";
         }
-        private void frmManHinhChinh_Load(object sender, EventArgs e)
+        private void frmManHinhChinh_Load(object? sender, EventArgs e)
         {
             if (frmDangNhap.Quyen == "Nhân viên")
             {
@@ -154,31 +156,35 @@ namespace QuanLyCafe
             // Áp dụng renderer tùy chỉnh cho ToolStrip
             toolStrip1.Renderer = new MyMenuRenderer();
 
+            // Thêm sự kiện CellFormatting để tô màu cảnh báo tồn kho
+            dtgvDoUong.CellFormatting += dtgvDoUong_CellFormatting;
+
             LoadTable();
+            LoadMenuDoUong();
+            CheckLowStock();
+        }
+
+        private void rbYes_CheckedChanged(object? sender, EventArgs e)
+        {
+            LoadTable();
+        }
+
+        private void rbNo_CheckedChanged(object? sender, EventArgs e)
+        {
+            LoadTable();
+        }
+
+        private void rbAll_CheckedChanged(object? sender, EventArgs e)
+        {
+            LoadTable();
+        }
+
+        private void btnTim_Click(object? sender, EventArgs e)
+        {
             LoadMenuDoUong();
         }
 
-        private void rbYes_CheckedChanged(object sender, EventArgs e)
-        {
-            LoadTable();
-        }
-
-        private void rbNo_CheckedChanged(object sender, EventArgs e)
-        {
-            LoadTable();
-        }
-
-        private void rbAll_CheckedChanged(object sender, EventArgs e)
-        {
-            LoadTable();
-        }
-
-        private void btnTim_Click(object sender, EventArgs e)
-        {
-            LoadMenuDoUong();
-        }
-
-        private void dtgvBan_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvBan_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             // Bỏ qua nếu click vào header
             if (e.RowIndex >= 0)
@@ -188,7 +194,7 @@ namespace QuanLyCafe
             }
         }
 
-        private void dtgvBan_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvBan_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             // Bỏ qua nếu nhấn đúp vào header
             if (e.RowIndex >= 0)
@@ -200,7 +206,7 @@ namespace QuanLyCafe
             }
         }
 
-        private void dtgvBan_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dtgvBan_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             // Tô màu và đổi text cho cột "Trạng thái"
             var trangThaiCol = dtgvBan.Columns["TrangThai"];
@@ -277,7 +283,7 @@ namespace QuanLyCafe
             ShowStatus("Thêm món thành công!");
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click(object? sender, EventArgs e)
         {
             if (dtgvHoaDon.Rows.Count == 0)
             {
@@ -300,7 +306,7 @@ namespace QuanLyCafe
             }
         }
 
-        private void btnThanhToan_Click(object sender, EventArgs e)
+        private void btnThanhToan_Click(object? sender, EventArgs e)
         {
             if(dtgvHoaDon.Rows.Count == 0)
             {
@@ -317,11 +323,10 @@ namespace QuanLyCafe
             MaBanThanhToan = btnBanDaChon.Text;
             frmThanhToan frm = new frmThanhToan();
             frm.ShowDialog();
-            LoadTable();
-            LoadDoUongDaGoi();
+            RefreshAllData(); // Gọi hàm refresh chung để tải lại mọi thứ và kiểm tra tồn kho
         }
 
-        private void dtgvDoUong_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvDoUong_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // Bỏ qua nếu click vào header
 
@@ -368,12 +373,12 @@ namespace QuanLyCafe
             }
         }
 
-        private void dtgvDoUong_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvDoUong_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             menuDoUong_Click(sender, e); // Gọi lại sự kiện click menu để mở form và tự động refresh
         }
 
-        private void dtgvHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dtgvHoaDon_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
             // Bỏ qua nếu không phải cột "Số lượng" hoặc form đang load
             if (e.RowIndex < 0 || dtgvHoaDon.Columns[e.ColumnIndex].Name != "SoLuong")
@@ -413,6 +418,27 @@ namespace QuanLyCafe
             LoadDoUongDaGoi(); // Tải lại để cập nhật tổng tiền
         }
         #region Helper Methods for Adding Items
+
+        private void dtgvDoUong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Bỏ qua header và các dòng không hợp lệ
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Chỉ áp dụng cho cột "SoLuongTon"
+            if (dtgvDoUong.Columns[e.ColumnIndex].Name == "SoLuongTon")
+            {
+                DataRowView rowView = (DataRowView)dtgvDoUong.Rows[e.RowIndex].DataBoundItem;
+                int soLuongTon = Convert.ToInt32(rowView["SoLuongTon"]);
+                int nguongCanhBao = (rowView["NguongCanhBao"] != DBNull.Value) ? Convert.ToInt32(rowView["NguongCanhBao"]) : 0;
+
+                // Nếu tồn kho thấp hơn hoặc bằng ngưỡng (và ngưỡng > 0), tô màu đỏ
+                if (nguongCanhBao > 0 && soLuongTon <= nguongCanhBao)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                }
+            }
+        }
         private string TaoMaHoaDonMoi(string maBan)
         {
             string maHD = DateTime.Now.ToString("HDssmmhhddMMyyyy");
@@ -468,35 +494,35 @@ namespace QuanLyCafe
         }
         #endregion
 
-        private void menuDoanhThuNgay_Click(object sender, EventArgs e)
+        private void menuDoanhThuNgay_Click(object? sender, EventArgs e)
         {
             frmDoanhThuTheoNgay frm = new frmDoanhThuTheoNgay();
             frm.ShowDialog();
         }
 
-        private void menuThongKeDoanhThuNV_Click(object sender, EventArgs e)
+        private void menuThongKeDoanhThuNV_Click(object? sender, EventArgs e)
         {
             frmDoanhThuTheoNhanVien frm = new frmDoanhThuTheoNhanVien();
             frm.ShowDialog();
         }
 
-        private void menuLichSuHoaDon_Click(object sender, EventArgs e)
+        private void menuLichSuHoaDon_Click(object? sender, EventArgs e)
         {
             frmLichSuHoaDon frm = new frmLichSuHoaDon();
             frm.ShowDialog();
         }
 
-        private void btnDX_Click(object sender, EventArgs e)
+        private void btnDX_Click(object? sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void lstBan_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstBan_SelectedIndexChanged(object? sender, EventArgs e)
         {
 
         }
 
-        private void menuHangBanChay_Click(object sender, EventArgs e)
+        private void menuHangBanChay_Click(object? sender, EventArgs e)
         {
             using (var f = new frmHangBanChay())
             {
@@ -511,17 +537,53 @@ namespace QuanLyCafe
             tmrStatus.Start();
         }
 
-        private void tmrStatus_Tick(object sender, EventArgs e)
+        private void tmrStatus_Tick(object? sender, EventArgs e)
         {
             // Xóa thông báo và dừng timer
             lblStatus.Text = "";
             tmrStatus.Stop();
         }
 
-        private void btnRefreshDoUong_Click(object sender, EventArgs e)
+        private void btnRefreshDoUong_Click(object? sender, EventArgs e)
         {
-            LoadMenuDoUong();
+            RefreshAllData(); // Thay vì chỉ load menu, refresh tất cả và kiểm tra tồn kho
         }
 
+        private void CheckLowStock()
+        {
+            string sql = @"SELECT TenDU, SoLuongTon 
+                           FROM DoUong 
+                           WHERE NguongCanhBao > 0 AND SoLuongTon <= NguongCanhBao";
+
+            DataTable dt = ConnectSQL.Load(sql);
+
+            if (dt.Rows.Count > 0)
+            {
+                // Đã thay thế bằng việc tô màu trực tiếp trên DataGridView,
+                // nên không cần hiển thị form cảnh báo nữa.
+                // StringBuilder warningMessage = new StringBuilder();
+                // // Thêm tiêu đề phụ để thông báo tổng số lượng sản phẩm sắp hết hàng
+                // warningMessage.AppendLine($"Có {dt.Rows.Count} sản phẩm sắp hết hàng:");
+                // warningMessage.AppendLine(); // Thêm một dòng trống cho dễ nhìn
+
+                // foreach (DataRow row in dt.Rows)
+                // {
+                //     string tenDU = row["TenDU"].ToString()!;
+                //     int soLuongTon = Convert.ToInt32(row["SoLuongTon"]);
+                //     warningMessage.AppendLine($"• {tenDU} (chỉ còn {soLuongTon})");
+                // }
+
+                // // Hiển thị form cảnh báo mới
+                // frmCanhBao frm = new frmCanhBao(warningMessage.ToString());
+                // frm.Show();
+            }
+            // Không cần xử lý else vì nếu không có gì thì không hiện form
+        }
+
+        private void tmrLowStockWarning_Tick(object? sender, EventArgs e)
+        {
+            lblLowStockWarning.Visible = false;
+            tmrLowStockWarning.Stop();
+        }
     }
 }

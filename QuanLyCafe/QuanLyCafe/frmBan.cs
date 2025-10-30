@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,8 +13,6 @@ namespace QuanLyCafe
     public partial class frmBan: Form
     {
         public string? SelectedMaBan { get; set; }
-        private bool _isSettingMaBanText = false; // Cờ để tránh vòng lặp vô hạn trong TextChanged
-        private const string PREFIX = "BAN"; // Tiền tố cố định cho mã bàn
 
         public frmBan()
         {
@@ -27,7 +25,7 @@ namespace QuanLyCafe
             this.SelectedMaBan = maBan;
         }
 
-        private void txtSucChua_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtSucChua_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -37,22 +35,30 @@ namespace QuanLyCafe
         private void LoadData()
         {
             string strSql = "SELECT MaBan, SucChua, CASE WHEN TrangThai = 0 THEN N'Bàn trống' ELSE N'Bàn có người' END AS TrangThai FROM Ban WHERE MaBan LIKE @SearchText";
+            string searchText = txtSearch?.Text ?? string.Empty; // Kiểm tra null cho txtSearch
             var parameters = new Dictionary<string, object>
             {
-                { "@SearchText", $"%{txtSearch.Text}%" }
+                { "@SearchText", $"%{searchText}%" }
             };
             dtgvData.DataSource = ConnectSQL.Load(strSql, parameters);
             frmNhanVien.SetupDataGridView(dtgvData);
 
-            // Tạm thời tắt sự kiện TextChanged để tránh lỗi khi gán giá trị bằng code
-            _isSettingMaBanText = true;
-
-            dtgvData.Columns[0].HeaderText = "Mã bàn";
-            dtgvData.Columns[1].HeaderText = "Sức chứa";
-            dtgvData.Columns[2].HeaderText = "Trạng thái";
+            // Đảm bảo các cột tồn tại trước khi thiết lập HeaderText
+            if (dtgvData.Columns.Count > 0)
+            {
+                dtgvData.Columns[0].HeaderText = "Mã bàn";
+            }
+            if (dtgvData.Columns.Count > 1)
+            {
+                dtgvData.Columns[1].HeaderText = "Sức chứa";
+            }
+            if (dtgvData.Columns.Count > 2)
+            {
+                dtgvData.Columns[2].HeaderText = "Trạng thái";
+            }
             if (dtgvData.Rows.Count == 0)
             {
-                txtMaBan.Text = PREFIX; // Đặt mặc định là "BAN"
+                txtMaBan.Text = "";
                 txtSucChua.Text = "";
             }
             else if (!string.IsNullOrEmpty(SelectedMaBan))
@@ -61,12 +67,13 @@ namespace QuanLyCafe
                 foreach (DataGridViewRow row in dtgvData.Rows)
                 {
                     string? maBanValue = row.Cells["MaBan"].Value?.ToString();
-                    if (maBanValue == SelectedMaBan)
+                    // Kiểm tra an toàn trước khi gán CurrentCell
+                    if (maBanValue == SelectedMaBan && row.Cells.Count > 0 && row.Cells[0] != null)
                     {
                         dtgvData.CurrentCell = row.Cells[0]; // Chọn dòng này
                         // Cập nhật thông tin vào các ô text
-                        txtMaBan.Text = maBanValue;
-                        txtSucChua.Text = row.Cells["SucChua"].Value.ToString();
+                        txtMaBan.Text = maBanValue ?? string.Empty;
+                        txtSucChua.Text = row.Cells["SucChua"].Value?.ToString() ?? string.Empty;
                         break; // Dừng vòng lặp khi đã tìm thấy
                     }
                 }
@@ -76,23 +83,29 @@ namespace QuanLyCafe
                 if (dtgvData.Rows.Count > 0)
                 {
                     DataGridViewRow firstRow = dtgvData.Rows[0];
-                    if (firstRow != null)
+                    // Kiểm tra an toàn trước khi gán CurrentCell
+                    // firstRow sẽ không null nếu dtgvData.Rows.Count > 0
+                    if (firstRow.Cells.Count > 0 && firstRow.Cells[0] != null)
                     {
-                        txtMaBan.Text = firstRow.Cells[0].Value.ToString();
-                        txtSucChua.Text = firstRow.Cells[1].Value.ToString();
+                        txtMaBan.Text = firstRow.Cells[0].Value?.ToString() ?? string.Empty;
+                        txtSucChua.Text = firstRow.Cells[1].Value?.ToString() ?? string.Empty;
                     }
                 }
             }
-            _isSettingMaBanText = false; // Bật lại sự kiện TextChanged
-            txtMaBan.SelectionStart = txtMaBan.Text.Length; // Đặt con trỏ ở cuối
         }
-        private void frmBan_Load(object sender, EventArgs e)
+        private void frmBan_Load(object? sender, EventArgs e)
         {
-            LoadData(); // LoadData sẽ tự động đặt txtMaBan.Text và gọi menuXoaTrang_Click nếu không có dữ liệu
-            // Không cần gọi menuXoaTrang_Click ở đây nữa vì LoadData đã xử lý
+            // Gán sự kiện Shown để đảm bảo tất cả controls đã được khởi tạo
+            this.Shown += new System.EventHandler(this.frmBan_Shown);
         }
 
-        private void menuThem_Click(object sender, EventArgs e)
+        private void frmBan_Shown(object? sender, EventArgs e)
+        {
+            LoadData();
+            menuXoaTrang_Click(sender, e);
+        }
+
+        private void menuThem_Click(object? sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMaBan.Text))
             {
@@ -104,12 +117,6 @@ namespace QuanLyCafe
             {
                 MessageBox.Show("Chưa nhập sức chứa");
                 txtSucChua.Focus();
-                return;
-            }
-            if (txtMaBan.Text.Length <= 3)
-            {
-                MessageBox.Show("Bạn phải nhập thêm số cho mã bàn.");
-                txtMaBan.Focus();
                 return;
             }
             string strSQL = "SELECT MaBan FROM Ban WHERE MaBan = @MaBan";
@@ -129,7 +136,7 @@ namespace QuanLyCafe
             menuXoaTrang_Click(sender, e); // Xóa trắng các ô để chuẩn bị thêm mới
         }
 
-        private void menuSua_Click(object sender, EventArgs e)
+        private void menuSua_Click(object? sender, EventArgs e)
         {
             if (dtgvData.Rows.Count == 0)
             {
@@ -174,9 +181,12 @@ namespace QuanLyCafe
             menuXoaTrang_Click(sender, e); // Xóa trắng các ô sau khi sửa
         }
 
-        private void dtgvData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dtgvData_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Đảm bảo dtgvData.Columns không null và có đủ cột
+            if (dtgvData.Columns == null || dtgvData.Columns.Count <= e.ColumnIndex) return;
 
             // Kiểm tra nếu đây là cột "Trạng thái" và cell style không null
             if (dtgvData.Columns[e.ColumnIndex].Name == "TrangThai" && e.Value != null && e.CellStyle != null)
@@ -191,7 +201,7 @@ namespace QuanLyCafe
                 }
             }
         }
-        private void menuXoa_Click(object sender, EventArgs e)
+        private void menuXoa_Click(object? sender, EventArgs e)
         {
             if (dtgvData.Rows.Count == 0)
             {
@@ -222,111 +232,43 @@ namespace QuanLyCafe
             }
         }
 
-        private void menuXoaTrang_Click(object sender, EventArgs e)
+        private void menuXoaTrang_Click(object? sender, EventArgs e)
         {
-            _isSettingMaBanText = true; // Tắt TextChanged tạm thời
-            txtMaBan.Text = PREFIX;
-            _isSettingMaBanText = false; // Bật lại TextChanged
-            txtSucChua.Text = "";
-            txtMaBan.Focus();
-            txtMaBan.SelectionStart = txtMaBan.Text.Length; // Đưa con trỏ đến cuối
+            if (txtMaBan != null) txtMaBan.Text = "";
+            if (txtSucChua != null) txtSucChua.Text = "";
+            if (txtMaBan != null)
+            {
+                txtMaBan.Focus();
+            }
         }
 
-        private void menuTimKiem_Click(object sender, EventArgs e)
+        private void menuTimKiem_Click(object? sender, EventArgs e)
         {
             LoadData();
         }
 
-        private void dtgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvData_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dtgvData.Rows[e.RowIndex];
-                txtMaBan.Text = row.Cells["MaBan"].Value.ToString();
-                txtSucChua.Text = row.Cells["SucChua"].Value.ToString();
+                txtMaBan.Text = row.Cells["MaBan"].Value?.ToString() ?? string.Empty;
+                txtSucChua.Text = row.Cells["SucChua"].Value?.ToString() ?? string.Empty;
             }
         }
 
-        // Sự kiện KeyDown để chặn Backspace/Delete/Left Arrow trong phần tiền tố
-        private void txtMaBan_KeyDown(object sender, KeyEventArgs e)
+        // Sự kiện TextChanged để tự động viết hoa
+        private void txtMaBan_TextChanged(object? sender, EventArgs e)
         {
-            // Nếu con trỏ nằm trong hoặc ngay sau tiền tố (ví dụ: BAN|)
-            if (txtMaBan.SelectionStart <= PREFIX.Length)
-            {
-                // Chặn Backspace, Delete, Left Arrow để không xóa/di chuyển vào tiền tố
-                if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete || e.KeyCode == Keys.Left)
-                {
-                    e.SuppressKeyPress = true;
-                }
-            }
-        }
-
-        // Sự kiện KeyPress để chỉ cho phép nhập số sau tiền tố
-        private void txtMaBan_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Nếu con trỏ nằm trong phần tiền tố (ví dụ: B|AN)
-            if (txtMaBan.SelectionStart < PREFIX.Length)
-            {
-                // Chặn nhập bất kỳ ký tự nào
-                e.Handled = true;
-            }
-            // Nếu con trỏ ở sau tiền tố, chỉ cho phép nhập số
-            else if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        // Sự kiện TextChanged để xử lý các trường hợp dán (paste) hoặc thay đổi không mong muốn
-        private void txtMaBan_TextChanged(object sender, EventArgs e)
-        {
-            if (_isSettingMaBanText) return; // Tránh vòng lặp vô hạn
-
-            string currentText = txtMaBan.Text;
+            // Lưu vị trí con trỏ hiện tại
             int selectionStart = txtMaBan.SelectionStart;
-            string newText = currentText;
-            bool changed = false;
-
-            // 1. Đảm bảo chuỗi luôn bắt đầu bằng PREFIX
-            if (!currentText.StartsWith(PREFIX))
-            {
-                string numericPart = System.Text.RegularExpressions.Regex.Replace(currentText, @"[^\d]", "");
-                newText = PREFIX + numericPart;
-                changed = true;
-            }
-            // 2. Đảm bảo chỉ có ký tự số sau PREFIX
-            else if (currentText.Length > PREFIX.Length)
-            {
-                string numericPart = currentText.Substring(PREFIX.Length);
-                string cleanedNumericPart = System.Text.RegularExpressions.Regex.Replace(numericPart, @"[^\d]", "");
-                if (numericPart != cleanedNumericPart)
-                {
-                    newText = PREFIX + cleanedNumericPart;
-                    changed = true;
-                }
-            }
-            // 3. Nếu người dùng xóa mất một phần của PREFIX (mặc dù KeyDown đã chặn)
-            else if (currentText.Length < PREFIX.Length)
-            {
-                newText = PREFIX;
-                changed = true;
-            }
-
-            if (changed)
-            {
-                _isSettingMaBanText = true; // Tắt TextChanged tạm thời
-                txtMaBan.Text = newText;
-                _isSettingMaBanText = false; // Bật lại TextChanged
-                txtMaBan.SelectionStart = txtMaBan.Text.Length; // Đặt con trỏ ở cuối
-            }
-            // Nếu không có thay đổi nào từ code, nhưng con trỏ đang ở trong vùng PREFIX, di chuyển nó ra sau
-            else if (selectionStart < PREFIX.Length)
-            {
-                txtMaBan.SelectionStart = PREFIX.Length;
-            }
+            // Chuyển đổi văn bản thành chữ hoa
+            txtMaBan.Text = txtMaBan.Text.ToUpper();
+            // Đặt lại vị trí con trỏ
+            txtMaBan.SelectionStart = selectionStart;
         }
 
-        private void menuThoat_Click(object sender, EventArgs e)
+        private void menuThoat_Click(object? sender, EventArgs e)
         {
             this.Close();
         }

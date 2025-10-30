@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,8 +40,12 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = $@"SELECT * FROM NhanVien WHERE TenNV LIKE N'%{txtSearch.Text}%'";
-            dtgvData.DataSource = ConnectSQL.Load(strSQl);
+            string strSQl = "SELECT * FROM NhanVien WHERE TenNV LIKE @TenNV";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@TenNV", $"%{txtSearch.Text}%" }
+            };
+            dtgvData.DataSource = ConnectSQL.Load(strSQl, parameters);
             SetupDataGridView(dtgvData);
             dtgvData.Columns[0].HeaderText = "Mã người dùng";
             dtgvData.Columns[1].HeaderText = "Tên người dùng";
@@ -60,12 +64,12 @@ namespace QuanLyCafe
             else
             {
                 DataGridViewRow drow = dtgvData.Rows[0];
-                txtMaNV.Text = drow.Cells[0].Value.ToString();
-                txtTenNV.Text = drow.Cells[1].Value.ToString();
-                txtMatKhau.Text = drow.Cells[2].Value.ToString();
-                txtDiaChi.Text = drow.Cells[3].Value.ToString();
-                txtSDT.Text = drow.Cells[4].Value.ToString();
-                cboQuyen.Text = drow.Cells[5].Value.ToString();
+                txtMaNV.Text = drow.Cells[0].Value?.ToString() ?? string.Empty;
+                txtTenNV.Text = drow.Cells[1].Value?.ToString() ?? string.Empty;
+                txtMatKhau.Text = drow.Cells[2].Value?.ToString() ?? string.Empty;
+                txtDiaChi.Text = drow.Cells[3].Value?.ToString() ?? string.Empty;
+                txtSDT.Text = drow.Cells[4].Value?.ToString() ?? string.Empty;
+                cboQuyen.Text = drow.Cells[5].Value?.ToString() ?? string.Empty;
             }
         }
         private void DanhSachQuyen()
@@ -105,16 +109,20 @@ namespace QuanLyCafe
                 txtMaNV.Focus();
                 return;
             }
-            string strSQL = $@"SELECT * FROM NhanVien WHERE MaNV = '{txtMaNV.Text}'";
-            if (ConnectSQL.ExcuteReader_bool(strSQL))
+            string strSQL = "SELECT MaNV FROM NhanVien WHERE MaNV = @MaNV";
+            if (ConnectSQL.ExcuteReader_bool(strSQL, new Dictionary<string, object> { { "@MaNV", txtMaNV.Text } }))
             {
                 MessageBox.Show("Mã nhân viên này đã tồn tại, vui lòng tạo mã khác");
                 txtMaNV.Focus();
                 return;
             }
-            strSQL = $@"INSERT INTO NhanVien(MaNV,TenNV,MatKhau,SDT,DiaChi,Quyen)
-                        VALUES ('{txtMaNV.Text}',N'{txtTenNV.Text}',N'{txtMatKhau.Text}','{txtSDT.Text}',N'{txtDiaChi.Text}',N'{cboQuyen.Text}')";
-            ConnectSQL.RunQuery(strSQL);
+            strSQL = "INSERT INTO NhanVien(MaNV,TenNV,MatKhau,SDT,DiaChi,Quyen) VALUES (@MaNV, @TenNV, @MatKhau, @SDT, @DiaChi, @Quyen)";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaNV", txtMaNV.Text }, { "@TenNV", txtTenNV.Text }, { "@MatKhau", txtMatKhau.Text },
+                { "@SDT", txtSDT.Text }, { "@DiaChi", txtDiaChi.Text }, { "@Quyen", cboQuyen.Text }
+            };
+            ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Thêm thành công");
             LoadData();
         }
@@ -162,24 +170,31 @@ namespace QuanLyCafe
                 txtMaNV.Focus();
                 return;
             }
-            string strSQL = $@"SELECT * FROM NhanVien WHERE MaNV = '{txtMaNV.Text}'";
             if (dtgvData.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một nhân viên để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             string MaNVSua = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
-            if (ConnectSQL.ExcuteReader_bool(strSQL) && txtMaNV.Text.Trim() != MaNVSua)
+            string maNVMoi = txtMaNV.Text.Trim();
+
+            if (maNVMoi != MaNVSua)
             {
-                MessageBox.Show("Mã nhân viên này đã tồn tại, vui lòng tạo mã khác");
-                txtMaNV.Focus();
-                return;
+                string strSQLCheck = "SELECT MaNV FROM NhanVien WHERE MaNV = @MaNV";
+                if (ConnectSQL.ExcuteReader_bool(strSQLCheck, new Dictionary<string, object> { { "@MaNV", maNVMoi } }))
+                {
+                    MessageBox.Show("Mã nhân viên này đã tồn tại, vui lòng tạo mã khác");
+                    txtMaNV.Focus();
+                    return;
+                }
             }
-            strSQL = $@"UPDATE NhanVien SET MaNV = '{txtMaNV.Text}'
-                        ,TenNV = N'{txtTenNV.Text}' ,MatKhau = N'{txtMatKhau.Text}',SDT = '{txtSDT.Text}',DiaChi = N'{txtDiaChi.Text}'
-                        ,Quyen = N'{cboQuyen.Text}'
-                        WHERE MaNV = '{MaNVSua}'";
-            ConnectSQL.RunQuery(strSQL);
+            string strSQL = "UPDATE NhanVien SET MaNV = @MaNV, TenNV = @TenNV, MatKhau = @MatKhau, SDT = @SDT, DiaChi = @DiaChi, Quyen = @Quyen WHERE MaNV = @MaNVSua";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaNV", maNVMoi }, { "@TenNV", txtTenNV.Text }, { "@MatKhau", txtMatKhau.Text }, { "@SDT", txtSDT.Text },
+                { "@DiaChi", txtDiaChi.Text }, { "@Quyen", cboQuyen.Text }, { "@MaNVSua", MaNVSua }
+            };
+            ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Sửa thành công");
             LoadData();
         }
@@ -189,12 +204,12 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dtgvData.Rows[e.RowIndex];
-                txtMaNV.Text = row.Cells["MaNV"].Value.ToString();
-                txtTenNV.Text = row.Cells["TenNV"].Value.ToString();
-                txtMatKhau.Text = row.Cells["MatKhau"].Value.ToString();
-                txtSDT.Text = row.Cells["SDT"].Value.ToString();
-                txtDiaChi.Text = row.Cells["DiaChi"].Value.ToString();
-                cboQuyen.Text = row.Cells[5].Value.ToString();
+                txtMaNV.Text = row.Cells["MaNV"].Value?.ToString() ?? string.Empty;
+                txtTenNV.Text = row.Cells["TenNV"].Value?.ToString() ?? string.Empty;
+                txtMatKhau.Text = row.Cells["MatKhau"].Value?.ToString() ?? string.Empty;
+                txtSDT.Text = row.Cells["SDT"].Value?.ToString() ?? string.Empty;
+                txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? string.Empty;
+                cboQuyen.Text = row.Cells[5].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -215,8 +230,8 @@ namespace QuanLyCafe
                     return;
                 }
                 string maNVXoa = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
-                string strSQL = $@"DELETE NhanVien WHERE MaNV = '{maNVXoa}'";
-                ConnectSQL.RunQuery(strSQL);
+                string strSQL = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
+                ConnectSQL.RunQuery(strSQL, new Dictionary<string, object> { { "@MaNV", maNVXoa } });
                 MessageBox.Show("Xóa thành công");
                 LoadData();
             }

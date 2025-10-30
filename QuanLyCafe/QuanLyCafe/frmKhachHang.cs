@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,8 +18,12 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = $@"SELECT * FROM KhachHang WHERE TenKH LIKE N'%{txtSearch.Text}%'";
-            dtgvData.DataSource = ConnectSQL.Load(strSQl);
+            string strSQl = "SELECT * FROM KhachHang WHERE TenKH LIKE @TenKH";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@TenKH", $"%{txtSearch.Text}%" }
+            };
+            dtgvData.DataSource = ConnectSQL.Load(strSQl, parameters);
             frmNhanVien.SetupDataGridView(dtgvData);
             dtgvData.Columns[0].HeaderText = "Mã KH";
             dtgvData.Columns[1].HeaderText = "Tên KH";
@@ -35,10 +39,10 @@ namespace QuanLyCafe
             else
             {
                 DataGridViewRow drow = dtgvData.Rows[0];
-                txtMaKH.Text = drow.Cells[0].Value.ToString();
-                txtTenKH.Text = drow.Cells[1].Value.ToString();
-                txtSDT.Text = drow.Cells[2].Value.ToString();
-                txtDiaChi.Text = drow.Cells[3].Value.ToString();
+                txtMaKH.Text = drow.Cells[0].Value?.ToString() ?? string.Empty;
+                txtTenKH.Text = drow.Cells[1].Value?.ToString() ?? string.Empty;
+                txtSDT.Text = drow.Cells[2].Value?.ToString() ?? string.Empty;
+                txtDiaChi.Text = drow.Cells[3].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -61,16 +65,23 @@ namespace QuanLyCafe
                 txtTenKH.Focus();
                 return;
             }
-            string strSQL = $@"SELECT * FROM KhachHang WHERE MaKH = '{txtMaKH.Text}'";
-            if (ConnectSQL.ExcuteReader_bool(strSQL))
+            string strSQL = "SELECT MaKH FROM KhachHang WHERE MaKH = @MaKH";
+            var paramCheck = new Dictionary<string, object> { { "@MaKH", txtMaKH.Text } };
+            if (ConnectSQL.ExcuteReader_bool(strSQL, paramCheck))
             {
                 MessageBox.Show("Mã khách hàng này đã tồn tại, vui lòng tạo mã khác");
                 txtMaKH.Focus();
                 return;
             }
-            strSQL = $@"INSERT INTO KhachHang(MaKH,TenKH,SDT,DiaChi)
-                        VALUES ('{txtMaKH.Text}',N'{txtTenKH.Text}','{txtSDT.Text}',N'{txtDiaChi.Text}')";
-            ConnectSQL.RunQuery(strSQL);
+            strSQL = "INSERT INTO KhachHang(MaKH,TenKH,SDT,DiaChi) VALUES (@MaKH, @TenKH, @SDT, @DiaChi)";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaKH", txtMaKH.Text },
+                { "@TenKH", txtTenKH.Text },
+                { "@SDT", txtSDT.Text },
+                { "@DiaChi", txtDiaChi.Text }
+            };
+            ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Thêm thành công");
             LoadData();
         }
@@ -94,18 +105,25 @@ namespace QuanLyCafe
                 txtTenKH.Focus();
                 return;
             }
-            string strSQL = $@"SELECT * FROM KhachHang WHERE MaKH = '{txtMaKH.Text}'";
-            string MaKHSua = dtgvData.CurrentRow.Cells[0].Value.ToString().Trim();
-            if (ConnectSQL.ExcuteReader_bool(strSQL) && txtMaKH.Text.Trim() != MaKHSua)
+            string MaKHSua = dtgvData.CurrentRow!.Cells[0].Value.ToString()!.Trim();
+            string maKHMoi = txtMaKH.Text.Trim();
+
+            if (maKHMoi != MaKHSua)
             {
-                MessageBox.Show("Mã khách hàng này đã tồn tại, vui lòng tạo mã khác");
-                txtMaKH.Focus();
-                return;
+                string strSQLCheck = "SELECT MaKH FROM KhachHang WHERE MaKH = @MaKH";
+                if (ConnectSQL.ExcuteReader_bool(strSQLCheck, new Dictionary<string, object> { { "@MaKH", maKHMoi } }))
+                {
+                    MessageBox.Show("Mã khách hàng này đã tồn tại, vui lòng tạo mã khác");
+                    txtMaKH.Focus();
+                    return;
+                }
             }
-            strSQL = $@"UPDATE KhachHang SET MaKH = '{txtMaKH.Text}'
-                        ,TenKh = N'{txtTenKH.Text}',SDT = '{txtSDT.Text}',DiaChi = N'{txtDiaChi.Text}'
-                        WHERE MaKH = '{MaKHSua}'";
-            ConnectSQL.RunQuery(strSQL);
+            string strSQL = "UPDATE KhachHang SET MaKH = @MaKH, TenKH = @TenKH, SDT = @SDT, DiaChi = @DiaChi WHERE MaKH = @MaKHSua";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@MaKH", maKHMoi }, { "@TenKH", txtTenKH.Text }, { "@SDT", txtSDT.Text }, { "@DiaChi", txtDiaChi.Text }, { "@MaKHSua", MaKHSua }
+            };
+            ConnectSQL.RunQuery(strSQL, parameters);
             MessageBox.Show("Sửa thành công");
             LoadData();
         }
@@ -121,8 +139,9 @@ namespace QuanLyCafe
 
             if (result == DialogResult.Yes)
             {
-                string strSQL = $@"DELETE KhachHang WHERE MaKH = '{dtgvData.CurrentRow.Cells[0].Value.ToString().Trim()}'";
-                ConnectSQL.RunQuery(strSQL);
+                string maKH = dtgvData.CurrentRow!.Cells[0].Value.ToString()!.Trim();
+                string strSQL = "DELETE FROM KhachHang WHERE MaKH = @MaKH";
+                ConnectSQL.RunQuery(strSQL, new Dictionary<string, object> { { "@MaKH", maKH } });
                 MessageBox.Show("Xóa thành công");
                 LoadData();
             }
@@ -151,10 +170,10 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dtgvData.Rows[e.RowIndex];
-                txtMaKH.Text = row.Cells["MaKH"].Value.ToString();
-                txtTenKH.Text = row.Cells["TenKH"].Value.ToString();
-                txtSDT.Text = row.Cells["SDT"].Value.ToString();
-                txtDiaChi.Text = row.Cells["DiaChi"].Value.ToString();
+                txtMaKH.Text = row.Cells["MaKH"].Value?.ToString() ?? string.Empty;
+                txtTenKH.Text = row.Cells["TenKH"].Value?.ToString() ?? string.Empty;
+                txtSDT.Text = row.Cells["SDT"].Value?.ToString() ?? string.Empty;
+                txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? string.Empty;
             }
         }
     }
