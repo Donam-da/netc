@@ -112,6 +112,18 @@ namespace QuanLyCafe
             dtgvDoUong.Columns[1].HeaderText = "Tên đồ uống";
             dtgvDoUong.Columns[2].HeaderText = "Mã loại";
             dtgvDoUong.Columns[3].HeaderText = "Đơn giá";
+
+            // Thêm cột nút bấm "Chỉnh sửa" nếu chưa có
+            if (dtgvDoUong.Columns["SuaDoUong"] == null)
+            {
+                var btnCol = new DataGridViewButtonColumn();
+                btnCol.Name = "SuaDoUong";
+                btnCol.HeaderText = "Thao tác";
+                btnCol.Text = "Sửa";
+                btnCol.UseColumnTextForButtonValue = true;
+                dtgvDoUong.Columns.Add(btnCol);
+            }
+            dtgvDoUong.Columns["SuaDoUong"].DisplayIndex = 4; // Hiển thị sau cột Đơn giá
         }
         private void frmManHinhChinh_Load(object sender, EventArgs e)
         {
@@ -288,27 +300,45 @@ namespace QuanLyCafe
             LoadDoUongDaGoi();
         }
 
-        private void dtgvDoUong_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvDoUong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // Bỏ qua nếu double click vào header
+            if (e.RowIndex < 0) return; // Bỏ qua nếu click vào header
 
-            if (btnBanDaChon.Text == "Chưa chọn bàn")
+            // Nếu click vào cột nút "Sửa"
+            if (e.ColumnIndex == dtgvDoUong.Columns["SuaDoUong"].Index)
             {
-                MessageBox.Show("Bạn hãy chọn bàn trước khi gọi món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                frmDoUong frm = new frmDoUong();
+                frm.ShowDialog();
+                LoadMenuDoUong(); // Tải lại menu sau khi chỉnh sửa
             }
-
-            string tenDU = dtgvDoUong.Rows[e.RowIndex].Cells["TenDU"].Value.ToString()!;
-            using (var formChonSL = new frmChonSoLuong(tenDU))
+            else // Nếu click vào các cột khác để thêm món
             {
-                if (formChonSL.ShowDialog() == DialogResult.OK)
+                if (btnBanDaChon.Text == "Chưa chọn bàn")
                 {
-                    string maDU = dtgvDoUong.Rows[e.RowIndex].Cells["MaDU"].Value.ToString()!;
-                    decimal donGia = Convert.ToDecimal(dtgvDoUong.Rows[e.RowIndex].Cells["DonGia"].Value);
-                    decimal soLuong = formChonSL.SoLuong;
-                    ThemMon(maDU, donGia, soLuong);
+                    MessageBox.Show("Bạn hãy chọn bàn trước khi gọi món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string tenDU = dtgvDoUong.Rows[e.RowIndex].Cells["TenDU"].Value?.ToString() ?? string.Empty;
+                using (var formChonSL = new frmChonSoLuong(tenDU))
+                {
+                    if (formChonSL.ShowDialog() == DialogResult.OK)
+                    {
+                        string maDU = dtgvDoUong.Rows[e.RowIndex].Cells["MaDU"].Value.ToString()!;
+                        decimal donGia = Convert.ToDecimal(dtgvDoUong.Rows[e.RowIndex].Cells["DonGia"].Value);
+                        decimal soLuong = formChonSL.SoLuong;
+                        ThemMon(maDU, donGia, soLuong);
+                    }
                 }
             }
+        }
+
+        private void dtgvDoUong_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Mở form quản lý đồ uống để chỉnh sửa
+            frmDoUong frm = new frmDoUong();
+            frm.ShowDialog();
+            LoadMenuDoUong(); // Tải lại menu sau khi chỉnh sửa
         }
 
         private void dtgvHoaDon_CellValueChanged(object sender, DataGridViewCellEventArgs e)

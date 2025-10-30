@@ -500,6 +500,7 @@
             this.dtgvDoUong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvDoUong.Size = new System.Drawing.Size(374, 537);
             this.dtgvDoUong.TabIndex = 1;
+            this.dtgvDoUong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDoUong_CellClick);
             this.dtgvDoUong.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDoUong_CellDoubleClick);
             // 
             // pnlTimMon
