@@ -50,11 +50,11 @@
             this.pnlLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.pnlRight.SuspendLayout();
-            this.pnlPassword.SuspendLayout();
             this.pnlUsername.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsername)).BeginInit();
+            this.pnlPassword.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picShowPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPassword)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUsername)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlLeft
@@ -181,9 +181,9 @@
             // 
             // pnlUsername
             // 
-            this.pnlUsername.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnlUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
             this.pnlUsername.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.pnlUsername.BorderThickness = 1;
+            this.pnlUsername.BorderThickness = 0;
             this.pnlUsername.Controls.Add(this.txtMaDangNhap);
             this.pnlUsername.Controls.Add(this.picUsername);
             this.pnlUsername.CornerRadius = 15;
@@ -194,13 +194,13 @@
             // 
             // txtMaDangNhap
             // 
-            this.txtMaDangNhap.BackColor = System.Drawing.Color.FloralWhite;
+            this.txtMaDangNhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
             this.txtMaDangNhap.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMaDangNhap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaDangNhap.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtMaDangNhap.ForeColor = System.Drawing.Color.White;
             this.txtMaDangNhap.Location = new System.Drawing.Point(60, 9);
             this.txtMaDangNhap.Name = "txtMaDangNhap";
-            this.txtMaDangNhap.Size = new System.Drawing.Size(300, 27);
+            this.txtMaDangNhap.Size = new System.Drawing.Size(279, 27);
             this.txtMaDangNhap.TabIndex = 1;
             this.txtMaDangNhap.Text = "ADMIN";
             // 
@@ -217,9 +217,9 @@
             // 
             // pnlPassword
             // 
-            this.pnlPassword.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnlPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
             this.pnlPassword.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.pnlPassword.BorderThickness = 1;
+            this.pnlPassword.BorderThickness = 0;
             this.pnlPassword.Controls.Add(this.txtMatKhau);
             this.pnlPassword.Controls.Add(this.picShowPass);
             this.pnlPassword.Controls.Add(this.picPassword);
@@ -231,10 +231,10 @@
             // 
             // txtMatKhau
             // 
-            this.txtMatKhau.BackColor = System.Drawing.Color.FloralWhite;
+            this.txtMatKhau.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
             this.txtMatKhau.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtMatKhau.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtMatKhau.ForeColor = System.Drawing.Color.White;
             this.txtMatKhau.Location = new System.Drawing.Point(60, 9);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PasswordChar = '●';
@@ -266,19 +266,6 @@
             this.picPassword.TabIndex = 0;
             this.picPassword.TabStop = false;
             // 
-            // pnlUsername
-            // 
-            this.pnlUsername.BackColor = System.Drawing.Color.FloralWhite;
-            this.pnlUsername.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.pnlUsername.BorderThickness = 1;
-            this.pnlUsername.Controls.Add(this.txtMaDangNhap);
-            this.pnlUsername.Controls.Add(this.picUsername);
-            this.pnlUsername.CornerRadius = 15;
-            this.pnlUsername.Location = new System.Drawing.Point(45, 140);
-            this.pnlUsername.Name = "pnlUsername";
-            this.pnlUsername.Size = new System.Drawing.Size(380, 45);
-            this.pnlUsername.TabIndex = 1;
-            // 
             // frmDangNhap
             // 
             this.AcceptButton = this.btnDangNhap;
@@ -298,13 +285,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.pnlRight.ResumeLayout(false);
             this.pnlRight.PerformLayout();
-            this.pnlPassword.ResumeLayout(false);
-            this.pnlPassword.PerformLayout();
             this.pnlUsername.ResumeLayout(false);
             this.pnlUsername.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsername)).EndInit();
+            this.pnlPassword.ResumeLayout(false);
+            this.pnlPassword.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picShowPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPassword)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUsername)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -317,7 +304,6 @@
         private System.Windows.Forms.Label lblAppName;
         private System.Windows.Forms.Label lblSlogan;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.PictureBox picUsername;
         private System.Windows.Forms.TextBox txtMatKhau;
         private System.Windows.Forms.PictureBox picPassword;
         private System.Windows.Forms.TextBox txtMaDangNhap;
@@ -327,6 +313,7 @@
         private System.Windows.Forms.Label lblPasswordPrompt;
         private RoundedPanel pnlUsername;
         private RoundedPanel pnlPassword;
+        private System.Windows.Forms.PictureBox picUsername;
         private System.Windows.Forms.PictureBox picShowPass;
     }
 }
