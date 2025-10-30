@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -214,7 +214,7 @@ namespace QuanLyCafe
             }
             LoadDoUongDaGoi();
             LoadTable();
-            MessageBox.Show("Thêm thành công");
+            ShowStatus("Thêm món thành công!");
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -413,6 +413,25 @@ namespace QuanLyCafe
             {
                 f.ShowDialog();
             }
+        }
+
+        private void ShowStatus(string message)
+        {
+            lblStatus.Text = message;
+            tmrStatus.Interval = 3000; // Thông báo sẽ hiển thị trong 3 giây
+            tmrStatus.Start();
+        }
+
+        private void tmrStatus_Tick(object sender, EventArgs e)
+        {
+            // Xóa thông báo và dừng timer
+            lblStatus.Text = "";
+            tmrStatus.Stop();
+        }
+
+        private void btnRefreshDoUong_Click(object sender, EventArgs e)
+        {
+            LoadMenuDoUong();
         }
 
     }

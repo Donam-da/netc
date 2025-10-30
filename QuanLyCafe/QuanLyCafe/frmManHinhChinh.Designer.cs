@@ -1,4 +1,4 @@
-﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -46,6 +46,7 @@
             this.menuHangBanChay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlBan = new System.Windows.Forms.Panel();
@@ -72,6 +73,8 @@
             this.dtgvDoUong = new System.Windows.Forms.DataGridView();
             this.pnlTimMon = new System.Windows.Forms.Panel();
             this.btnTim = new System.Windows.Forms.Button();
+            this.btnRefreshDoUong = new System.Windows.Forms.Button();
+            this.tmrStatus = new System.Windows.Forms.Timer(this.components);
             this.txtTenDoUong = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
@@ -225,12 +228,20 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
             this.lblNhanVien});
             this.statusStrip1.Location = new System.Drawing.Point(0, 659);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1264, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(1129, 17);
+            this.lblStatus.Spring = true;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNhanVien
             // 
@@ -497,6 +508,7 @@
             // 
             // pnlTimMon
             // 
+            this.pnlTimMon.Controls.Add(this.btnRefreshDoUong);
             this.pnlTimMon.Controls.Add(this.btnTim);
             this.pnlTimMon.Controls.Add(this.txtTenDoUong);
             this.pnlTimMon.Controls.Add(this.label1);
@@ -514,13 +526,33 @@
             this.btnTim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTim.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnTim.ForeColor = System.Drawing.Color.White;
-            this.btnTim.Location = new System.Drawing.Point(295, 13);
+            this.btnTim.Location = new System.Drawing.Point(220, 13);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(70, 35);
             this.btnTim.TabIndex = 2;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = false;
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
+            // 
+            // btnRefreshDoUong
+            // 
+            this.btnRefreshDoUong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefreshDoUong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(142)))), ((int)(((byte)(65)))));
+            this.btnRefreshDoUong.FlatAppearance.BorderSize = 0;
+            this.btnRefreshDoUong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefreshDoUong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnRefreshDoUong.ForeColor = System.Drawing.Color.White;
+            this.btnRefreshDoUong.Location = new System.Drawing.Point(296, 13);
+            this.btnRefreshDoUong.Name = "btnRefreshDoUong";
+            this.btnRefreshDoUong.Size = new System.Drawing.Size(70, 35);
+            this.btnRefreshDoUong.TabIndex = 3;
+            this.btnRefreshDoUong.Text = "Làm mới";
+            this.btnRefreshDoUong.UseVisualStyleBackColor = false;
+            this.btnRefreshDoUong.Click += new System.EventHandler(this.btnRefreshDoUong_Click);
+            // 
+            // tmrStatus
+            // 
+            this.tmrStatus.Tick += new System.EventHandler(this.tmrStatus_Tick);
             // 
             // txtTenDoUong
             // 
@@ -529,7 +561,7 @@
             this.txtTenDoUong.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtTenDoUong.Location = new System.Drawing.Point(80, 16);
             this.txtTenDoUong.Name = "txtTenDoUong";
-            this.txtTenDoUong.Size = new System.Drawing.Size(209, 29);
+            this.txtTenDoUong.Size = new System.Drawing.Size(134, 29);
             this.txtTenDoUong.TabIndex = 1;
             // 
             // label1
@@ -632,5 +664,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
         private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
         private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.Button btnRefreshDoUong;
+        private System.Windows.Forms.Timer tmrStatus;
     }
 }
