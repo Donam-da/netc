@@ -50,8 +50,7 @@
             this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlBan = new System.Windows.Forms.Panel();
-            this.lstBan = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.dtgvBan = new System.Windows.Forms.DataGridView();
             this.pnlLocBan = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbAll = new System.Windows.Forms.RadioButton();
@@ -82,6 +81,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlBan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvBan)).BeginInit();
             this.pnlLocBan.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlHoaDon.SuspendLayout();
@@ -269,7 +269,7 @@
             // pnlBan
             // 
             this.pnlBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(165)))), ((int)(((byte)(126)))));
-            this.pnlBan.Controls.Add(this.lstBan);
+            this.pnlBan.Controls.Add(this.dtgvBan);
             this.pnlBan.Controls.Add(this.pnlLocBan);
             this.pnlBan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBan.Location = new System.Drawing.Point(3, 3);
@@ -277,25 +277,20 @@
             this.pnlBan.Size = new System.Drawing.Size(436, 597);
             this.pnlBan.TabIndex = 0;
             // 
-            // lstBan
+            // dtgvBan
             // 
-            this.lstBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(213)))), ((int)(((byte)(183)))));
-            this.lstBan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBan.LargeImageList = this.imageList1;
-            this.lstBan.Location = new System.Drawing.Point(0, 60);
-            this.lstBan.MultiSelect = false;
-            this.lstBan.Name = "lstBan";
-            this.lstBan.Size = new System.Drawing.Size(436, 537);
-            this.lstBan.TabIndex = 1;
-            this.lstBan.UseCompatibleStateImageBehavior = false;
-            this.lstBan.Click += new System.EventHandler(this.lstBan_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "table_busy.png");
-            this.imageList1.Images.SetKeyName(1, "table_free.png");
+            this.dtgvBan.AllowUserToAddRows = false;
+            this.dtgvBan.AllowUserToDeleteRows = false;
+            this.dtgvBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvBan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvBan.Location = new System.Drawing.Point(0, 60);
+            this.dtgvBan.Name = "dtgvBan";
+            this.dtgvBan.ReadOnly = true;
+            this.dtgvBan.RowHeadersWidth = 51;
+            this.dtgvBan.Size = new System.Drawing.Size(436, 537);
+            this.dtgvBan.TabIndex = 1;
+            this.dtgvBan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBan_CellClick);
+            this.dtgvBan.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgvBan_CellFormatting);
             // 
             // pnlLocBan
             // 
@@ -648,7 +643,6 @@
         private System.Windows.Forms.Label lblTongTien;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnThanhToan;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripStatusLabel lblNhanVien;
         private System.Windows.Forms.ToolStripDropDownButton btnHeThong;
         private System.Windows.Forms.ToolStripMenuItem menuThongTinCaNhan;
@@ -667,5 +661,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnRefreshDoUong;
         private System.Windows.Forms.Timer tmrStatus;
+        private System.Windows.Forms.DataGridView dtgvBan;
     }
 }

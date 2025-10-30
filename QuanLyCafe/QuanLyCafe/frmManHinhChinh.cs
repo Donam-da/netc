@@ -65,37 +65,36 @@ namespace QuanLyCafe
         }
         private void LoadTable()
         {
-            lstBan.Clear();
-            lstBan.View = View.LargeIcon;
-            lstBan.LargeImageList = imageList1;
-
-            string strSQL = "SELECT MaBan, TrangThai FROM Ban";
+            string strSQL = "SELECT MaBan, SucChua, TrangThai FROM Ban";
             var parameters = new Dictionary<string, object>();
 
-            if(rbYes.Checked)
+            if (rbYes.Checked)
             {
                 strSQL += " WHERE TrangThai = @TrangThai";
                 parameters.Add("@TrangThai", "1");
-            }    
+            }
             else if (rbNo.Checked)
             {
                 strSQL += " WHERE TrangThai = @TrangThai";
                 parameters.Add("@TrangThai", "0");
-            }    
+            }
             DataTable dt = ConnectSQL.Load(strSQL, parameters);
+
+            // Thêm cột STT vào DataTable
+            dt.Columns.Add("STT", typeof(int));
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                ListViewItem item1 = new ListViewItem(dt.Rows[i]["MaBan"].ToString());
-                if(dt.Rows[i]["TrangThai"].ToString() == "0")
-                {
-                    item1.ImageIndex = 1;
-                }  
-                else
-                {
-                    item1.ImageIndex = 0;
-                }    
-                lstBan.Items.Add(item1);
-            }    
+                dt.Rows[i]["STT"] = i + 1;
+            }
+
+            dtgvBan.DataSource = dt;
+            frmNhanVien.SetupDataGridView(dtgvBan);
+
+            // Đặt lại tên và thứ tự cột
+            dtgvBan.Columns["STT"].DisplayIndex = 0;
+            dtgvBan.Columns["MaBan"].HeaderText = "Mã Bàn";
+            dtgvBan.Columns["SucChua"].HeaderText = "Sức chứa";
+            dtgvBan.Columns["TrangThai"].HeaderText = "Trạng thái";
         }
         private void LoadMenuDoUong()
         {
@@ -146,10 +145,24 @@ namespace QuanLyCafe
             LoadMenuDoUong();
         }
 
-        private void lstBan_Click(object sender, EventArgs e)
+        private void dtgvBan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            btnBanDaChon.Text = lstBan.SelectedItems[0].SubItems[0].Text;
-            LoadDoUongDaGoi();
+            if (e.RowIndex >= 0)
+            {
+                btnBanDaChon.Text = dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value?.ToString() ?? string.Empty;
+                LoadDoUongDaGoi();
+            }
+        }
+
+        private void dtgvBan_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Tô màu và đổi text cho cột "Trạng thái"
+            if (e.RowIndex >= 0 && e.ColumnIndex == dtgvBan.Columns["TrangThai"].Index && e.Value != null)
+            {
+                bool coNguoi = e.Value.ToString() == "1";
+                e.Value = coNguoi ? "Chưa thanh toán" : "Bàn trống";
+                e.CellStyle.ForeColor = coNguoi ? Color.Red : Color.Green;
+            }
         }
         private void LoadDoUongDaGoi()
         {
