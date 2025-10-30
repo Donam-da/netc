@@ -1,13 +1,18 @@
+using System.Runtime.Versioning;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace QuanLyCafe
 {
+    [SupportedOSPlatform("windows")]
     public class RoundedPanel : Panel
     {
         public int CornerRadius { get; set; } = 15;
         public Color BorderColor { get; set; } = Color.FromArgb(180, 180, 180);
         public int BorderThickness { get; set; } = 1;
+        public Color GradientStartColor { get; set; } = Color.Empty;
+        public Color GradientEndColor { get; set; } = Color.Empty;
+        public float GradientAngle { get; set; } = 90f;
 
         public RoundedPanel()
         {
@@ -27,16 +32,27 @@ namespace QuanLyCafe
                 path.AddArc(rect.X, rect.Bottom - CornerRadius, CornerRadius, CornerRadius, 90, 90);
                 path.CloseAllFigures();
 
+                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
                 // Fill background
-                using (SolidBrush brush = new SolidBrush(this.BackColor))
+                if (GradientStartColor != Color.Empty && GradientEndColor != Color.Empty)
                 {
-                    e.Graphics.FillPath(brush, path);
+                    using (LinearGradientBrush lgb = new LinearGradientBrush(this.ClientRectangle, GradientStartColor, GradientEndColor, GradientAngle))
+                    {
+                        e.Graphics.FillPath(lgb, path);
+                    }
+                }
+                else
+                {
+                    using (SolidBrush brush = new SolidBrush(this.BackColor))
+                    {
+                        e.Graphics.FillPath(brush, path);
+                    }
                 }
 
                 // Draw border
                 using (Pen pen = new Pen(BorderColor, BorderThickness))
                 {
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     e.Graphics.DrawPath(pen, path);
                 }
 

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -119,6 +119,11 @@ namespace QuanLyCafe
 
             // Thiết lập placeholder ban đầu
             SetupPlaceholder();
+
+            // --- LÀM TRONG SUỐT NỀN TEXTBOX ---
+            // Đặt control cha cho textbox là panel chứa nó
+            txtMaDangNhap.Parent = pnlUsername;
+            txtMatKhau.Parent = pnlPassword;
         }
 
         // =================== CÁC HÀM HỖ TRỢ ===================
