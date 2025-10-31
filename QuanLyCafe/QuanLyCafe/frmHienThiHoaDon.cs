@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -158,27 +158,39 @@ namespace QuanLyCafe
             int tableEndY = tableY + headerHeight + (rowsToDraw * rowHeight);
 
             // --- Vẽ phần tổng tiền ---
-            int totalY = tableEndY + 20; // Cách bảng 40px
+            int summaryY = tableEndY + 15; // Vị trí bắt đầu của phần tổng kết
             Font totalFont = new Font("Segoe UI", 12F, FontStyle.Bold);
-            string totalCaption = "TỔNG CỘNG:";
-            string totalAmount = $"{decimal.Parse(_hoaDonInfo["TongTien"]):N0} VNĐ";
+            Font summaryFont = new Font("Segoe UI", 9.75F, FontStyle.Regular);
 
-            // Căn lề phải cho cả 2 phần text trong các vùng chữ nhật tương ứng
-            using (StringFormat sfRight = new StringFormat())
+            // Hàm trợ giúp để vẽ các dòng trong phần tổng kết
+            void DrawSummaryLine(string label, string value, int yPos, Font font, Color color)
             {
-                sfRight.Alignment = StringAlignment.Far; // Căn phải
-                sfRight.LineAlignment = StringAlignment.Center;
-
-                g.DrawString(totalCaption, totalFont, new SolidBrush(Color.FromArgb(62, 39, 35)), new Rectangle(-105, totalY, 282, 40), sfRight);
-                g.DrawString(totalAmount, totalFont, new SolidBrush(Color.FromArgb(192, 57, 43)), new Rectangle(177, totalY, 110, 40), sfRight);
+                TextRenderer.DrawText(g, label, font, new Rectangle(17, yPos, 100, 30), ((SolidBrush)textBrush).Color, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
+                TextRenderer.DrawText(g, value, font, new Rectangle(220, yPos, 110, 30), color, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
             }
 
-            // --- Vẽ lời cảm ơn ---
-            using (Font thanksFont = new Font("Segoe UI", 9.75F, FontStyle.Italic))            using (StringFormat sf = new StringFormat())
+            DrawSummaryLine("Tổng tiền hàng:", $"{_hoaDonInfo["TongTienHang"]} VNĐ", summaryY, summaryFont, ((SolidBrush)textBrush).Color);
+
+            // Chỉ vẽ dòng giảm giá nếu có
+            if (decimal.Parse(_hoaDonInfo["GiamGia"]) > 0)
             {
-                sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Center;
-                g.DrawString("Cảm ơn quý khách!", thanksFont, textBrush, new Rectangle(-15, totalY + 20, 392, 40), sf);
+                summaryY += 25;
+                DrawSummaryLine($"Giảm giá ({_hoaDonInfo["PhanTramGiamGia"]}%):", $"- {_hoaDonInfo["GiamGia"]} VNĐ", summaryY, summaryFont, Color.Green);
+            }
+
+            // Vẽ đường kẻ ngang
+            summaryY += 30;
+            g.DrawLine(new Pen(Color.Gray, 1) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dash }, 17, summaryY, pnlMain.Width - 17, summaryY);
+
+            summaryY += 5;
+            DrawSummaryLine("TỔNG CỘNG:", $"{_hoaDonInfo["TongCong"]} VNĐ", summaryY, totalFont, Color.FromArgb(192, 57, 43));
+
+            // --- Vẽ lời cảm ơn ---
+            using (StringFormat sfRight = new StringFormat())
+            {
+                sfRight.Alignment = StringAlignment.Center;
+                sfRight.LineAlignment = StringAlignment.Center;
+                g.DrawString("Cảm ơn quý khách!", new Font("Segoe UI", 9.75F, FontStyle.Italic), textBrush, new Rectangle(0, summaryY + 40, pnlMain.Width, 30), sfRight);
             }
         }
 
@@ -188,6 +200,42 @@ namespace QuanLyCafe
             pnlMain.Invalidate(); // Yêu cầu vẽ lại panel
         }
 
+        private void btnThanhToan_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Xác nhận thanh toán hóa đơn này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // Lấy thông tin cần thiết từ dictionary
+                    string maHD = _hoaDonInfo["MaHD"];
+                    string maKH = _hoaDonInfo["MaKH"];
+                    string maBan = _hoaDonInfo["MaBan"];
+                    decimal finalTotal = decimal.Parse(_hoaDonInfo["FinalTotal"]);
+                    decimal discountAmount = decimal.Parse(_hoaDonInfo["DiscountAmount"]);
+
+                    // Cập nhật hóa đơn
+                    string sqlUpdateHD = "UPDATE HoaDon SET TrangThai = 1, MaKH = @MaKH, TongTien = @TongTien, GiamGia = @GiamGia WHERE MaHD = @MaHD";
+                    var paramUpdateHD = new Dictionary<string, object>
+                    {
+                        { "@MaKH", maKH }, { "@TongTien", finalTotal }, { "@GiamGia", discountAmount }, { "@MaHD", maHD }
+                    };
+                    ConnectSQL.RunQuery(sqlUpdateHD, paramUpdateHD);
+
+                    // Cập nhật bàn
+                    string sqlUpdateBan = "UPDATE Ban SET TrangThai = 0 WHERE MaBan = @MaBan";
+                    ConnectSQL.RunQuery(sqlUpdateBan, new Dictionary<string, object> { { "@MaBan", maBan } });
+
+                    this.DialogResult = DialogResult.OK; // Báo hiệu thanh toán thành công
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Đã xảy ra lỗi trong quá trình thanh toán: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         
         /// <summary>
         /// Tạo một bản sao của hình ảnh với độ mờ được chỉ định.

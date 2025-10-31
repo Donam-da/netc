@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmNguyenLieu
@@ -97,7 +97,7 @@
             // nmSoLuongTon
             // 
             this.nmSoLuongTon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
-            this.nmSoLuongTon.DecimalPlaces = 2;
+            this.nmSoLuongTon.DecimalPlaces = 0;
             this.nmSoLuongTon.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.nmSoLuongTon.Location = new System.Drawing.Point(20, 310);
             this.nmSoLuongTon.Maximum = new decimal(new int[] {
@@ -123,7 +123,7 @@
             // nmGiaTien
             // 
             this.nmGiaTien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
-            this.nmGiaTien.DecimalPlaces = 2;
+            this.nmGiaTien.DecimalPlaces = 0;
             this.nmGiaTien.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.nmGiaTien.Location = new System.Drawing.Point(20, 250);
             this.nmGiaTien.Maximum = new decimal(new int[] {

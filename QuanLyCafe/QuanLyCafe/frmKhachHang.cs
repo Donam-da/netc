@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +18,7 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSQl = "SELECT * FROM KhachHang WHERE TenKH LIKE @TenKH";
+            string strSQl = "SELECT * FROM KhachHang WHERE TenKH LIKE @TenKH AND MaKH <> 'KHVL'";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenKH", $"%{txtSearch.Text}%" }

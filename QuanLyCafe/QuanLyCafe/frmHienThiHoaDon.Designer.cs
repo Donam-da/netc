@@ -21,7 +21,8 @@
             this.pnlMain = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dtgvDetails = new System.Windows.Forms.DataGridView();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.btnHuy = new System.Windows.Forms.Button();
+            this.btnThanhToan = new System.Windows.Forms.Button();
             this.lblThanks = new System.Windows.Forms.Label();
             this.lblShopName = new System.Windows.Forms.Label();
             this.vScrollBar = new System.Windows.Forms.VScrollBar();
@@ -33,7 +34,8 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Controls.Add(this.lblThanks);
-            this.pnlMain.Controls.Add(this.btnClose);
+            this.pnlMain.Controls.Add(this.btnHuy);
+            this.pnlMain.Controls.Add(this.btnThanhToan);
             this.pnlMain.Controls.Add(this.vScrollBar);
             this.pnlMain.Controls.Add(this.dtgvDetails);
             this.pnlMain.Controls.Add(this.lblShopName);
@@ -73,21 +75,37 @@
             this.dtgvDetails.TabIndex = 4;
             this.dtgvDetails.Visible = false;
             // 
-            // btnClose
+            // btnHuy
             // 
-            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(59)))), ((int)(((byte)(46)))));
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(160, 495);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 40);
-            this.btnClose.TabIndex = 6;
-            this.btnClose.Text = "Đóng";
-            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnHuy.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnHuy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(170)))), ((int)(((byte)(164)))));
+            this.btnHuy.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnHuy.FlatAppearance.BorderSize = 0;
+            this.btnHuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHuy.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnHuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.btnHuy.Location = new System.Drawing.Point(220, 495);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(120, 40);
+            this.btnHuy.TabIndex = 6;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.UseVisualStyleBackColor = false;
+            // 
+            // btnThanhToan
+            // 
+            this.btnThanhToan.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnThanhToan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.btnThanhToan.FlatAppearance.BorderSize = 0;
+            this.btnThanhToan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThanhToan.ForeColor = System.Drawing.Color.White;
+            this.btnThanhToan.Location = new System.Drawing.Point(80, 485);
+            this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.Size = new System.Drawing.Size(130, 40);
+            this.btnThanhToan.TabIndex = 12;
+            this.btnThanhToan.Text = "Thanh Toán";
+            this.btnThanhToan.UseVisualStyleBackColor = false;
+            this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
             // 
             // lblThanks
             // 
@@ -126,7 +144,7 @@
             // 
             // frmHienThiHoaDon
             // 
-            this.AcceptButton = this.btnClose;
+            this.AcceptButton = this.btnThanhToan;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(180)))), ((int)(((byte)(140)))));
@@ -148,7 +166,8 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView dtgvDetails;
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnHuy;
+        private System.Windows.Forms.Button btnThanhToan;
         private System.Windows.Forms.Label lblThanks;
         private System.Windows.Forms.Label lblShopName;
         private System.Windows.Forms.VScrollBar vScrollBar;

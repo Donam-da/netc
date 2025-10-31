@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Versioning;
@@ -131,7 +131,23 @@ namespace QuanLyCafe
 
             try
             {
-                // Bắt đầu giao dịch
+                // --- LOGIC MỚI: LƯU TRỮ THÔNG TIN TRƯỚC KHI XÓA ---
+                // 1. Tính toán và cộng dồn số lần mua, tổng chi tiêu vào bảng KhachHang
+                string sqlSummarize = $@"
+                    UPDATE kh
+                    SET 
+                        kh.SoLanMua_LuuTru = kh.SoLanMua_LuuTru + summary.SoLanMua,
+                        kh.TongChiTieu_LuuTru = kh.TongChiTieu_LuuTru + summary.TongChiTieu
+                    FROM 
+                        KhachHang kh
+                    JOIN 
+                        (SELECT MaKH, COUNT(MaHD) AS SoLanMua, SUM(TongTien) AS TongChiTieu 
+                         FROM HoaDon 
+                         WHERE {condition} AND MaKH <> 'KHVL'
+                         GROUP BY MaKH) AS summary ON kh.MaKH = summary.MaKH;";
+                ConnectSQL.RunQuery(sqlSummarize, parameters);
+
+                // 2. Xóa chi tiết hóa đơn
                 string sqlDeleteChiTiet = $"DELETE FROM ChiTietHoaDon WHERE MaHD IN (SELECT MaHD FROM HoaDon WHERE {condition})";
                 ConnectSQL.RunQuery(sqlDeleteChiTiet, parameters);
 
@@ -182,6 +198,21 @@ namespace QuanLyCafe
             {
                 try
                 {
+                    // --- LOGIC MỚI: LƯU TRỮ TOÀN BỘ THÔNG TIN TRƯỚC KHI XÓA ---
+                    string sqlSummarizeAll = @"
+                        UPDATE kh
+                        SET 
+                            kh.SoLanMua_LuuTru = kh.SoLanMua_LuuTru + summary.SoLanMua,
+                            kh.TongChiTieu_LuuTru = kh.TongChiTieu_LuuTru + summary.TongChiTieu
+                        FROM 
+                            KhachHang kh
+                        JOIN 
+                            (SELECT MaKH, COUNT(MaHD) AS SoLanMua, SUM(TongTien) AS TongChiTieu 
+                             FROM HoaDon 
+                             WHERE TrangThai = 1 AND MaKH <> 'KHVL'
+                             GROUP BY MaKH) AS summary ON kh.MaKH = summary.MaKH;";
+                    ConnectSQL.RunQuery(sqlSummarizeAll);
+
                     ConnectSQL.RunQuery("DELETE FROM ChiTietHoaDon");
                     ConnectSQL.RunQuery("DELETE FROM HoaDon");
                     ConnectSQL.RunQuery("UPDATE Ban SET TrangThai = 0");

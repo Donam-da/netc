@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,6 +54,21 @@ namespace QuanLyCafe
 
             DataTable dt = ConnectSQL.Load(strSQl, parameters);
 
+            // --- LOGIC MỚI: TÍNH TỒN KHO ẢO CHO ĐỒ UỐNG PHA CHẾ ---
+            // (Giống với logic ở frmManHinhChinh)
+            foreach (DataRow row in dt.Rows)
+            {
+                bool isPhaChe = row["IsPhaChe"] != DBNull.Value && Convert.ToBoolean(row["IsPhaChe"]);
+
+                if (isPhaChe)
+                {
+                    string maDU = row["MaDU"].ToString()!;
+                    // Gọi hàm tính toán số lượng có thể pha
+                    int soLuongCoThePha = TinhSoLuongCoThePha(maDU);
+                    // Cập nhật lại cột SoLuongTon trong DataTable
+                    row["SoLuongTon"] = soLuongCoThePha;
+                }
+            }
             // --- THÊM CỘT MỚI "Loại Đồ Uống" ---
             // 1. Thêm một cột kiểu string vào DataTable
             dt.Columns.Add("LoaiDoUongText", typeof(string));
@@ -218,6 +233,46 @@ namespace QuanLyCafe
             TinhVaHienThiLoiNhuan();
 
         }
+
+        /// <summary>
+        /// Tính toán số lượng tối đa một đồ uống pha chế có thể được tạo ra
+        /// dựa trên lượng nguyên liệu tồn kho hiện tại.
+        /// </summary>
+        /// <param name="maDU">Mã của đồ uống pha chế.</param>
+        /// <returns>Số lượng có thể pha được.</returns>
+        private int TinhSoLuongCoThePha(string maDU)
+        {
+            // Lấy công thức của đồ uống
+            string sqlCongThuc = "SELECT MaNL, SoLuong FROM CongThuc WHERE MaDU = @MaDU";
+            DataTable dtCongThuc = ConnectSQL.Load(sqlCongThuc, new Dictionary<string, object> { { "@MaDU", maDU } });
+
+            // Nếu không có công thức, không thể pha
+            if (dtCongThuc.Rows.Count == 0)
+            {
+                return 0;
+            }
+
+            int soLuongToiDa = int.MaxValue; // Giả định ban đầu có thể pha vô hạn
+
+            // Duyệt qua từng nguyên liệu trong công thức
+            foreach (DataRow congThucRow in dtCongThuc.Rows)
+            {
+                string maNL = congThucRow["MaNL"].ToString()!;
+                decimal soLuongCan = Convert.ToDecimal(congThucRow["SoLuong"]);
+
+                // Lấy số lượng tồn kho của nguyên liệu tương ứng
+                string sqlTonKhoNL = "SELECT SoLuongTon FROM NguyenLieu WHERE MaNL = @MaNL";
+                object? tonKhoObj = ConnectSQL.ExecuteScalar(sqlTonKhoNL, new Dictionary<string, object> { { "@MaNL", maNL } });
+
+                decimal soLuongTonNL = (tonKhoObj != DBNull.Value && tonKhoObj != null) ? Convert.ToDecimal(tonKhoObj) : 0;
+
+                // Tính số ly có thể pha từ nguyên liệu này và cập nhật số lượng tối đa
+                int soLuongPhaDuocTuNL = (soLuongCan > 0) ? (int)Math.Floor(soLuongTonNL / soLuongCan) : int.MaxValue;
+                soLuongToiDa = Math.Min(soLuongToiDa, soLuongPhaDuocTuNL);
+            }
+
+            return soLuongToiDa;
+        }
         private void frmDoUong_Load(object? sender, EventArgs e)
         {
             LoadData();
@@ -260,6 +315,7 @@ namespace QuanLyCafe
             dtgvCongThuc.Columns["TenNL"].Width = 150;
             dtgvCongThuc.Columns["TenNL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvCongThuc.Columns["SoLuong"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgvCongThuc.Columns["SoLuong"].ReadOnly = false;
             dtgvCongThuc.Columns["SoLuong"].Width = 100;
             dtgvCongThuc.Columns["SoLuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvCongThuc.Columns["DonViTinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -348,18 +404,9 @@ namespace QuanLyCafe
             nmNguongCanhBao.Visible = !rbPhaChe.Checked;
 
 
-            // --- CẬP NHẬT LOGIC CHO Ô GIÁ GỐC ---
-            // Nếu đang ở chế độ "Thêm mới" (ô Mã đồ uống không bị khóa)
-            if (!txtMaDU.ReadOnly)
-            {
-                nmGiaGoc.ReadOnly = !rbNguyenBan.Checked; // Chỉ cho sửa khi chọn "Nguyên bản"
-                nmGiaGoc.Increment = rbNguyenBan.Checked ? 1 : 0; // Cho phép tăng giảm khi được sửa
-            }
-            else // Nếu đang ở chế độ "Sửa"
-            {
-                nmGiaGoc.ReadOnly = true; // Luôn khóa lại
-                nmGiaGoc.Increment = 0;
-            }
+            // --- CẬP NHẬT LOGIC CHO Ô GIÁ GỐC (ĐÃ SỬA) ---
+            // Luôn cho phép sửa giá gốc khi chọn "Đồ uống nguyên bản"
+            nmGiaGoc.ReadOnly = !rbNguyenBan.Checked;
             lblGiaGoc.Enabled = true; // Label thì vẫn hiện
 
             // --- TỰ ĐỘNG THÊM HẬU TỐ VÀO MÃ ĐỒ UỐNG ---
@@ -383,7 +430,19 @@ namespace QuanLyCafe
                 txtMaDU.Text = rbPhaChe.Checked ? currentMaDU + "_CB" : currentMaDU + "_NB";
             }
 
-            if (rbPhaChe.Checked) nmGiaGoc.Value = 0; // Reset giá gốc nếu là đồ pha chế
+            // --- LOGIC MỚI: RESET DỮ LIỆU KHÔNG LIÊN QUAN ---
+            if (rbPhaChe.Checked)
+            {
+                // Nếu là đồ pha chế, reset thông tin của đồ uống nguyên bản
+                nmGiaGoc.Value = 0;
+                txtSoLuongTon.Text = "0";
+                nmNguongCanhBao.Value = 0;
+            }
+            else // rbNguyenBan.Checked
+            {
+                // Nếu là đồ uống nguyên bản, xóa công thức pha chế tạm
+                dtCongThuc.Clear();
+            }
             TinhVaHienThiLoiNhuan(); // Tính lại lợi nhuận khi đổi loại
         }
 
@@ -727,6 +786,22 @@ namespace QuanLyCafe
             // Reset input
             nmSoLuongNL.Value = 0;
             cboNguyenLieu.Focus();
+        }
+
+        private void btnXoaNL_Click(object sender, EventArgs e)
+        {
+            if (dtgvCongThuc.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một nguyên liệu trong công thức để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa nguyên liệu này khỏi công thức?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
+            {
+                // Xóa dòng được chọn khỏi DataTable tạm
+                dtCongThuc.Rows.RemoveAt(dtgvCongThuc.CurrentRow.Index);
+            }
         }
 
         // Thêm các sự kiện này để tự động tính lại lợi nhuận khi người dùng thay đổi giá

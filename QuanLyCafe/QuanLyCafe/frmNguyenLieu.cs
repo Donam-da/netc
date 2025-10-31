@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +21,7 @@ namespace QuanLyCafe
         {
             LoadComboBoxDonViTinh();
             LoadData();
+            ClearAndPrepareForNew(); // Chuẩn bị cho việc thêm mới
         }
 
         private void LoadComboBoxDonViTinh()
@@ -46,23 +47,22 @@ namespace QuanLyCafe
             dtgvData.Columns["MaNL"].HeaderText = "Mã Nguyên liệu";
             dtgvData.Columns["TenNL"].HeaderText = "Tên Nguyên liệu";
             dtgvData.Columns["DonViTinh"].HeaderText = "Đơn vị tính";
-            dtgvData.Columns["GiaTien"].HeaderText = "Giá tiền";
+            dtgvData.Columns["GiaTien"].HeaderText = "Giá tiền/đơn vị tính";
             dtgvData.Columns["SoLuongTon"].HeaderText = "Tồn kho";
 
             // Định dạng cột số
             dtgvData.Columns["GiaTien"].DefaultCellStyle.Format = "N0";
-            dtgvData.Columns["SoLuongTon"].DefaultCellStyle.Format = "N2";
-            dtgvData.Columns["GiaTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgvData.Columns["SoLuongTon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgvData.Columns["SoLuongTon"].DefaultCellStyle.Format = "N0";
+            dtgvData.Columns["MaNL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["TenNL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["DonViTinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["GiaTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["SoLuongTon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 
             if (dtgvData.Rows.Count == 0)
             {
-                ClearInputs();
-            }
-            else
-            {
-                // Hiển thị dữ liệu của dòng đầu tiên lên các control
+                // Nếu có dữ liệu, chọn dòng đầu tiên và hiển thị
                 DisplayRowData(dtgvData.Rows[0]);
             }
         }
@@ -86,13 +86,15 @@ namespace QuanLyCafe
             nmSoLuongTon.Value = Convert.ToDecimal(row.Cells["SoLuongTon"].Value ?? 0);
         }
 
-        private void ClearInputs()
+        private void ClearAndPrepareForNew()
         {
             txtMaNL.Text = "";
             txtTenNL.Text = "";
             cboDonViTinh.SelectedIndex = -1;
             nmGiaTien.Value = 0;
             nmSoLuongTon.Value = 0;
+            txtMaNL.ReadOnly = false; // Cho phép nhập mã mới
+            txtMaNL.Focus();
         }
 
         private void dtgvData_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -100,6 +102,7 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0)
             {
                 DisplayRowData(dtgvData.Rows[e.RowIndex]);
+                txtMaNL.ReadOnly = true; // Khóa mã khi chọn để sửa
             }
         }
 
@@ -149,7 +152,7 @@ namespace QuanLyCafe
             {
                 MessageBox.Show("Thêm nguyên liệu thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
-                ClearInputs();
+                ClearAndPrepareForNew();
             }
             else
             {
