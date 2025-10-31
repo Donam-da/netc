@@ -81,7 +81,7 @@
             this.dtDTo.CustomFormat = "dd/MM/yyyy";
             this.dtDTo.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtDTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDTo.Location = new System.Drawing.Point(455, 18);
+            this.dtDTo.Location = new System.Drawing.Point(475, 18);
             this.dtDTo.Name = "dtDTo";
             this.dtDTo.Size = new System.Drawing.Size(150, 29);
             this.dtDTo.TabIndex = 3;
@@ -102,7 +102,7 @@
             this.dtDFrom.CustomFormat = "dd/MM/yyyy";
             this.dtDFrom.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtDFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDFrom.Location = new System.Drawing.Point(95, 18);
+            this.dtDFrom.Location = new System.Drawing.Point(115, 18);
             this.dtDFrom.Name = "dtDFrom";
             this.dtDFrom.Size = new System.Drawing.Size(150, 29);
             this.dtDFrom.TabIndex = 1;
@@ -138,9 +138,9 @@
             this.lblTongLoiNhuan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTongLoiNhuan.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lblTongLoiNhuan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.lblTongLoiNhuan.Location = new System.Drawing.Point(890, 6);
+            this.lblTongLoiNhuan.Location = new System.Drawing.Point(885, 7);
             this.lblTongLoiNhuan.Name = "lblTongLoiNhuan";
-            this.lblTongLoiNhuan.Size = new System.Drawing.Size(85, 28);
+            this.lblTongLoiNhuan.Size = new System.Drawing.Size(75, 28);
             this.lblTongLoiNhuan.TabIndex = 5;
             this.lblTongLoiNhuan.Text = "0 VNĐ";
             this.lblTongLoiNhuan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -151,7 +151,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
-            this.label6.Location = new System.Drawing.Point(755, 6);
+            this.label6.Location = new System.Drawing.Point(750, 7);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(174, 28);
             this.label6.TabIndex = 4;
@@ -173,7 +173,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
-            this.label4.Location = new System.Drawing.Point(385, 9);
+            this.label4.Location = new System.Drawing.Point(380, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 23);
             this.label4.TabIndex = 2;

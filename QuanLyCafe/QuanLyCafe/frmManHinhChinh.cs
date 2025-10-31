@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -532,12 +532,6 @@ namespace QuanLyCafe
         }
         #endregion
 
-        private void menuDoanhThuNgay_Click(object? sender, EventArgs e)
-        {
-            frmDoanhThuTheoNgay frm = new frmDoanhThuTheoNgay();
-            frm.ShowDialog();
-        }
-
         private void menuThongKeDoanhThuNV_Click(object? sender, EventArgs e)
         {
             frmDoanhThuTheoNhanVien frm = new frmDoanhThuTheoNhanVien();
@@ -634,6 +628,12 @@ namespace QuanLyCafe
             {
                 RefreshAllData(); // Tải lại toàn bộ giao diện trên màn hình chính
             }
+        }
+
+        private void menuKhachHangThanThiet_Click(object sender, EventArgs e)
+        {
+            frmKhachHangThanThiet frm = new frmKhachHangThanThiet();
+            frm.ShowDialog();
         }
     }
 }

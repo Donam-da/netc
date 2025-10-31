@@ -63,10 +63,10 @@ namespace QuanLyCafe
 
             dtgvHD.Columns["TongTien"].HeaderText = "Tổng tiền";
             dtgvHD.Columns["TongTien"].DefaultCellStyle.Format = "N0";
-            dtgvHD.Columns["TongTien"].Width = 120;
+            dtgvHD.Columns["TongTien"].Width = 90;
 
             dtgvHD.Columns["TrangThai"].HeaderText = "Trạng thái";
-            dtgvHD.Columns["TrangThai"].Width = 120; // Giảm độ rộng cột trạng thái
+            dtgvHD.Columns["TrangThai"].Width = 90; // Giảm độ rộng cột trạng thái
 
             if (dtgvHD.Rows.Count == 0)
             {
@@ -99,10 +99,31 @@ namespace QuanLyCafe
         }
         private void frmLichSuHoaDon_Load(object sender, EventArgs e)
         {
-            // Đảm bảo ngày kết thúc không thể nhỏ hơn ngày bắt đầu
-            // và phải sau ngày bắt đầu ít nhất 1 ngày.
-            dtDTo.MinDate = dtDFrom.Value.AddDays(1);
+            // Lấy ngày có hóa đơn đầu tiên trong cơ sở dữ liệu
+            object firstInvoiceDateObj = ConnectSQL.ExecuteScalar("SELECT MIN(NgayLap) FROM HoaDon");
+
+            DateTime fromDate;
+            if (firstInvoiceDateObj != DBNull.Value && firstInvoiceDateObj != null)
+            {
+                fromDate = Convert.ToDateTime(firstInvoiceDateObj);
+            }
+            else
+            {
+                // Nếu không có hóa đơn nào, mặc định là đầu tháng hiện tại
+                fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            }
+
+            dtDFrom.Value = fromDate;
+            dtDTo.Value = DateTime.Today;
+
+            // Đảm bảo ngày kết thúc không nhỏ hơn ngày bắt đầu
+            dtDTo.MinDate = dtDFrom.Value.Date;
             LoadDataHoaDon();
+
+            // Gán lại sự kiện sau khi đã thiết lập giá trị ban đầu để tránh lỗi
+            // This prevents the ValueChanged events from firing during initial setup.
+            dtDFrom.ValueChanged += new System.EventHandler(this.dtDFrom_ValueChanged);
+            dtDTo.ValueChanged += new System.EventHandler(this.dtDTo_ValueChanged);
         }
 
         private void btnThanhToan_Click(object sender, EventArgs e)
@@ -123,15 +144,13 @@ namespace QuanLyCafe
         private void dtDFrom_ValueChanged(object sender, EventArgs e)
         {
             // Khi ngày bắt đầu thay đổi, ngày kết thúc không được nhỏ hơn ngày bắt đầu
-            // và phải sau ngày bắt đầu ít nhất 1 ngày.
-            dtDTo.MinDate = dtDFrom.Value.AddDays(1);
+            dtDTo.MinDate = dtDFrom.Value.Date;
         }
 
         private void dtDTo_ValueChanged(object sender, EventArgs e)
         {
             // Khi ngày kết thúc thay đổi, ngày bắt đầu không được lớn hơn ngày kết thúc
-            // và phải trước ngày kết thúc ít nhất 1 ngày.
-            dtDFrom.MaxDate = dtDTo.Value.AddDays(-1);
+            dtDFrom.MaxDate = dtDTo.Value.Date;
         }
     }
 }

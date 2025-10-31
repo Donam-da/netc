@@ -16,10 +16,34 @@ namespace QuanLyCafe
 
         private void frmThongKeLoiNhuan_Load(object sender, EventArgs e)
         {
-            // Đặt khoảng thời gian mặc định là tháng hiện tại
-            dtDFrom.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            // Lấy ngày có hóa đơn đầu tiên trong cơ sở dữ liệu
+            object firstInvoiceDateObj = ConnectSQL.ExecuteScalar("SELECT MIN(NgayLap) FROM HoaDon");
+
+            DateTime fromDate;
+            if (firstInvoiceDateObj != DBNull.Value && firstInvoiceDateObj != null)
+            {
+                fromDate = Convert.ToDateTime(firstInvoiceDateObj);
+            }
+            else
+            {
+                // Nếu không có hóa đơn nào, mặc định là đầu tháng hiện tại
+                fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            }
+
+            dtDFrom.Value = fromDate;
             dtDTo.Value = DateTime.Today;
+
+            // Đảm bảo ngày kết thúc không thể nhỏ hơn hoặc bằng ngày bắt đầu
+            if (dtDTo.Value.Date < dtDFrom.Value.Date)
+            {
+                dtDTo.Value = dtDFrom.Value.Date;
+            }
+            dtDTo.MinDate = dtDFrom.Value.Date;
             LoadData();
+
+            // Gán lại sự kiện sau khi đã thiết lập giá trị ban đầu
+            dtDFrom.ValueChanged += new System.EventHandler(this.dtDFrom_ValueChanged);
+            dtDTo.ValueChanged += new System.EventHandler(this.dtDTo_ValueChanged);
         }
 
         private void btnLocDuLieu_Click(object sender, EventArgs e)
@@ -88,12 +112,14 @@ ORDER BY
             dtgvData.Columns["GiaVon"].HeaderText = "Giá Vốn";
             dtgvData.Columns["LoiNhuan"].HeaderText = "Lợi Nhuận";
 
+            dtgvData.Columns["Ngay"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             // Định dạng số và căn lề
             string[] numericColumns = { "DoanhThu", "GiaVon", "LoiNhuan" };
             foreach (string colName in numericColumns)
             {
                 dtgvData.Columns[colName].DefaultCellStyle.Format = "N0";
-                dtgvData.Columns[colName].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dtgvData.Columns[colName].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             // Tính tổng
@@ -175,6 +201,7 @@ ORDER BY hd.NgayLap ASC;
 
             dtgvChiTiet.Columns["NgayLap"].HeaderText = "Ngày Giờ Lập";
             dtgvChiTiet.Columns["NgayLap"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+            dtgvChiTiet.Columns["NgayLap"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgvChiTiet.Columns["NgayLap"].Width = 160;
 
             dtgvChiTiet.Columns["DoanhThu"].HeaderText = "Doanh Thu";
@@ -188,8 +215,20 @@ ORDER BY hd.NgayLap ASC;
             foreach (string colName in numericColumns)
             {
                 dtgvChiTiet.Columns[colName].DefaultCellStyle.Format = "N0";
-                dtgvChiTiet.Columns[colName].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dtgvChiTiet.Columns[colName].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+        }
+
+        private void dtDFrom_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi ngày bắt đầu thay đổi, ngày kết thúc phải sau ngày bắt đầu ít nhất 1 ngày.
+            dtDTo.MinDate = dtDFrom.Value.Date;
+        }
+
+        private void dtDTo_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi ngày kết thúc thay đổi, ngày bắt đầu phải trước ngày kết thúc ít nhất 1 ngày.
+            dtDFrom.MaxDate = dtDTo.Value.Date;
         }
     }
 }

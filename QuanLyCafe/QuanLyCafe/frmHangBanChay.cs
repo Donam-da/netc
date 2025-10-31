@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Runtime.Versioning;
@@ -18,12 +18,24 @@ namespace QuanLyCafe
         private void frmHangBanChay_Load(object sender, EventArgs e)
         {
             // Khoảng mặc định: từ đầu tháng đến hôm nay
-            try
+            object firstInvoiceDateObj = ConnectSQL.ExecuteScalar("SELECT MIN(NgayLap) FROM HoaDon");
+
+            DateTime fromDate;
+            if (firstInvoiceDateObj != DBNull.Value && firstInvoiceDateObj != null)
             {
-                dtDFrom.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                dtDTo.Value = DateTime.Today;
+                fromDate = Convert.ToDateTime(firstInvoiceDateObj);
             }
-            catch { /* ignore */ }
+            else
+            {
+                // Nếu không có hóa đơn nào, mặc định là đầu tháng hiện tại
+                fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            }
+
+            dtDFrom.Value = fromDate;
+            dtDTo.Value = DateTime.Today;
+
+            // Đảm bảo ngày kết thúc không nhỏ hơn ngày bắt đầu
+            dtDTo.MinDate = dtDFrom.Value.Date;
 
             LoadData();
         }
@@ -37,12 +49,14 @@ namespace QuanLyCafe
         // ====== LỌC KHI ĐỔI NGÀY (tuỳ chọn bật) ================================
         private void dtDFrom_ValueChanged(object sender, EventArgs e)
         {
-            // LoadData();
+            // Khi ngày bắt đầu thay đổi, ngày kết thúc không được nhỏ hơn ngày bắt đầu
+            dtDTo.MinDate = dtDFrom.Value.Date;
         }
 
         private void dtDTo_ValueChanged(object sender, EventArgs e)
         {
-            // LoadData();
+            // Khi ngày kết thúc thay đổi, ngày bắt đầu không được lớn hơn ngày kết thúc
+            dtDFrom.MaxDate = dtDTo.Value.Date;
         }
 
         // ====== HÀM CHÍNH: TẢI DỮ LIỆU ========================================
@@ -57,31 +71,37 @@ namespace QuanLyCafe
             }
 
             // Lấy mốc ngày: [from, toNext) để không bỏ sót hóa đơn trong "Đến ngày"
-            string from = dtDFrom.Value.ToString("yyyyMMdd");              // ví dụ 20251007 00:00
-            string toNext = dtDTo.Value.AddDays(1).ToString("yyyyMMdd");   // ngày hôm sau của "Đến ngày"
+            var parameters = new System.Collections.Generic.Dictionary<string, object>
+            {
+                { "@FromDate", dtDFrom.Value.Date },
+                { "@ToDateNext", dtDTo.Value.Date.AddDays(1) }
+            };
 
             // TOP hàng bán chạy theo Số lượng (nếu bằng nhau, theo Doanh thu)
-            string sqlTop = $@"
-        SELECT d.TenDU AS [Đồ uống],                  -- Tên đồ uống hiển thị
-               SUM(ct.SoLuong)   AS [Số lượng],       -- Tổng số lượng đã bán
-               SUM(ct.ThanhTien) AS [Doanh thu]       -- Tổng doanh thu (đã tính sẵn ở chi tiết)
+            string sqlTop = @"
+        SELECT d.MaDU,
+               d.TenDU,
+               SUM(ct.SoLuong)   AS SoLuong,
+               SUM(ct.ThanhTien) AS DoanhThu
         FROM HoaDon hd
         JOIN ChiTietHoaDon ct ON ct.MaHD = hd.MaHD
         JOIN DoUong d        ON d.MaDU = ct.MaDU
-        WHERE hd.NgayLap >= '{from}' AND hd.NgayLap < '{toNext}' -- lọc theo khoảng ngày [from, toNext)
-        GROUP BY d.TenDU
-        ORDER BY SUM(ct.SoLuong) DESC, SUM(ct.ThanhTien) DESC";    // sắp xếp: SL giảm dần, rồi DT giảm dần
+        WHERE hd.TrangThai = 1 AND hd.NgayLap >= @FromDate AND hd.NgayLap < @ToDateNext
+        GROUP BY d.MaDU, d.TenDU
+        ORDER BY SoLuong DESC, DoanhThu DESC";
 
-            DataTable dt = ConnectSQL.Load(sqlTop);   // Thực thi SQL và lấy bảng dữ liệu
+            DataTable dt = ConnectSQL.Load(sqlTop, parameters);   // Thực thi SQL và lấy bảng dữ liệu
             dtgvData.DataSource = dt;                 // Đổ vào DataGridView
 
             // Căn lề & định dạng cột số
-            if (dtgvData.Columns.Count >= 3)
-            {
-                dtgvData.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Canh phải cột "Số lượng"
-                dtgvData.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Canh phải cột "Doanh thu"
-                dtgvData.Columns[2].DefaultCellStyle.Format = "N0";                                        // Định dạng tiền N0 (1.234.567)
-            }
+            dtgvData.Columns["MaDU"].HeaderText = "Mã Đồ Uống";
+            dtgvData.Columns["TenDU"].HeaderText = "Tên Đồ Uống";
+            dtgvData.Columns["SoLuong"].HeaderText = "Số Lượng Bán";
+            dtgvData.Columns["DoanhThu"].HeaderText = "Doanh Thu";
+
+            dtgvData.Columns["SoLuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["DoanhThu"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgvData.Columns["DoanhThu"].DefaultCellStyle.Format = "N0";
 
             // Tính tổng doanh thu
             decimal tong = 0;
@@ -89,16 +109,16 @@ namespace QuanLyCafe
             {
                 foreach (DataRow r in dt.Rows)
                 {
-                    if (decimal.TryParse(r["Doanh thu"].ToString(), out decimal v))
+                    if (decimal.TryParse(r["DoanhThu"].ToString(), out decimal v))
                         tong += v; // Cộng dồn doanh thu
                 }
 
                 lblTongTien.Text = tong.ToString("N0") + " VNĐ"; // Hiển thị tổng doanh thu ở dưới
 
                 // Cập nhật tiêu đề form với Top 1 (dòng đầu tiên sau khi ORDER BY)
-                string tenTop1 = dt.Rows[0]["Đồ uống"]?.ToString() ?? "";
-                string slTop1 = dt.Rows[0]["Số lượng"]?.ToString() ?? "";
-                string dtTop1 = Convert.ToDecimal(dt.Rows[0]["Doanh thu"] ?? 0).ToString("N0");
+                string tenTop1 = dt.Rows[0]["TenDU"]?.ToString() ?? "";
+                string slTop1 = dt.Rows[0]["SoLuong"]?.ToString() ?? "";
+                string dtTop1 = Convert.ToDecimal(dt.Rows[0]["DoanhThu"] ?? 0).ToString("N0");
                 this.Text = $"Top hàng bán chạy (Top 1: {tenTop1} - SL: {slTop1}, DT: {dtTop1} VNĐ)";
             }
             else

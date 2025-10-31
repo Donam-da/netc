@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -66,11 +66,11 @@
             this.rbYes = new System.Windows.Forms.RadioButton();
             this.pnlHoaDon = new System.Windows.Forms.Panel();
             this.btnThongKe = new System.Windows.Forms.ToolStripDropDownButton();
-            this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHangBanChay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLoiNhuan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuKhachHangThanThiet = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
@@ -235,10 +235,10 @@
             // btnThongKe
             // 
             this.btnThongKe.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuDoanhThuNgay,
             this.menuThongKeDoanhThuNV,
             this.menuLoiNhuan,
             this.menuHangBanChay,
+            this.menuKhachHangThanThiet,
             this.menuLichSuHoaDon});
             this.btnThongKe.ForeColor = System.Drawing.Color.White;
             this.btnThongKe.Image = ((System.Drawing.Image)(resources.GetObject("btnThongKe.Image")));
@@ -247,13 +247,6 @@
             this.btnThongKe.Size = new System.Drawing.Size(100, 50);
             this.btnThongKe.Text = "Thống kê";
             this.btnThongKe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // menuDoanhThuNgay
-            // 
-            this.menuDoanhThuNgay.Name = "menuDoanhThuNgay";
-            this.menuDoanhThuNgay.Size = new System.Drawing.Size(212, 28);
-            this.menuDoanhThuNgay.Text = "Doanh thu ngày";
-            this.menuDoanhThuNgay.Click += new System.EventHandler(this.menuDoanhThuNgay_Click);
             // 
             // menuThongKeDoanhThuNV
             // 
@@ -282,6 +275,13 @@
             this.menuLichSuHoaDon.Size = new System.Drawing.Size(224, 28);
             this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
             this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
+            // 
+            // menuKhachHangThanThiet
+            // 
+            this.menuKhachHangThanThiet.Name = "menuKhachHangThanThiet";
+            this.menuKhachHangThanThiet.Size = new System.Drawing.Size(224, 28);
+            this.menuKhachHangThanThiet.Text = "Khách hàng thân thiết";
+            this.menuKhachHangThanThiet.Click += new System.EventHandler(this.menuKhachHangThanThiet_Click);
             // 
             // lblLowStockWarning
             // 
@@ -841,7 +841,6 @@
         private System.Windows.Forms.Label lblWarningNote;
         private System.Windows.Forms.ToolStripMenuItem menuKH;
         private System.Windows.Forms.ToolStripDropDownButton btnThongKe;
-        private System.Windows.Forms.ToolStripMenuItem menuDoanhThuNgay;
         private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
         private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
         private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
@@ -851,5 +850,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuBangGiaDU;
         private System.Windows.Forms.ToolStripMenuItem menuDonViTinh;
+        private System.Windows.Forms.ToolStripMenuItem menuKhachHangThanThiet;
     }
 }

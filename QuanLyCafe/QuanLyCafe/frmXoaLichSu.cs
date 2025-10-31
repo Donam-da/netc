@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Versioning;
@@ -21,31 +21,48 @@ namespace QuanLyCafe
             dtpThang.Value = DateTime.Today;
             dtpTuNgay.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpDenNgay.Value = DateTime.Today;
+
+            // Tự động hiển thị danh sách xem trước cho tab mặc định (Xóa theo ngày)
+            PreviewByDay();
+        }
+
+        // Hàm xem trước các hóa đơn sẽ bị xóa
+        private DataTable PreviewInvoices(string condition, Dictionary<string, object> parameters)
+        {
+            string sql = $@"SELECT MaHD, NgayLap, TongTien 
+                            FROM HoaDon 
+                            WHERE {condition}
+                            ORDER BY NgayLap DESC";
+            DataTable dt = ConnectSQL.Load(sql, parameters);
+            dtgvHoaDonToDelete.DataSource = dt;
+
+            // Cấu hình bảng xem trước
+            frmNhanVien.SetupDataGridView(dtgvHoaDonToDelete);
+            dtgvHoaDonToDelete.Columns["MaHD"].HeaderText = "Mã Hóa Đơn";
+            dtgvHoaDonToDelete.Columns["NgayLap"].HeaderText = "Ngày Lập";
+            dtgvHoaDonToDelete.Columns["TongTien"].HeaderText = "Tổng Tiền";
+            dtgvHoaDonToDelete.Columns["TongTien"].DefaultCellStyle.Format = "N0";
+
+            return dt;
         }
 
         // Hàm thực hiện xóa chung
         private void ExecuteDelete(string condition, Dictionary<string, object> parameters, string confirmMessage)
         {
-            DialogResult result = MessageBox.Show(confirmMessage, "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.No)
+            if (dtgvHoaDonToDelete.Rows.Count == 0)
             {
+                MessageBox.Show("Không có hóa đơn nào trong khoảng thời gian đã chọn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             try
             {
                 // Bắt đầu giao dịch
-                // 1. Lấy danh sách các hóa đơn sẽ bị xóa
-                string sqlGetHoaDon = $"SELECT MaHD FROM HoaDon WHERE {condition}";
-                DataTable dtHoaDonToDelete = ConnectSQL.Load(sqlGetHoaDon, parameters);
-
-                if (dtHoaDonToDelete.Rows.Count == 0)
+                DialogResult result = MessageBox.Show(confirmMessage, "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
                 {
-                    MessageBox.Show("Không có hóa đơn nào trong khoảng thời gian đã chọn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-
-                // 2. Xóa các chi tiết hóa đơn liên quan
                 string sqlDeleteChiTiet = $"DELETE FROM ChiTietHoaDon WHERE MaHD IN (SELECT MaHD FROM HoaDon WHERE {condition})";
                 ConnectSQL.RunQuery(sqlDeleteChiTiet, parameters);
 
@@ -68,35 +85,23 @@ namespace QuanLyCafe
 
         private void btnXoaTheoNgay_Click(object sender, EventArgs e)
         {
-            DateTime selectedDate = dtpNgay.Value.Date;
             string condition = "CAST(NgayLap AS DATE) = @SelectedDate";
-            var parameters = new Dictionary<string, object> { { "@SelectedDate", selectedDate } };
-            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch trong ngày {selectedDate:dd/MM/yyyy} không?";
+            var parameters = new Dictionary<string, object> { { "@SelectedDate", dtpNgay.Value.Date } };
+            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch trong ngày {dtpNgay.Value.Date:dd/MM/yyyy} không?";
             ExecuteDelete(condition, parameters, message);
         }
 
         private void btnXoaTheoThang_Click(object sender, EventArgs e)
         {
-            DateTime selectedMonth = dtpThang.Value;
-            DateTime startDate = new DateTime(selectedMonth.Year, selectedMonth.Month, 1);
-            DateTime endDate = startDate.AddMonths(1);
-
             string condition = "NgayLap >= @StartDate AND NgayLap < @EndDate";
-            var parameters = new Dictionary<string, object>
-            {
-                { "@StartDate", startDate },
-                { "@EndDate", endDate }
-            };
-            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch trong tháng {startDate:MM/yyyy} không?";
+            var parameters = GetMonthRangeParameters(dtpThang.Value);
+            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch trong tháng {dtpThang.Value:MM/yyyy} không?";
             ExecuteDelete(condition, parameters, message);
         }
 
         private void btnXoaTheoKhoang_Click(object sender, EventArgs e)
         {
-            DateTime startDate = dtpTuNgay.Value.Date;
-            DateTime endDate = dtpDenNgay.Value.Date.AddDays(1);
-
-            if (startDate >= endDate)
+            if (dtpTuNgay.Value.Date > dtpDenNgay.Value.Date)
             {
                 MessageBox.Show("'Từ ngày' phải nhỏ hơn 'Đến ngày'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -105,15 +110,22 @@ namespace QuanLyCafe
             string condition = "NgayLap >= @StartDate AND NgayLap < @EndDate";
             var parameters = new Dictionary<string, object>
             {
-                { "@StartDate", startDate },
-                { "@EndDate", endDate }
+                { "@StartDate", dtpTuNgay.Value.Date },
+                { "@EndDate", dtpDenNgay.Value.Date.AddDays(1) }
             };
-            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch từ ngày {startDate:dd/MM/yyyy} đến {dtpDenNgay.Value.Date:dd/MM/yyyy} không?";
+            string message = $"Bạn có chắc chắn muốn xóa toàn bộ lịch sử giao dịch từ ngày {dtpTuNgay.Value.Date:dd/MM/yyyy} đến {dtpDenNgay.Value.Date:dd/MM/yyyy} không?";
             ExecuteDelete(condition, parameters, message);
         }
 
         private void btnXoaToanBo_Click(object sender, EventArgs e)
         {
+            // Xem trước toàn bộ hóa đơn
+            string sqlPreviewAll = "SELECT MaHD, NgayLap, TongTien FROM HoaDon WHERE TrangThai = 1 ORDER BY NgayLap DESC";
+            if (ConnectSQL.Load(sqlPreviewAll).Rows.Count == 0)
+            {
+                MessageBox.Show("Không có hóa đơn nào để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             string warningMessage = "BẠN CÓ CHẮC CHẮN MUỐN XÓA TOÀN BỘ LỊCH SỬ GIAO DỊCH?\n\n" +
                                     "Hành động này sẽ xóa vĩnh viễn tất cả hóa đơn và chi tiết hóa đơn đã lưu. " +
                                     "Dữ liệu sẽ không thể khôi phục.";
@@ -142,5 +154,45 @@ namespace QuanLyCafe
         {
             this.Close();
         }
+
+        // --- Các hàm hỗ trợ xem trước ---
+        private void PreviewByDay()
+        {
+            string condition = "CAST(NgayLap AS DATE) = @SelectedDate";
+            var parameters = new Dictionary<string, object> { { "@SelectedDate", dtpNgay.Value.Date } };
+            PreviewInvoices(condition, parameters);
+        }
+
+        private void PreviewByMonth()
+        {
+            string condition = "NgayLap >= @StartDate AND NgayLap < @EndDate";
+            var parameters = GetMonthRangeParameters(dtpThang.Value);
+            PreviewInvoices(condition, parameters);
+        }
+
+        private void PreviewByRange()
+        {
+            if (dtpTuNgay.Value.Date > dtpDenNgay.Value.Date) return; // Không làm gì nếu ngày không hợp lệ
+            string condition = "NgayLap >= @StartDate AND NgayLap < @EndDate";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@StartDate", dtpTuNgay.Value.Date },
+                { "@EndDate", dtpDenNgay.Value.Date.AddDays(1) }
+            };
+            PreviewInvoices(condition, parameters);
+        }
+
+        private Dictionary<string, object> GetMonthRangeParameters(DateTime selectedMonth)
+        {
+            DateTime startDate = new DateTime(selectedMonth.Year, selectedMonth.Month, 1);
+            DateTime endDate = startDate.AddMonths(1);
+            return new Dictionary<string, object> { { "@StartDate", startDate }, { "@EndDate", endDate } };
+        }
+
+        // --- Các sự kiện ValueChanged ---
+        private void dtpNgay_ValueChanged(object sender, EventArgs e) => PreviewByDay();
+        private void dtpThang_ValueChanged(object sender, EventArgs e) => PreviewByMonth();
+        private void dtpTuNgay_ValueChanged(object sender, EventArgs e) => PreviewByRange();
+        private void dtpDenNgay_ValueChanged(object sender, EventArgs e) => PreviewByRange();
     }
 }

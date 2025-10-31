@@ -84,6 +84,7 @@
             this.dtDTo.Name = "dtDTo";
             this.dtDTo.Size = new System.Drawing.Size(150, 29);
             this.dtDTo.TabIndex = 3;
+            this.dtDTo.ValueChanged += new System.EventHandler(this.dtDTo_ValueChanged);
             // 
             // label2
             // 
@@ -105,6 +106,7 @@
             this.dtDFrom.Name = "dtDFrom";
             this.dtDFrom.Size = new System.Drawing.Size(150, 29);
             this.dtDFrom.TabIndex = 1;
+            this.dtDFrom.ValueChanged += new System.EventHandler(this.dtDFrom_ValueChanged);
             // 
             // label1
             // 
@@ -155,7 +157,7 @@
             this.lblTongTien.AutoSize = true;
             this.lblTongTien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblTongTien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
-            this.lblTongTien.Location = new System.Drawing.Point(881, 6);
+            this.lblTongTien.Location = new System.Drawing.Point(851, 6);
             this.lblTongTien.Name = "lblTongTien";
             this.lblTongTien.Size = new System.Drawing.Size(74, 28);
             this.lblTongTien.TabIndex = 1;
@@ -167,7 +169,7 @@
             this.lblTotalCaption.AutoSize = true;
             this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblTotalCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
-            this.lblTotalCaption.Location = new System.Drawing.Point(792, 6);
+            this.lblTotalCaption.Location = new System.Drawing.Point(762, 6);
             this.lblTotalCaption.Name = "lblTotalCaption";
             this.lblTotalCaption.Size = new System.Drawing.Size(74, 28);
             this.lblTotalCaption.TabIndex = 0;

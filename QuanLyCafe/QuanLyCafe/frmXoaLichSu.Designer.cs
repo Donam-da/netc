@@ -1,4 +1,4 @@
-﻿namespace QuanLyCafe
+﻿﻿namespace QuanLyCafe
 {
     partial class frmXoaLichSu
     {
@@ -32,12 +32,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpTuNgay = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
+            this.pnlBottom = new System.Windows.Forms.Panel();
+            this.dtgvHoaDonToDelete = new System.Windows.Forms.DataGridView();
+            this.lblPreviewTitle = new System.Windows.Forms.Label();
             this.btnXoaToanBo = new System.Windows.Forms.Button();
             this.btnThoat = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabNgay.SuspendLayout();
             this.tabThang.SuspendLayout();
             this.tabKhoang.SuspendLayout();
+            this.pnlBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvHoaDonToDelete)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -46,7 +51,7 @@
             this.tabControl1.Controls.Add(this.tabThang);
             this.tabControl1.Controls.Add(this.tabKhoang);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tabControl1.Location = new System.Drawing.Point(10, 10);
+            this.tabControl1.Location = new System.Drawing.Point(10, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(464, 150);
@@ -88,6 +93,7 @@
             this.dtpNgay.Name = "dtpNgay";
             this.dtpNgay.Size = new System.Drawing.Size(180, 29);
             this.dtpNgay.TabIndex = 1;
+            this.dtpNgay.ValueChanged += new System.EventHandler(this.dtpNgay_ValueChanged);
             // 
             // label1
             // 
@@ -135,6 +141,7 @@
             this.dtpThang.ShowUpDown = true;
             this.dtpThang.Size = new System.Drawing.Size(165, 29);
             this.dtpThang.TabIndex = 4;
+            this.dtpThang.ValueChanged += new System.EventHandler(this.dtpThang_ValueChanged);
             // 
             // label3
             // 
@@ -182,6 +189,7 @@
             this.dtpDenNgay.Name = "dtpDenNgay";
             this.dtpDenNgay.Size = new System.Drawing.Size(180, 29);
             this.dtpDenNgay.TabIndex = 5;
+            this.dtpDenNgay.ValueChanged += new System.EventHandler(this.dtpDenNgay_ValueChanged);
             // 
             // label5
             // 
@@ -200,6 +208,7 @@
             this.dtpTuNgay.Name = "dtpTuNgay";
             this.dtpTuNgay.Size = new System.Drawing.Size(180, 29);
             this.dtpTuNgay.TabIndex = 3;
+            this.dtpTuNgay.ValueChanged += new System.EventHandler(this.dtpTuNgay_ValueChanged);
             // 
             // label4
             // 
@@ -210,14 +219,57 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Từ ngày:";
             // 
+            // pnlBottom
+            // 
+            this.pnlBottom.Controls.Add(this.dtgvHoaDonToDelete);
+            this.pnlBottom.Controls.Add(this.lblPreviewTitle);
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBottom.Location = new System.Drawing.Point(10, 155);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(464, 212);
+            this.pnlBottom.TabIndex = 8;
+            // 
+            // dtgvHoaDonToDelete
+            // 
+            this.dtgvHoaDonToDelete.AllowUserToAddRows = false;
+            this.dtgvHoaDonToDelete.AllowUserToDeleteRows = false;
+            this.dtgvHoaDonToDelete.AllowUserToResizeRows = false;
+            this.dtgvHoaDonToDelete.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgvHoaDonToDelete.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
+            this.dtgvHoaDonToDelete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvHoaDonToDelete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgvHoaDonToDelete.Location = new System.Drawing.Point(0, 28);
+            this.dtgvHoaDonToDelete.Name = "dtgvHoaDonToDelete";
+            this.dtgvHoaDonToDelete.ReadOnly = true;
+            this.dtgvHoaDonToDelete.RowHeadersVisible = false;
+            this.dtgvHoaDonToDelete.RowHeadersWidth = 51;
+            this.dtgvHoaDonToDelete.RowTemplate.Height = 24;
+            this.dtgvHoaDonToDelete.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgvHoaDonToDelete.Size = new System.Drawing.Size(464, 184);
+            this.dtgvHoaDonToDelete.TabIndex = 1;
+            // 
+            // lblPreviewTitle
+            // 
+            this.lblPreviewTitle.AutoSize = true;
+            this.lblPreviewTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblPreviewTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblPreviewTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.lblPreviewTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblPreviewTitle.Name = "lblPreviewTitle";
+            this.lblPreviewTitle.Padding = new System.Windows.Forms.Padding(0, 3, 0, 5);
+            this.lblPreviewTitle.Size = new System.Drawing.Size(176, 28);
+            this.lblPreviewTitle.TabIndex = 0;
+            this.lblPreviewTitle.Text = "Các hóa đơn sẽ bị xóa:";
+            // 
             // btnXoaToanBo
             // 
+            this.btnXoaToanBo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnXoaToanBo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.btnXoaToanBo.FlatAppearance.BorderSize = 0;
             this.btnXoaToanBo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoaToanBo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoaToanBo.ForeColor = System.Drawing.Color.White;
-            this.btnXoaToanBo.Location = new System.Drawing.Point(14, 175);
+            this.btnXoaToanBo.Location = new System.Drawing.Point(14, 378);
             this.btnXoaToanBo.Name = "btnXoaToanBo";
             this.btnXoaToanBo.Size = new System.Drawing.Size(220, 45);
             this.btnXoaToanBo.TabIndex = 1;
@@ -227,13 +279,14 @@
             // 
             // btnThoat
             // 
+            this.btnThoat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnThoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(85)))), ((int)(((byte)(72)))));
             this.btnThoat.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnThoat.FlatAppearance.BorderSize = 0;
             this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThoat.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnThoat.ForeColor = System.Drawing.Color.White;
-            this.btnThoat.Location = new System.Drawing.Point(354, 178);
+            this.btnThoat.Location = new System.Drawing.Point(354, 381);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(110, 40);
             this.btnThoat.TabIndex = 7;
@@ -246,7 +299,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(213)))), ((int)(((byte)(183)))));
-            this.ClientSize = new System.Drawing.Size(484, 236);
+            this.ClientSize = new System.Drawing.Size(484, 436);
+            this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnXoaToanBo);
             this.Controls.Add(this.tabControl1);
@@ -256,7 +310,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmXoaLichSu";
-            this.Padding = new System.Windows.Forms.Padding(10);
+            this.Padding = new System.Windows.Forms.Padding(10, 5, 10, 10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tùy chọn Xóa Lịch sử Giao dịch";
             this.Load += new System.EventHandler(this.frmXoaLichSu_Load);
@@ -267,6 +321,9 @@
             this.tabThang.PerformLayout();
             this.tabKhoang.ResumeLayout(false);
             this.tabKhoang.PerformLayout();
+            this.pnlBottom.ResumeLayout(false);
+            this.pnlBottom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvHoaDonToDelete)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -290,5 +347,8 @@
         private System.Windows.Forms.DateTimePicker dtpTuNgay;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Panel pnlBottom;
+        private System.Windows.Forms.DataGridView dtgvHoaDonToDelete;
+        private System.Windows.Forms.Label lblPreviewTitle;
     }
 }
