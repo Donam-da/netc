@@ -1,4 +1,4 @@
-﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmDangNhap
@@ -36,6 +36,7 @@
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlRight = new System.Windows.Forms.Panel();
             this.btnThoat = new QuanLyCafe.RoundedButton();
+            this.chkLuuMatKhau = new System.Windows.Forms.CheckBox();
             this.btnDangNhap = new QuanLyCafe.RoundedButton();
             this.lblUsernamePrompt = new System.Windows.Forms.Label();
             this.lblPasswordPrompt = new System.Windows.Forms.Label();
@@ -105,6 +106,7 @@
             // 
             this.pnlRight.BackColor = System.Drawing.Color.FloralWhite;
             this.pnlRight.Controls.Add(this.btnThoat);
+            this.pnlRight.Controls.Add(this.chkLuuMatKhau);
             this.pnlRight.Controls.Add(this.lblPasswordPrompt);
             this.pnlRight.Controls.Add(this.lblUsernamePrompt);
             this.pnlRight.Controls.Add(this.btnDangNhap);
@@ -126,13 +128,27 @@
             this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThoat.Font = new System.Drawing.Font("Poppins", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThoat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
-            this.btnThoat.Location = new System.Drawing.Point(250, 280);
+            this.btnThoat.Location = new System.Drawing.Point(250, 301);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(150, 45);
             this.btnThoat.TabIndex = 4;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = false;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // chkLuuMatKhau
+            // 
+            this.chkLuuMatKhau.AutoSize = true;
+            this.chkLuuMatKhau.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.chkLuuMatKhau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(64)))), ((int)(((byte)(55)))));
+            this.chkLuuMatKhau.Location = new System.Drawing.Point(46, 271);
+            this.chkLuuMatKhau.Name = "chkLuuMatKhau";
+            this.chkLuuMatKhau.Size = new System.Drawing.Size(121, 24);
+            this.chkLuuMatKhau.TabIndex = 7;
+            this.chkLuuMatKhau.Text = "Lưu mật khẩu";
+            this.chkLuuMatKhau.UseVisualStyleBackColor = true;
+            this.chkLuuMatKhau.CheckedChanged += new System.EventHandler(this.chkLuuMatKhau_CheckedChanged);
+
             // 
             // btnDangNhap
             // 
@@ -142,7 +158,7 @@
             this.btnDangNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangNhap.Font = new System.Drawing.Font("Poppins", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.ForeColor = System.Drawing.Color.White;
-            this.btnDangNhap.Location = new System.Drawing.Point(70, 280);
+            this.btnDangNhap.Location = new System.Drawing.Point(70, 301);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(150, 45);
             this.btnDangNhap.TabIndex = 3;
@@ -323,6 +339,7 @@
         private RoundedPanel pnlPassword;
         private System.Windows.Forms.PictureBox picUsername;
         private System.Windows.Forms.PictureBox picShowPass;
+        private System.Windows.Forms.CheckBox chkLuuMatKhau;
         private float GradientAngle;
         private System.Drawing.Color GradientEndColor;
         private System.Drawing.Color GradientStartColor;

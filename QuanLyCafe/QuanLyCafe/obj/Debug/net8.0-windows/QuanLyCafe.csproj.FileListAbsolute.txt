@@ -105,7 +105,6 @@ C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-wi
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmInHoaDon.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmKhachHang.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmLichSuHoaDon.resources
-C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmLoaiDoUong.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmManHinhChinh.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmNhanVien.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmThanhToan.resources

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +34,7 @@ namespace QuanLyCafe
         }
         private void LoadData()
         {
-            string strSql = "SELECT MaBan, SucChua, CASE WHEN TrangThai = 0 THEN N'Bàn trống' ELSE N'Bàn có người' END AS TrangThai FROM Ban WHERE MaBan LIKE @SearchText";
+            string strSql = "SELECT MaBan, SucChua, CASE WHEN TrangThai = 0 THEN N'Bàn trống' ELSE N'Bàn có người' END AS TrangThai FROM Ban WHERE MaBan LIKE @SearchText ORDER BY CAST(SUBSTRING(MaBan, 4, LEN(MaBan)) AS INT)";
             string searchText = txtSearch?.Text ?? string.Empty; // Kiểm tra null cho txtSearch
             var parameters = new Dictionary<string, object>
             {

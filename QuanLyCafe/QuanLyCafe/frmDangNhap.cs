@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,7 @@ using System.Runtime.Versioning;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using QuanLyCafe.Properties;
 
 namespace QuanLyCafe
 {
@@ -69,10 +70,41 @@ namespace QuanLyCafe
                 MatKhau = txtMatKhau.Text;
                 Quyen = dt.Rows[0]["Quyen"]?.ToString();
 
+                // Xử lý lưu mật khẩu
+                if (chkLuuMatKhau.Checked)
+                {
+                    Settings.Default.Username = txtMaDangNhap.Text;
+                    Settings.Default.Password = txtMatKhau.Text;
+                    Settings.Default.RememberMe = true;
+                }
+                else
+                {
+                    Settings.Default.Username = "";
+                    Settings.Default.Password = "";
+                    Settings.Default.RememberMe = false;
+                }
+                Settings.Default.Save();
+
                 this.Hide(); // Ẩn form đăng nhập
                 frmManHinhChinh frm = new frmManHinhChinh();
-                frm.FormClosed += (s, args) => this.Close(); // Đóng form đăng nhập khi form chính đóng
-                frm.Show(); // Hiển thị form chính
+                frm.FormClosed += (s, args) =>
+                {
+                    // Kiểm tra xem có phải là hành động đăng xuất không
+                    if (frm.IsLoggingOut)
+                    {
+                        // Chỉ xóa thông tin nếu người dùng không chọn "Lưu mật khẩu"
+                        if (!Settings.Default.RememberMe)
+                        {
+                            txtMaDangNhap.Text = "";
+                            txtMatKhau.Text = "";
+                        }
+                        SetupPlaceholder();
+                        this.Show(); // Nếu là đăng xuất, hiện lại form đăng nhập
+                        txtMaDangNhap.Focus();
+                    }
+                    else this.Close(); // Nếu không, đóng ứng dụng
+                };
+                frm.Show();
             }
             else
             {
@@ -120,10 +152,27 @@ namespace QuanLyCafe
             // Thiết lập placeholder ban đầu
             SetupPlaceholder();
 
+            // Tải thông tin đăng nhập đã lưu
+            LoadSavedCredentials();
+
             // --- LÀM TRONG SUỐT NỀN TEXTBOX ---
             // Đặt control cha cho textbox là panel chứa nó
             txtMaDangNhap.Parent = pnlUsername;
             txtMatKhau.Parent = pnlPassword;
+        }
+        private void LoadSavedCredentials()
+        {
+            if (Settings.Default.RememberMe)
+            {
+                txtMaDangNhap.Text = Settings.Default.Username;
+                txtMatKhau.Text = Settings.Default.Password;
+                chkLuuMatKhau.Checked = true;
+
+                // Bỏ trạng thái placeholder nếu có dữ liệu
+                txtMaDangNhap.ForeColor = Color.White;
+                txtMatKhau.ForeColor = Color.White;
+                txtMatKhau.PasswordChar = '●';
+            }
         }
 
         // =================== CÁC HÀM HỖ TRỢ ===================
@@ -225,6 +274,11 @@ namespace QuanLyCafe
                     txtMatKhau.PasswordChar = '●';
                 }
             }
+        }
+
+        private void chkLuuMatKhau_CheckedChanged(object? sender, EventArgs e)
+        {
+
         }
     }
 }

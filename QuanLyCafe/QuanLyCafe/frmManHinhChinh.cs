@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +18,8 @@ namespace QuanLyCafe
         public static string MaHDThanhToan = string.Empty;
         public static string TongTienThanhToan = string.Empty;
         public static string MaBanThanhToan = string.Empty;
+        public bool IsLoggingOut { get; private set; } = false;
+
 
         public frmManHinhChinh()
         {
@@ -43,8 +45,10 @@ namespace QuanLyCafe
         
         private void menuLDU_Click(object? sender, EventArgs e)
         {
-            frmLoaiDoUong frm = new frmLoaiDoUong();
-            frm.ShowDialog();
+            using (frmLoaiDoUong frm = new frmLoaiDoUong())
+            {
+                frm.ShowDialog();
+            }
             RefreshAllData();
         }
 
@@ -150,7 +154,7 @@ namespace QuanLyCafe
             dtgvDoUong.Columns["SuaDoUong"].Width = 80;
         }
         private void frmManHinhChinh_Load(object? sender, EventArgs e)
-        {
+        { // Logic tô màu đã được gỡ bỏ
             if (frmDangNhap.Quyen == "Nhân viên")
             {
                 menuNhanVien.Enabled = false;
@@ -161,9 +165,9 @@ namespace QuanLyCafe
             // Thêm sự kiện CellFormatting để tô màu cảnh báo tồn kho
             dtgvDoUong.CellFormatting += dtgvDoUong_CellFormatting;
 
-            LoadTable();
-            LoadMenuDoUong();
-            CheckLowStock();
+            LoadTable(); // Tải danh sách bàn
+            LoadMenuDoUong(); // Tải danh sách đồ uống
+            CheckLowStock(); // Kiểm tra tồn kho
         }
 
         private void rbYes_CheckedChanged(object? sender, EventArgs e)
@@ -191,7 +195,11 @@ namespace QuanLyCafe
             // Bỏ qua nếu click vào header
             if (e.RowIndex >= 0)
             {
-                btnBanDaChon.Text = dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value?.ToString() ?? string.Empty;
+                // Thêm kiểm tra null để tránh lỗi CS8602
+                if (btnBanDaChon != null && dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value != null)
+                {
+                    btnBanDaChon.Text = dtgvBan.Rows[e.RowIndex].Cells["MaBan"].Value?.ToString() ?? string.Empty;
+                }
                 LoadDoUongDaGoi();
             }
         }
@@ -418,7 +426,10 @@ namespace QuanLyCafe
 
         private void dtgvHoaDon_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
-            // Bỏ qua nếu không phải cột "Số lượng" hoặc form đang load
+            // Thêm kiểm tra null cho dtgvHoaDon và dtgvHoaDon.Columns để tránh lỗi CS8602
+            if (dtgvHoaDon == null || dtgvHoaDon.Columns.Count <= e.ColumnIndex) return;
+
+            // Bỏ qua nếu không phải cột "Số lượng" hoặc form đang load, hoặc không có cột
             if (e.RowIndex < 0 || dtgvHoaDon.Columns[e.ColumnIndex].Name != "SoLuong")
             {
                 return;
@@ -546,6 +557,7 @@ namespace QuanLyCafe
 
         private void btnDX_Click(object? sender, EventArgs e)
         {
+            this.IsLoggingOut = true;
             this.Close();
         }
 

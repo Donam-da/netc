@@ -240,7 +240,7 @@
             // 
             this.rbNguyenBan.AutoSize = true;
             this.rbNguyenBan.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rbNguyenBan.Location = new System.Drawing.Point(20, 480);
+            this.rbNguyenBan.Location = new System.Drawing.Point(20, 338);
             this.rbNguyenBan.Name = "rbNguyenBan";
             this.rbNguyenBan.Size = new System.Drawing.Size(176, 27);
             this.rbNguyenBan.TabIndex = 14;
@@ -253,7 +253,7 @@
             // 
             this.rbPhaChe.AutoSize = true;
             this.rbPhaChe.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rbPhaChe.Location = new System.Drawing.Point(20, 450);
+            this.rbPhaChe.Location = new System.Drawing.Point(20, 308);
             this.rbPhaChe.Name = "rbPhaChe";
             this.rbPhaChe.Size = new System.Drawing.Size(154, 27);
             this.rbPhaChe.TabIndex = 13;
@@ -266,7 +266,7 @@
             // 
             this.txtSoLuongTon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(240)))));
             this.txtSoLuongTon.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtSoLuongTon.Location = new System.Drawing.Point(20, 334);
+            this.txtSoLuongTon.Location = new System.Drawing.Point(20, 480);
             this.txtSoLuongTon.Name = "txtSoLuongTon";
             this.txtSoLuongTon.Size = new System.Drawing.Size(320, 29);
             this.txtSoLuongTon.TabIndex = 8;
@@ -277,7 +277,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
-            this.label5.Location = new System.Drawing.Point(16, 308);
+            this.label5.Location = new System.Drawing.Point(16, 450);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(112, 23);
             this.label5.TabIndex = 11;
