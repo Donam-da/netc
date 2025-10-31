@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -54,6 +54,14 @@
             this.menuBan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDoUong = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLDU = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlBan = new System.Windows.Forms.Panel();
+            this.dtgvBan = new System.Windows.Forms.DataGridView();
+            this.pnlLocBan = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbAll = new System.Windows.Forms.RadioButton();
+            this.rbNo = new System.Windows.Forms.RadioButton();
+            this.rbYes = new System.Windows.Forms.RadioButton();
+            this.pnlHoaDon = new System.Windows.Forms.Panel();
             this.btnThongKe = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,14 +71,6 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblNhanVien = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlBan = new System.Windows.Forms.Panel();
-            this.dtgvBan = new System.Windows.Forms.DataGridView();
-            this.pnlLocBan = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbAll = new System.Windows.Forms.RadioButton();
-            this.rbNo = new System.Windows.Forms.RadioButton();
-            this.rbYes = new System.Windows.Forms.RadioButton();
-            this.pnlHoaDon = new System.Windows.Forms.Panel();
             this.dtgvHoaDon = new System.Windows.Forms.DataGridView();
             this.pnlThanhToan = new System.Windows.Forms.Panel();
             this.btnThanhToan = new System.Windows.Forms.Button();
@@ -92,6 +92,8 @@
             this.tmrLowStockWarning = new System.Windows.Forms.Timer(this.components);
             this.lblWarningNote = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.menuBangGiaNL = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBangGiaDU = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -153,22 +155,14 @@
             this.btnDX.Text = "Đăng xuất";
             this.btnDX.Click += new System.EventHandler(this.btnDX_Click);
             //
-            // lblLowStockWarning
-            //
-            this.lblLowStockWarning.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblLowStockWarning.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lblLowStockWarning.ForeColor = System.Drawing.Color.Red;
-            this.lblLowStockWarning.Name = "lblLowStockWarning";
-            this.lblLowStockWarning.Size = new System.Drawing.Size(130, 50);
-            this.lblLowStockWarning.Text = "Cảnh báo tồn kho";
-            this.lblLowStockWarning.Visible = false;
-            // 
             // btnDanhMuc
             // 
             this.btnDanhMuc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBan,
             this.menuDoUong,
-            this.menuLDU});
+            this.menuLDU,
+            this.menuBangGiaNL,
+            this.menuBangGiaDU});
             this.btnDanhMuc.ForeColor = System.Drawing.Color.White;
             this.btnDanhMuc.Image = null;
             this.btnDanhMuc.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -208,6 +202,20 @@
             this.menuLDU.Size = new System.Drawing.Size(187, 28);
             this.menuLDU.Text = "Quản lý loại đồ uống";
             this.menuLDU.Click += new System.EventHandler(this.menuLDU_Click);
+            // 
+            // menuBangGiaNL
+            // 
+            this.menuBangGiaNL.Name = "menuBangGiaNL";
+            this.menuBangGiaNL.Size = new System.Drawing.Size(283, 28);
+            this.menuBangGiaNL.Text = "Bảng giá nguyên liệu";
+            this.menuBangGiaNL.Click += new System.EventHandler(this.menuBangGiaNL_Click);
+            // 
+            // menuBangGiaDU
+            // 
+            this.menuBangGiaDU.Name = "menuBangGiaDU";
+            this.menuBangGiaDU.Size = new System.Drawing.Size(283, 28);
+            this.menuBangGiaDU.Text = "Bảng giá đồ uống nhập";
+            this.menuBangGiaDU.Click += new System.EventHandler(this.menuBangGiaDU_Click);
             // 
             // btnThongKe
             // 
@@ -251,6 +259,16 @@
             this.menuLichSuHoaDon.Size = new System.Drawing.Size(212, 28);
             this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
             this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
+            // 
+            // lblLowStockWarning
+            // 
+            this.lblLowStockWarning.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblLowStockWarning.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblLowStockWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblLowStockWarning.Name = "lblLowStockWarning";
+            this.lblLowStockWarning.Size = new System.Drawing.Size(130, 50);
+            this.lblLowStockWarning.Text = "Cảnh báo tồn kho";
+            this.lblLowStockWarning.Visible = false;
             // 
             // statusStrip1
             // 
@@ -617,6 +635,20 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Tìm món:";
             // 
+            // menuBangGiaNL
+            // 
+            this.menuBangGiaNL.Name = "menuBangGiaNL";
+            this.menuBangGiaNL.Size = new System.Drawing.Size(283, 28);
+            this.menuBangGiaNL.Text = "Bảng giá nguyên liệu";
+            this.menuBangGiaNL.Click += new System.EventHandler(this.menuBangGiaNL_Click);
+            // 
+            // menuBangGiaDU
+            // 
+            this.menuBangGiaDU.Name = "menuBangGiaDU";
+            this.menuBangGiaDU.Size = new System.Drawing.Size(283, 28);
+            this.menuBangGiaDU.Text = "Bảng giá đồ uống nhập";
+            this.menuBangGiaDU.Click += new System.EventHandler(this.menuBangGiaDU_Click);
+            // 
             // MaDU
             // 
             this.MaDU.DataPropertyName = "MaDU";
@@ -762,15 +794,9 @@
         private System.Windows.Forms.ToolStripMenuItem btnDX;
         private System.Windows.Forms.ToolStripDropDownButton btnDanhMuc;
         private System.Windows.Forms.ToolStripMenuItem menuNhanVien;
-        private System.Windows.Forms.ToolStripMenuItem menuKH;
         private System.Windows.Forms.ToolStripMenuItem menuBan;
         private System.Windows.Forms.ToolStripMenuItem menuDoUong;
         private System.Windows.Forms.ToolStripMenuItem menuLDU;
-        private System.Windows.Forms.ToolStripDropDownButton btnThongKe;
-        private System.Windows.Forms.ToolStripMenuItem menuDoanhThuNgay;
-        private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
-        private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
-        private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnRefreshDoUong;
         private System.Windows.Forms.Timer tmrStatus;
@@ -783,5 +809,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SoLuongTon;
         private System.Windows.Forms.DataGridViewButtonColumn SuaDoUong;
         private System.Windows.Forms.Label lblWarningNote;
+        private System.Windows.Forms.ToolStripMenuItem menuKH;
+        private System.Windows.Forms.ToolStripDropDownButton btnThongKe;
+        private System.Windows.Forms.ToolStripMenuItem menuDoanhThuNgay;
+        private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
+        private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
+        private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
+        private System.Windows.Forms.ToolStripMenuItem menuBangGiaNL;
+        private System.Windows.Forms.ToolStripMenuItem menuBangGiaDU;
     }
 }

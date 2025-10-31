@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -110,6 +110,43 @@ namespace QuanLyCafe
                         }
                     }
                     return cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật tồn kho cho đồ uống và nguyên liệu sau khi một hóa đơn được thanh toán.
+        /// </summary>
+        /// <param name="maHD">Mã hóa đơn vừa được thanh toán.</param>
+        public static void CapNhatTonKhoSauThanhToan(string maHD)
+        {
+            // Lấy tất cả các món trong hóa đơn
+            string sqlGetItems = @"SELECT cthd.MaDU, cthd.SoLuong, du.IsPhaChe
+                                   FROM ChiTietHoaDon cthd
+                                   JOIN DoUong du ON cthd.MaDU = du.MaDU
+                                   WHERE cthd.MaHD = @MaHD";
+            DataTable dtItems = Load(sqlGetItems, new Dictionary<string, object> { { "@MaHD", maHD } });
+
+            foreach (DataRow itemRow in dtItems.Rows)
+            {
+                string maDU = itemRow["MaDU"].ToString()!;
+                decimal soLuongBan = Convert.ToDecimal(itemRow["SoLuong"]);
+                bool isPhaChe = Convert.ToBoolean(itemRow["IsPhaChe"]);
+
+                // Trừ tồn kho cho chính đồ uống đó (áp dụng cho cả 2 loại)
+                string sqlUpdateDoUong = "UPDATE DoUong SET SoLuongTon = SoLuongTon - @SoLuongBan WHERE MaDU = @MaDU";
+                RunQuery(sqlUpdateDoUong, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
+
+                // Nếu là đồ uống pha chế, trừ thêm tồn kho nguyên liệu
+                if (isPhaChe)
+                {
+                    string sqlUpdateNguyenLieu = @"
+                        UPDATE nl
+                        SET nl.SoLuongTon = nl.SoLuongTon - (ct.SoLuong * @SoLuongBan)
+                        FROM NguyenLieu nl
+                        JOIN CongThuc ct ON nl.MaNL = ct.MaNL
+                        WHERE ct.MaDU = @MaDU";
+                    RunQuery(sqlUpdateNguyenLieu, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
                 }
             }
         }

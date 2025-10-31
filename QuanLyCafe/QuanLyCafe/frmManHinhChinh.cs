@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -323,7 +323,30 @@ namespace QuanLyCafe
             MaBanThanhToan = btnBanDaChon.Text;
             frmThanhToan frm = new frmThanhToan();
             frm.ShowDialog();
+            
+            // Sau khi form thanh toán đóng, kiểm tra xem người dùng có thực sự thanh toán không.
+            // Bằng cách kiểm tra DialogResult trả về từ frmThanhToan.
+            // Giả sử nút "Thanh toán" trong frmThanhToan sẽ set DialogResult = OK.
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                ConnectSQL.CapNhatTonKhoSauThanhToan(MaHDThanhToan);
+            }
+
             RefreshAllData(); // Gọi hàm refresh chung để tải lại mọi thứ và kiểm tra tồn kho
+        }
+
+        private void menuBangGiaNL_Click(object sender, EventArgs e)
+        {
+            // Mở lại form quản lý nguyên liệu đã có
+            frmNguyenLieu frm = new frmNguyenLieu();
+            frm.ShowDialog();
+        }
+
+        private void menuBangGiaDU_Click(object sender, EventArgs e)
+        {
+            // Mở form mới vừa tạo
+            frmBangGiaDoUongNguyenBan frm = new frmBangGiaDoUongNguyenBan();
+            frm.ShowDialog();
         }
 
         private void dtgvDoUong_CellClick(object? sender, DataGridViewCellEventArgs e)
