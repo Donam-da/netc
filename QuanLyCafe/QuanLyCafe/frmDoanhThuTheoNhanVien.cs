@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,22 +27,38 @@ namespace QuanLyCafe
                 return;
             }
 
-            // Sử dụng truy vấn tham số để chống SQL Injection
-            string strSQl = @"SELECT 
-                                  b.TenNV, 
-                                  COUNT(a.MaHD) AS SoDonDaBan, 
-                                  SUM(a.TongTien) AS DoanhThu 
-                              FROM HoaDon a INNER JOIN NhanVien b ON a.MaNV = b.MaNV 
-                              WHERE a.TrangThai = 1 AND a.NgayLap >= @FromDate AND a.NgayLap < @ToDateNext
-                              GROUP BY b.TenNV
-                              ORDER BY DoanhThu DESC";
-
-            // Tạo danh sách tham số
+            string strSQl;
             var parameters = new Dictionary<string, object>
             {
                 { "@FromDate", dtDFrom.Value.Date },
                 { "@ToDateNext", dtDTo.Value.Date.AddDays(1) } // Lấy đến đầu ngày hôm sau để bao gồm cả ngày kết thúc
             };
+
+            // Nếu là nhân viên, chỉ xem được doanh thu của chính mình
+            if (frmDangNhap.Quyen == "Nhân viên")
+            {
+                this.Text = "Thống kê doanh thu cá nhân"; // Đổi tiêu đề form
+                strSQl = @"SELECT 
+                               b.TenNV, 
+                               COUNT(a.MaHD) AS SoDonDaBan, 
+                               SUM(a.TongTien) AS DoanhThu 
+                           FROM HoaDon a INNER JOIN NhanVien b ON a.MaNV = b.MaNV 
+                           WHERE a.TrangThai = 1 AND a.NgayLap >= @FromDate AND a.NgayLap < @ToDateNext AND a.MaNV = @MaNV
+                           GROUP BY b.TenNV
+                           ORDER BY DoanhThu DESC";
+                parameters.Add("@MaNV", frmDangNhap.MaNV);
+            }
+            else // Nếu là admin, xem được của tất cả nhân viên
+            {
+                strSQl = @"SELECT 
+                               b.TenNV, 
+                               COUNT(a.MaHD) AS SoDonDaBan, 
+                               SUM(a.TongTien) AS DoanhThu 
+                           FROM HoaDon a INNER JOIN NhanVien b ON a.MaNV = b.MaNV 
+                           WHERE a.TrangThai = 1 AND a.NgayLap >= @FromDate AND a.NgayLap < @ToDateNext
+                           GROUP BY b.TenNV
+                           ORDER BY DoanhThu DESC";
+            }
 
             DataTable dt = new DataTable();
             // Gọi phương thức Load đã được cập nhật để nhận tham số

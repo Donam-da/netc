@@ -46,6 +46,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnHeThong = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuThongTinCaNhan = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuQuanLyTaiKhoanNV = new System.Windows.Forms.ToolStripMenuItem();
             this.menuXoaLichSuGiaoDich = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDX = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,6 +138,7 @@
             this.btnHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuThongTinCaNhan,
             this.toolStripSeparator1,
+            this.menuQuanLyTaiKhoanNV,
             this.menuXoaLichSuGiaoDich,
             new System.Windows.Forms.ToolStripSeparator(),
             this.btnDX});
@@ -154,6 +156,13 @@
             this.menuThongTinCaNhan.Size = new System.Drawing.Size(252, 28);
             this.menuThongTinCaNhan.Text = "Đổi mật khẩu";
             this.menuThongTinCaNhan.Click += new System.EventHandler(this.menuThongTinCaNhan_Click);
+            // 
+            // menuQuanLyTaiKhoanNV
+            // 
+            this.menuQuanLyTaiKhoanNV.Name = "menuQuanLyTaiKhoanNV";
+            this.menuQuanLyTaiKhoanNV.Size = new System.Drawing.Size(252, 28);
+            this.menuQuanLyTaiKhoanNV.Text = "Quản lý tài khoản nhân viên";
+            this.menuQuanLyTaiKhoanNV.Click += new System.EventHandler(this.menuQuanLyTaiKhoanNV_Click);
             // 
             // menuXoaLichSuGiaoDich
             // 
@@ -822,6 +831,7 @@
         private System.Windows.Forms.ToolStripDropDownButton btnHeThong;
         private System.Windows.Forms.ToolStripMenuItem menuThongTinCaNhan;
         private System.Windows.Forms.ToolStripStatusLabel lblLowStockWarning;
+        private System.Windows.Forms.ToolStripMenuItem menuQuanLyTaiKhoanNV;
         private System.Windows.Forms.ToolStripMenuItem btnDX;
         private System.Windows.Forms.ToolStripDropDownButton btnDanhMuc;
         private System.Windows.Forms.ToolStripMenuItem menuNhanVien;

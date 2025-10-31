@@ -42,6 +42,13 @@ namespace QuanLyCafe
             frmDoiMatKhau frm = new frmDoiMatKhau();
             frm.ShowDialog();
         }
+
+        private void menuQuanLyTaiKhoanNV_Click(object? sender, EventArgs e)
+        {
+            frmNhanVien frm = new frmNhanVien();
+            frm.ShowDialog();
+            RefreshAllData();
+        }
         
         private void menuLDU_Click(object? sender, EventArgs e)
         {
@@ -175,7 +182,10 @@ namespace QuanLyCafe
         { // Logic tô màu đã được gỡ bỏ
             if (frmDangNhap.Quyen == "Nhân viên")
             {
-                menuNhanVien.Enabled = false;
+                // Nhân viên chỉ bị khóa chức năng quản lý tài khoản và xóa lịch sử giao dịch
+                menuQuanLyTaiKhoanNV.Enabled = false;
+                menuXoaLichSuGiaoDich.Enabled = false;
+                menuLoiNhuan.Enabled = false; // Khóa mục thống kê lợi nhuận
             }
             // Áp dụng renderer tùy chỉnh cho ToolStrip
             toolStrip1.Renderer = new MyMenuRenderer();

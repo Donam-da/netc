@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,14 +74,9 @@ namespace QuanLyCafe
         }
         private void DanhSachQuyen()
         {
-            DataTable dataTable = new DataTable();
             cboQuyen.Items.Clear();
-            dataTable.Columns.Add("Quyen", typeof(string));
-            dataTable.Rows.Add("Chủ cửa hàng");
-            dataTable.Rows.Add("Nhân viên");
-            cboQuyen.DataSource = dataTable;
-            cboQuyen.DisplayMember = "Quyen";
-            cboQuyen.ValueMember = "Quyen";
+            // Chỉ cho phép tạo và sửa quyền "Nhân viên" từ giao diện này.
+            cboQuyen.DataSource = new string[] { "Nhân viên" };
         }
         private void frmNhanVien_Load(object sender, EventArgs e)
         {
@@ -210,6 +205,21 @@ namespace QuanLyCafe
                 txtSDT.Text = row.Cells["SDT"].Value?.ToString() ?? string.Empty;
                 txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? string.Empty;
                 cboQuyen.Text = row.Cells[5].Value?.ToString() ?? string.Empty;
+
+                // Logic mới: Nếu người được chọn là "Chủ cửa hàng", vô hiệu hóa các chức năng sửa/xóa.
+                if (cboQuyen.Text == "Chủ cửa hàng")
+                {
+                    cboQuyen.Enabled = false;
+                    btnSua.Enabled = false;
+                    btnXoa.Enabled = false;
+                }
+                else
+                {
+                    // Nếu là nhân viên, bật lại các chức năng
+                    cboQuyen.Enabled = true;
+                    btnSua.Enabled = true;
+                    btnXoa.Enabled = true;
+                }
             }
         }
 
