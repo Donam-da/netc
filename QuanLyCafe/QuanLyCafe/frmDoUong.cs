@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -100,7 +100,7 @@ namespace QuanLyCafe
             dtgvData.Columns["DonGia"].DefaultCellStyle.Format = "N0";
             dtgvData.Columns["DonGia"].Width = 80;
 
-            dtgvData.Columns["SoLuongTon"].HeaderText = "Tồn Kho";
+            dtgvData.Columns["SoLuongTon"].HeaderText = "Khả dụng";
             dtgvData.Columns["SoLuongTon"].Width = 50;
 
             dtgvData.Columns["NguongCanhBao"].HeaderText = "C.Báo";
@@ -444,6 +444,13 @@ namespace QuanLyCafe
                 // Nếu là đồ uống pha chế, lưu công thức
                 if (rbPhaChe.Checked)
                 {
+                // Kiểm tra xem có công thức nào không
+                if (dtCongThuc.Rows.Count == 0)
+                {
+                    MessageBox.Show("Đồ uống pha chế phải có ít nhất một nguyên liệu trong công thức.", "Thiếu công thức", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Dừng lại không cho thêm
+                }
+
                     foreach (DataRow row in dtCongThuc.Rows)
                     {
                         string sqlCongThuc = "INSERT INTO CongThuc(MaDU, MaNL, SoLuong) VALUES (@MaDU, @MaNL, @SoLuong)";
@@ -542,6 +549,13 @@ namespace QuanLyCafe
 
                 if (rbPhaChe.Checked)
                 {
+                    // Kiểm tra xem có công thức nào không
+                    if (dtCongThuc.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Đồ uống pha chế phải có ít nhất một nguyên liệu trong công thức.", "Thiếu công thức", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Dừng lại không cho sửa
+                    }
+
                     foreach (DataRow row in dtCongThuc.Rows)
                     {
                         string sqlInsertCongThuc = "INSERT INTO CongThuc(MaDU, MaNL, SoLuong) VALUES (@MaDU, @MaNL, @SoLuong)";

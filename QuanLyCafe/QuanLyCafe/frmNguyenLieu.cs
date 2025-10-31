@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -203,20 +203,27 @@ namespace QuanLyCafe
             if (result == DialogResult.Yes)
             {
                 string maNLXoa = dtgvData.CurrentRow.Cells["MaNL"].Value.ToString()!.Trim();
-                string strSQL = "DELETE FROM NguyenLieu WHERE MaNL = @MaNL";
+
+                // Kiểm tra xem nguyên liệu có đang được sử dụng trong bảng CongThuc không.
+                string sqlCheck = "SELECT TOP 1 MaNL FROM CongThuc WHERE MaNL = @MaNL";
+                var paramCheck = new Dictionary<string, object> { { "@MaNL", maNLXoa } };
+                if (ConnectSQL.ExcuteReader_bool(sqlCheck, paramCheck))
+                {
+                    MessageBox.Show("Không thể xóa nguyên liệu này vì nó đang được sử dụng trong công thức của một đồ uống.", "Lỗi ràng buộc", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Nếu không có ràng buộc, tiến hành xóa
+                string strSQLDelete = "DELETE FROM NguyenLieu WHERE MaNL = @MaNL";
                 var parameters = new Dictionary<string, object> { { "@MaNL", maNLXoa } };
-
-                // TODO: Trước khi xóa, nên kiểm tra xem nguyên liệu này có đang được sử dụng trong bảng CongThuc không.
-                // Nếu có, không cho xóa hoặc hỏi người dùng có muốn xóa cả công thức liên quan.
-
-                if (ConnectSQL.RunQuery(strSQL, parameters) > 0)
+                if (ConnectSQL.RunQuery(strSQLDelete, parameters) > 0)
                 {
                     MessageBox.Show("Xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Xóa thất bại. Có thể do nguyên liệu đang được sử dụng trong công thức.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Xóa thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -726,12 +726,13 @@
             // SoLuongTon
             // 
             this.SoLuongTon.DataPropertyName = "SoLuongTon";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SoLuongTon.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.SoLuongTon.HeaderCell.Style = dataGridViewCellStyle5;
-            this.SoLuongTon.HeaderText = "Tồn kho";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SoLuongTon.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SoLuongTon.HeaderCell.Style = dataGridViewCellStyle1;
+            this.SoLuongTon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.SoLuongTon.HeaderText = "Khả dụng";
             this.SoLuongTon.Name = "SoLuongTon";
             this.SoLuongTon.ReadOnly = true;
             // 

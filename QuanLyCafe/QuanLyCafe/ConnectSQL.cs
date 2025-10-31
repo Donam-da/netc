@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -114,41 +114,58 @@ namespace QuanLyCafe
             }
         }
 
+        public static void CapNhatTonKhoKhiGoiMon(string maDU, decimal soLuongBan)
+        {
+            // Lấy thông tin đồ uống để biết là đồ pha chế hay nguyên bản
+            string sqlGetDrinkInfo = "SELECT IsPhaChe FROM DoUong WHERE MaDU = @MaDU";
+            var result = ExecuteScalar(sqlGetDrinkInfo, new Dictionary<string, object> { { "@MaDU", maDU } });
+
+            if (result != null && result != DBNull.Value)
+            {
+                bool isPhaChe = Convert.ToBoolean(result);
+
+                if (isPhaChe)
+                {
+                    // Nếu là đồ pha chế, trừ tồn kho của các nguyên liệu trong công thức
+                    string sqlUpdateNguyenLieu = @"
+                        UPDATE NguyenLieu
+                        SET SoLuongTon = SoLuongTon - (ct.SoLuong * @SoLuongBan)
+                        FROM NguyenLieu
+                        INNER JOIN CongThuc ct ON NguyenLieu.MaNL = ct.MaNL
+                        WHERE ct.MaDU = @MaDU";
+
+                    RunQuery(sqlUpdateNguyenLieu, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
+                }
+                else
+                {
+                    // Nếu là đồ uống nguyên bản, chỉ trừ tồn kho của chính đồ uống đó
+                    string sqlUpdateDoUong = "UPDATE DoUong SET SoLuongTon = SoLuongTon - @SoLuongBan WHERE MaDU = @MaDU AND IsPhaChe = 0";
+                    RunQuery(sqlUpdateDoUong, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
+                }
+            }
+        }
+
+        public static void CapNhatTonKhoKhiXoaMon(string maDU, decimal soLuongHuy)
+        {
+            // Hàm này hoạt động ngược lại với CapNhatTonKhoKhiGoiMon, tức là cộng trả lại số lượng
+            CapNhatTonKhoKhiGoiMon(maDU, -soLuongHuy);
+        }
+
+        public static void CapNhatTonKhoKhiSuaSoLuong(string maDU, decimal soLuongCu, decimal soLuongMoi)
+        {
+            // Tính toán chênh lệch và cập nhật
+            decimal chenhLech = soLuongMoi - soLuongCu;
+            if (chenhLech != 0)
+            {
+                CapNhatTonKhoKhiGoiMon(maDU, chenhLech);
+            }
+        }
+
         /// <summary>
         /// Cập nhật tồn kho cho đồ uống và nguyên liệu sau khi một hóa đơn được thanh toán.
         /// </summary>
         /// <param name="maHD">Mã hóa đơn vừa được thanh toán.</param>
-        public static void CapNhatTonKhoSauThanhToan(string maHD)
-        {
-            // Lấy tất cả các món trong hóa đơn
-            string sqlGetItems = @"SELECT cthd.MaDU, cthd.SoLuong, du.IsPhaChe
-                                   FROM ChiTietHoaDon cthd
-                                   JOIN DoUong du ON cthd.MaDU = du.MaDU
-                                   WHERE cthd.MaHD = @MaHD";
-            DataTable dtItems = Load(sqlGetItems, new Dictionary<string, object> { { "@MaHD", maHD } });
-
-            foreach (DataRow itemRow in dtItems.Rows)
-            {
-                string maDU = itemRow["MaDU"].ToString()!;
-                decimal soLuongBan = Convert.ToDecimal(itemRow["SoLuong"]);
-                bool isPhaChe = Convert.ToBoolean(itemRow["IsPhaChe"]);
-
-                // Trừ tồn kho cho chính đồ uống đó (áp dụng cho cả 2 loại)
-                string sqlUpdateDoUong = "UPDATE DoUong SET SoLuongTon = SoLuongTon - @SoLuongBan WHERE MaDU = @MaDU";
-                RunQuery(sqlUpdateDoUong, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
-
-                // Nếu là đồ uống pha chế, trừ thêm tồn kho nguyên liệu
-                if (isPhaChe)
-                {
-                    string sqlUpdateNguyenLieu = @"
-                        UPDATE nl
-                        SET nl.SoLuongTon = nl.SoLuongTon - (ct.SoLuong * @SoLuongBan)
-                        FROM NguyenLieu nl
-                        JOIN CongThuc ct ON nl.MaNL = ct.MaNL
-                        WHERE ct.MaDU = @MaDU";
-                    RunQuery(sqlUpdateNguyenLieu, new Dictionary<string, object> { { "@SoLuongBan", soLuongBan }, { "@MaDU", maDU } });
-                }
-            }
-        }
+        // This method is no longer needed as inventory is updated in real-time.
+        // public static void CapNhatTonKhoSauThanhToan(string maHD) { ... }
     }
 }

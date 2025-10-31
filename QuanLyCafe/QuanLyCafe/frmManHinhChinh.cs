@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -135,13 +135,31 @@ namespace QuanLyCafe
             // Ngăn DataGridView tự động tạo cột, để chúng ta có thể kiểm soát hoàn toàn.
             dtgvDoUong.AutoGenerateColumns = false;
 
-            // Lấy thêm cột NguongCanhBao để kiểm tra và tô màu
-            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao FROM DoUong WHERE IsHienThi = 1 AND TenDU LIKE @TenDU";
+            // Lấy thêm cột IsPhaChe và NguongCanhBao
+            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, IsPhaChe FROM DoUong WHERE IsHienThi = 1 AND TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtTenDoUong.Text}%" }
             };
             DataTable dt = ConnectSQL.Load(strSQL, parameters);
+
+            // --- LOGIC MỚI: TÍNH TỒN KHO ẢO CHO ĐỒ UỐNG PHA CHẾ ---
+            foreach (DataRow row in dt.Rows)
+            {
+                // Kiểm tra an toàn, nếu IsPhaChe là null thì coi như false
+                bool isPhaChe = row["IsPhaChe"] != DBNull.Value && Convert.ToBoolean(row["IsPhaChe"]);
+
+                if (isPhaChe)
+                {
+                    string maDU = row["MaDU"].ToString()!;
+                    // Gọi hàm tính toán số lượng có thể pha
+                    int soLuongCoThePha = TinhSoLuongCoThePha(maDU);
+                    // Cập nhật lại cột SoLuongTon trong DataTable
+                    row["SoLuongTon"] = soLuongCoThePha;
+                }
+            }
+            // --- KẾT THÚC LOGIC MỚI ---
+
             dtgvDoUong.DataSource = dt;
 
             frmNhanVien.SetupDataGridView(dtgvDoUong);
@@ -288,6 +306,9 @@ namespace QuanLyCafe
                     ThemChiTietHoaDon(maHD, maDU, soLuong, donGia);
                 }
             }
+            // Cập nhật tồn kho ngay khi thêm món
+            ConnectSQL.CapNhatTonKhoKhiGoiMon(maDU, soLuong);
+            LoadMenuDoUong(); // Tải lại danh sách đồ uống để cập nhật cột "Khả dụng"
             LoadDoUongDaGoi();
             LoadTable();
             ShowStatus("Thêm món thành công!");
@@ -306,11 +327,16 @@ namespace QuanLyCafe
             {
                 string maHD = dtgvHoaDon.CurrentRow!.Cells["MaHD"].Value.ToString()!;
                 string maDU = dtgvHoaDon.CurrentRow.Cells["MaDU"].Value.ToString()!;
+                decimal soLuongHuy = Convert.ToDecimal(dtgvHoaDon.CurrentRow.Cells["SoLuong"].Value);
+
                 string strSQL = "DELETE FROM ChiTietHoaDon WHERE MaHD = @MaHD AND MaDU = @MaDU";
                 var parameters = new Dictionary<string, object> { { "@MaHD", maHD }, { "@MaDU", maDU } };
 
                 ConnectSQL.RunQuery(strSQL, parameters);
+                // Cộng trả lại tồn kho khi xóa món
+                ConnectSQL.CapNhatTonKhoKhiXoaMon(maDU, soLuongHuy);
                 MessageBox.Show("Xóa thành công");
+                LoadMenuDoUong(); // Tải lại danh sách đồ uống để cập nhật cột "Khả dụng"
                 LoadDoUongDaGoi();
                 LoadTable();
             }
@@ -337,11 +363,7 @@ namespace QuanLyCafe
             // Sau khi form thanh toán đóng, kiểm tra xem người dùng có thực sự thanh toán không.
             // Bằng cách kiểm tra DialogResult trả về từ frmThanhToan.
             // Giả sử nút "Thanh toán" trong frmThanhToan sẽ set DialogResult = OK.
-            if (frm.DialogResult == DialogResult.OK)
-            {
-                ConnectSQL.CapNhatTonKhoSauThanhToan(MaHDThanhToan);
-            }
-
+            // Logic cập nhật tồn kho đã được chuyển sang lúc gọi món, nên không cần gọi ở đây nữa.
             RefreshAllData(); // Gọi hàm refresh chung để tải lại mọi thứ và kiểm tra tồn kho
         }
 
@@ -432,6 +454,8 @@ namespace QuanLyCafe
             // Bỏ qua nếu không phải cột "Số lượng" hoặc form đang load, hoặc không có cột
             if (e.RowIndex < 0 || dtgvHoaDon.Columns[e.ColumnIndex].Name != "SoLuong")
             {
+                // Nếu không phải cột số lượng, tải lại để hủy thay đổi trên UI
+                if (e.RowIndex >= 0) LoadDoUongDaGoi();
                 return;
             }
 
@@ -441,6 +465,10 @@ namespace QuanLyCafe
             string maHD = row.Cells["MaHD"].Value.ToString()!;
             string maDU = row.Cells["MaDU"].Value.ToString()!;
             decimal donGia = Convert.ToDecimal(row.Cells["DonGia"].Value);
+            
+            // Lấy số lượng cũ từ CSDL để tính chênh lệch
+            string sqlGetOldQty = "SELECT SoLuong FROM ChiTietHoaDon WHERE MaHD = @MaHD AND MaDU = @MaDU";
+            decimal soLuongCu = Convert.ToDecimal(ConnectSQL.ExecuteScalar(sqlGetOldQty, new Dictionary<string, object> { { "@MaHD", maHD }, { "@MaDU", maDU } }));
 
             // Lấy và kiểm tra số lượng mới
             if (!decimal.TryParse(row.Cells["SoLuong"].Value.ToString(), out decimal newSoLuong) || newSoLuong <= 0)
@@ -450,6 +478,9 @@ namespace QuanLyCafe
                 LoadDoUongDaGoi();
                 return;
             }
+
+            // Cập nhật tồn kho dựa trên chênh lệch
+            ConnectSQL.CapNhatTonKhoKhiSuaSoLuong(maDU, soLuongCu, newSoLuong);
 
             // Cập nhật CSDL
             string sqlUpdate = @"UPDATE ChiTietHoaDon 
@@ -464,6 +495,7 @@ namespace QuanLyCafe
             };
             ConnectSQL.RunQuery(sqlUpdate, paramUpdate);
 
+            LoadMenuDoUong(); // Tải lại menu đồ uống để cập nhật cột "Khả dụng"
             LoadDoUongDaGoi(); // Tải lại để cập nhật tổng tiền
         }
         #region Helper Methods for Adding Items
@@ -542,6 +574,46 @@ namespace QuanLyCafe
             ConnectSQL.RunQuery(sqlUpdate, paramUpdate);
         }
         #endregion
+        
+        /// <summary>
+        /// Tính toán số lượng tối đa một đồ uống pha chế có thể được tạo ra
+        /// dựa trên lượng nguyên liệu tồn kho hiện tại.
+        /// </summary>
+        /// <param name="maDU">Mã của đồ uống pha chế.</param>
+        /// <returns>Số lượng có thể pha được.</returns>
+        private int TinhSoLuongCoThePha(string maDU)
+        {
+            // Lấy công thức của đồ uống
+            string sqlCongThuc = "SELECT MaNL, SoLuong FROM CongThuc WHERE MaDU = @MaDU";
+            DataTable dtCongThuc = ConnectSQL.Load(sqlCongThuc, new Dictionary<string, object> { { "@MaDU", maDU } });
+
+            // Nếu không có công thức, không thể pha
+            if (dtCongThuc.Rows.Count == 0)
+            {
+                return 0;
+            }
+
+            int soLuongToiDa = int.MaxValue; // Giả định ban đầu có thể pha vô hạn
+
+            // Duyệt qua từng nguyên liệu trong công thức
+            foreach (DataRow congThucRow in dtCongThuc.Rows)
+            {
+                string maNL = congThucRow["MaNL"].ToString()!;
+                decimal soLuongCan = Convert.ToDecimal(congThucRow["SoLuong"]);
+
+                // Lấy số lượng tồn kho của nguyên liệu tương ứng
+                string sqlTonKhoNL = "SELECT SoLuongTon FROM NguyenLieu WHERE MaNL = @MaNL";
+                object? tonKhoObj = ConnectSQL.ExecuteScalar(sqlTonKhoNL, new Dictionary<string, object> { { "@MaNL", maNL } });
+
+                decimal soLuongTonNL = (tonKhoObj != DBNull.Value && tonKhoObj != null) ? Convert.ToDecimal(tonKhoObj) : 0;
+
+                // Tính số ly có thể pha từ nguyên liệu này và cập nhật số lượng tối đa
+                int soLuongPhaDuocTuNL = (soLuongCan > 0) ? (int)Math.Floor(soLuongTonNL / soLuongCan) : int.MaxValue;
+                soLuongToiDa = Math.Min(soLuongToiDa, soLuongPhaDuocTuNL);
+            }
+
+            return soLuongToiDa;
+        }
 
         private void menuThongKeDoanhThuNV_Click(object? sender, EventArgs e)
         {

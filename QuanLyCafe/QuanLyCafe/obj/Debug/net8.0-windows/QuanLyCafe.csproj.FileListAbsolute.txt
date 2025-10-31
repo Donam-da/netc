@@ -1,12 +1,10 @@
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.exe
-C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.dll
-C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
-C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\Images\logo.png
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\Images\icon.png
+C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\Images\logo.png
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.dll.config
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.deps.json
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.runtimeconfig.json
+C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\QuanLyCafe.pdb
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\Microsoft.CodeAnalysis.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\Microsoft.CodeAnalysis.VisualBasic.dll
@@ -91,8 +89,10 @@ C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-wi
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-x64\native\SqlServerSpatial160.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-x86\native\SqlServerSpatial160.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.csproj.AssemblyReference.cache
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmBan.resources
@@ -105,6 +105,7 @@ C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-wi
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmInHoaDon.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmKhachHang.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmLichSuHoaDon.resources
+C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmLoaiDoUong.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmManHinhChinh.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmNhanVien.resources
 C:\Users\Admin\OneDrive\Desktop\QLCafe\QuanLyCafe\QuanLyCafe\obj\Debug\net8.0-windows\QuanLyCafe.frmThanhToan.resources
