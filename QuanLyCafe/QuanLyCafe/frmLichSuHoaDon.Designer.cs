@@ -1,4 +1,4 @@
-﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     partial class frmLichSuHoaDon
@@ -90,6 +90,7 @@
             this.dtDTo.Name = "dtDTo";
             this.dtDTo.Size = new System.Drawing.Size(150, 29);
             this.dtDTo.TabIndex = 582;
+            this.dtDTo.ValueChanged += new System.EventHandler(this.dtDTo_ValueChanged);
             // 
             // label2
             // 
@@ -112,6 +113,7 @@
             this.dtDFrom.Name = "dtDFrom";
             this.dtDFrom.Size = new System.Drawing.Size(150, 29);
             this.dtDFrom.TabIndex = 580;
+            this.dtDFrom.ValueChanged += new System.EventHandler(this.dtDFrom_ValueChanged);
             // 
             // label1
             // 

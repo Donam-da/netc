@@ -19,7 +19,15 @@ namespace QuanLyCafe
 
         private void frmNguyenLieu_Load(object sender, EventArgs e)
         {
+            LoadComboBoxDonViTinh();
             LoadData();
+        }
+
+        private void LoadComboBoxDonViTinh()
+        {
+            cboDonViTinh.DataSource = ConnectSQL.Load("SELECT MaDVT, TenDVT FROM DonViTinh");
+            cboDonViTinh.DisplayMember = "TenDVT";
+            cboDonViTinh.ValueMember = "MaDVT";
         }
 
         private void LoadData()
@@ -65,7 +73,15 @@ namespace QuanLyCafe
 
             txtMaNL.Text = row.Cells["MaNL"].Value?.ToString() ?? string.Empty;
             txtTenNL.Text = row.Cells["TenNL"].Value?.ToString() ?? string.Empty;
-            txtDonViTinh.Text = row.Cells["DonViTinh"].Value?.ToString() ?? string.Empty;
+            // Cập nhật cho ComboBox
+            var donViTinhValue = row.Cells["DonViTinh"].Value;
+            if (donViTinhValue != null && donViTinhValue != DBNull.Value)
+            {
+                cboDonViTinh.SelectedValue = donViTinhValue;
+            } else
+            {
+                cboDonViTinh.SelectedIndex = -1;
+            }
             nmGiaTien.Value = Convert.ToDecimal(row.Cells["GiaTien"].Value ?? 0);
             nmSoLuongTon.Value = Convert.ToDecimal(row.Cells["SoLuongTon"].Value ?? 0);
         }
@@ -74,7 +90,7 @@ namespace QuanLyCafe
         {
             txtMaNL.Text = "";
             txtTenNL.Text = "";
-            txtDonViTinh.Text = "";
+            cboDonViTinh.SelectedIndex = -1;
             nmGiaTien.Value = 0;
             nmSoLuongTon.Value = 0;
         }
@@ -124,7 +140,7 @@ namespace QuanLyCafe
             {
                 { "@MaNL", txtMaNL.Text.Trim() },
                 { "@TenNL", txtTenNL.Text.Trim() },
-                { "@DonViTinh", txtDonViTinh.Text.Trim() },
+                { "@DonViTinh", cboDonViTinh.SelectedValue },
                 { "@GiaTien", nmGiaTien.Value },
                 { "@SoLuongTon", nmSoLuongTon.Value }
             };
@@ -155,7 +171,7 @@ namespace QuanLyCafe
             string strSQL = "UPDATE NguyenLieu SET TenNL = @TenNL, DonViTinh = @DonViTinh, GiaTien = @GiaTien, SoLuongTon = @SoLuongTon WHERE MaNL = @MaNLSua";
             var parameters = new Dictionary<string, object> {
                 { "@TenNL", txtTenNL.Text.Trim() },
-                { "@DonViTinh", txtDonViTinh.Text.Trim() },
+                { "@DonViTinh", cboDonViTinh.SelectedValue },
                 { "@GiaTien", nmGiaTien.Value },
                 { "@SoLuongTon", nmSoLuongTon.Value },
                 { "@MaNLSua", maNLSua }

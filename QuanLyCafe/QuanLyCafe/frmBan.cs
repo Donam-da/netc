@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,19 +43,19 @@ namespace QuanLyCafe
             dtgvData.DataSource = ConnectSQL.Load(strSql, parameters);
             frmNhanVien.SetupDataGridView(dtgvData);
 
-            // Đảm bảo các cột tồn tại trước khi thiết lập HeaderText
-            if (dtgvData.Columns.Count > 0)
-            {
-                dtgvData.Columns[0].HeaderText = "Mã bàn";
-            }
-            if (dtgvData.Columns.Count > 1)
-            {
-                dtgvData.Columns[1].HeaderText = "Sức chứa";
-            }
-            if (dtgvData.Columns.Count > 2)
-            {
-                dtgvData.Columns[2].HeaderText = "Trạng thái";
-            }
+            // Tắt chế độ tự động co giãn để tùy chỉnh độ rộng
+            dtgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Thiết lập tiêu đề và độ rộng cho từng cột
+            dtgvData.Columns["MaBan"].HeaderText = "Mã bàn";
+            dtgvData.Columns["MaBan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Cho cột này tự lấp đầy
+
+            dtgvData.Columns["SucChua"].HeaderText = "Sức chứa";
+            dtgvData.Columns["SucChua"].Width = 100;
+
+            dtgvData.Columns["TrangThai"].HeaderText = "Trạng thái";
+            dtgvData.Columns["TrangThai"].Width = 0; // Giảm độ rộng cột này
+
             if (dtgvData.Rows.Count == 0)
             {
                 txtMaBan.Text = "";

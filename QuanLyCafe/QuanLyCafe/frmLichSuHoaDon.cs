@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,22 +18,56 @@ namespace QuanLyCafe
         }
         private void LoadDataHoaDon()
         {
-            string strSQl = $@"SELECT a.MaHD,a.NgayLap,b.TenNV,c.TenKH,a.MaBan,a.TongTien,a.TrangThai
-                               FROM HoaDon a INNER JOIN NhanVien b ON a.MaNV = b.MaNV
-                                             INNER JOIN KhachHang c ON a.MaKH = c.MaKH
-                                WHERE NgayLap BETWEEN '{dtDFrom.Value.ToString("yyyyMMdd")}'
-                                              AND '{dtDTo.Value.ToString("yyyyMMdd")}'";
-            DataTable dt = new DataTable();
-            dt = ConnectSQL.Load(strSQl);
+            string strSQl = @"SELECT a.MaHD, a.NgayLap, b.TenNV, c.TenKH, a.MaBan, a.TongTien, a.TrangThai
+                              FROM HoaDon a 
+                              INNER JOIN NhanVien b ON a.MaNV = b.MaNV
+                              INNER JOIN KhachHang c ON a.MaKH = c.MaKH
+                              WHERE a.NgayLap >= @FromDate AND a.NgayLap < @ToDateNext
+                              ORDER BY a.NgayLap DESC";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@FromDate", dtDFrom.Value.Date },
+                { "@ToDateNext", dtDTo.Value.Date.AddDays(1) } // Lấy đến đầu ngày hôm sau để bao gồm cả ngày kết thúc
+            };
+            DataTable dt = ConnectSQL.Load(strSQl, parameters);
+
+            // Thêm cột STT vào DataTable
+            dt.Columns.Add("STT", typeof(int));
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dt.Rows[i]["STT"] = i + 1;
+            }
+
             dtgvHD.DataSource = dt;
             frmNhanVien.SetupDataGridView(dtgvHD);
-            dtgvHD.Columns[0].HeaderText = "Mã hóa đơn";
-            dtgvHD.Columns[1].HeaderText = "Ngày lập";
-            dtgvHD.Columns[2].HeaderText = "Tên nhân viên";
-            dtgvHD.Columns[3].HeaderText = "Tên khách hàng";
-            dtgvHD.Columns[4].HeaderText = "Mã bàn";   
-            dtgvHD.Columns[5].HeaderText = "Tổng tiền";
-            dtgvHD.Columns[6].HeaderText = "Trạng thái";
+            dtgvHD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None; // Tắt tự động co giãn để tùy chỉnh
+
+            // Đặt lại tên và thứ tự cột
+            dtgvHD.Columns["STT"].DisplayIndex = 0;
+            dtgvHD.Columns["STT"].HeaderText = "STT";
+            dtgvHD.Columns["STT"].Width = 50;
+
+            dtgvHD.Columns["MaHD"].HeaderText = "Mã hóa đơn";
+            dtgvHD.Columns["MaHD"].Width = 150;
+
+            dtgvHD.Columns["NgayLap"].HeaderText = "Ngày lập";
+            dtgvHD.Columns["NgayLap"].Width = 160; // Tăng độ rộng để hiển thị đủ ngày giờ
+
+            dtgvHD.Columns["TenNV"].HeaderText = "Tên nhân viên";
+            dtgvHD.Columns["TenKH"].HeaderText = "Tên khách hàng";
+            dtgvHD.Columns["TenKH"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Cho cột này lấp đầy
+
+            dtgvHD.Columns["MaBan"].HeaderText = "Mã bàn";
+            dtgvHD.Columns["MaBan"].Width = 80;
+
+            dtgvHD.Columns["TongTien"].HeaderText = "Tổng tiền";
+            dtgvHD.Columns["TongTien"].DefaultCellStyle.Format = "N0";
+            dtgvHD.Columns["TongTien"].Width = 120;
+
+            dtgvHD.Columns["TrangThai"].HeaderText = "Trạng thái";
+            dtgvHD.Columns["TrangThai"].Width = 120; // Giảm độ rộng cột trạng thái
+
             if (dtgvHD.Rows.Count == 0)
             {
                 LoadDataChiTietHoaDon("");
@@ -46,19 +80,28 @@ namespace QuanLyCafe
         }
         private void LoadDataChiTietHoaDon(string MaHD)
         {
-            string strSQl = $@"SELECT a.MaHD,b.TenDU,a.DonGia,a.SoLuong,a.ThanhTien FROM ChiTietHoaDon a INNER JOIN DoUong b ON a.MaDU = b.MaDU WHERE a.MaHD = '{MaHD}'";
+            string strSQl = $@"SELECT a.MaDU, b.TenDU, a.SoLuong, a.DonGia, a.ThanhTien 
+                               FROM ChiTietHoaDon a 
+                               INNER JOIN DoUong b ON a.MaDU = b.MaDU 
+                               WHERE a.MaHD = '{MaHD}'";
             DataTable dt = new DataTable();
             dt = ConnectSQL.Load(strSQl);
             dtgvCTHD.DataSource = dt;
             frmNhanVien.SetupDataGridView(dtgvCTHD);
-            dtgvCTHD.Columns[0].HeaderText = "Mã hóa đơn";
-            dtgvCTHD.Columns[1].HeaderText = "Tên đồ uống";
-            dtgvCTHD.Columns[2].HeaderText = "Số lượng";
-            dtgvCTHD.Columns[3].HeaderText = "Đơn giá";
-            dtgvCTHD.Columns[4].HeaderText = "Thành tiền";
+            dtgvCTHD.Columns["MaDU"].HeaderText = "Mã Đồ Uống";
+            dtgvCTHD.Columns["TenDU"].HeaderText = "Tên Đồ Uống";
+            dtgvCTHD.Columns["SoLuong"].HeaderText = "Số Lượng";
+            dtgvCTHD.Columns["DonGia"].HeaderText = "Đơn Giá";
+            dtgvCTHD.Columns["ThanhTien"].HeaderText = "Thành Tiền";
+
+            dtgvCTHD.Columns["DonGia"].DefaultCellStyle.Format = "N0";
+            dtgvCTHD.Columns["ThanhTien"].DefaultCellStyle.Format = "N0";
         }
         private void frmLichSuHoaDon_Load(object sender, EventArgs e)
         {
+            // Đảm bảo ngày kết thúc không thể nhỏ hơn ngày bắt đầu
+            // và phải sau ngày bắt đầu ít nhất 1 ngày.
+            dtDTo.MinDate = dtDFrom.Value.AddDays(1);
             LoadDataHoaDon();
         }
 
@@ -75,6 +118,20 @@ namespace QuanLyCafe
                 string? maHD = row.Cells[0]?.Value?.ToString();
                 LoadDataChiTietHoaDon(maHD ?? string.Empty);
             }
+        }
+
+        private void dtDFrom_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi ngày bắt đầu thay đổi, ngày kết thúc không được nhỏ hơn ngày bắt đầu
+            // và phải sau ngày bắt đầu ít nhất 1 ngày.
+            dtDTo.MinDate = dtDFrom.Value.AddDays(1);
+        }
+
+        private void dtDTo_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi ngày kết thúc thay đổi, ngày bắt đầu không được lớn hơn ngày kết thúc
+            // và phải trước ngày kết thúc ít nhất 1 ngày.
+            dtDFrom.MaxDate = dtDTo.Value.AddDays(-1);
         }
     }
 }

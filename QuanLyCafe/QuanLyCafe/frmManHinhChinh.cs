@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -132,7 +132,7 @@ namespace QuanLyCafe
             dtgvDoUong.AutoGenerateColumns = false;
 
             // Lấy thêm cột NguongCanhBao để kiểm tra và tô màu
-            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao FROM DoUong WHERE TenDU LIKE @TenDU";
+            string strSQL = @"SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao FROM DoUong WHERE IsHienThi = 1 AND TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtTenDoUong.Text}%" }
@@ -146,6 +146,8 @@ namespace QuanLyCafe
             dtgvDoUong.Columns["MaLoai"].DataPropertyName = "MaLoai";
             dtgvDoUong.Columns["DonGia"].DataPropertyName = "DonGia";
             dtgvDoUong.Columns["SoLuongTon"].DataPropertyName = "SoLuongTon";
+            // Thiết lập độ rộng cho các nút
+            dtgvDoUong.Columns["SuaDoUong"].Width = 80;
         }
         private void frmManHinhChinh_Load(object? sender, EventArgs e)
         {
@@ -294,7 +296,7 @@ namespace QuanLyCafe
 
             if (result == DialogResult.Yes)
             {
-                string maHD = dtgvHoaDon.CurrentRow.Cells["MaHD"].Value.ToString()!;
+                string maHD = dtgvHoaDon.CurrentRow!.Cells["MaHD"].Value.ToString()!;
                 string maDU = dtgvHoaDon.CurrentRow.Cells["MaDU"].Value.ToString()!;
                 string strSQL = "DELETE FROM ChiTietHoaDon WHERE MaHD = @MaHD AND MaDU = @MaDU";
                 var parameters = new Dictionary<string, object> { { "@MaHD", maHD }, { "@MaDU", maDU } };
@@ -347,6 +349,19 @@ namespace QuanLyCafe
             // Mở form mới vừa tạo
             frmBangGiaDoUongNguyenBan frm = new frmBangGiaDoUongNguyenBan();
             frm.ShowDialog();
+        }
+
+        private void menuLoiNhuan_Click(object sender, EventArgs e)
+        {
+            frmThongKeLoiNhuan frm = new frmThongKeLoiNhuan();
+            frm.ShowDialog();
+        }
+
+        private void menuDonViTinh_Click(object sender, EventArgs e)
+        {
+            frmDonViTinh frm = new frmDonViTinh();
+            frm.ShowDialog();
+            // Không cần RefreshAllData() vì không ảnh hưởng trực tiếp đến màn hình chính
         }
 
         private void dtgvDoUong_CellClick(object? sender, DataGridViewCellEventArgs e)
@@ -445,7 +460,7 @@ namespace QuanLyCafe
         private void dtgvDoUong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Bỏ qua header và các dòng không hợp lệ
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dtgvDoUong.Rows[e.RowIndex].DataBoundItem == null) return;
 
             // Chỉ áp dụng cho cột "SoLuongTon"
             if (dtgvDoUong.Columns[e.ColumnIndex].Name == "SoLuongTon")
@@ -607,6 +622,18 @@ namespace QuanLyCafe
         {
             lblLowStockWarning.Visible = false;
             tmrLowStockWarning.Stop();
+        }
+
+        private void menuXoaLichSuGiaoDich_Click(object sender, EventArgs e)
+        {
+            frmXoaLichSu frm = new frmXoaLichSu();
+            DialogResult result = frm.ShowDialog();
+
+            // Nếu người dùng đã thực hiện một hành động xóa trong form con
+            if (result == DialogResult.OK)
+            {
+                RefreshAllData(); // Tải lại toàn bộ giao diện trên màn hình chính
+            }
         }
     }
 }

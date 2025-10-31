@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +44,7 @@ namespace QuanLyCafe
         private void LoadData()
         {
             // Lấy thêm các cột mới: IsPhaChe, GiaGoc
-            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, HinhAnh, IsPhaChe, GiaGoc FROM DoUong WHERE TenDU LIKE @TenDU";
+            string strSQl = "SELECT MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, HinhAnh, IsPhaChe, GiaGoc, IsHienThi FROM DoUong WHERE TenDU LIKE @TenDU";
 
             string searchText = txtSearch?.Text ?? string.Empty; // Kiểm tra null cho txtSearch
             var parameters = new Dictionary<string, object>
@@ -52,19 +52,67 @@ namespace QuanLyCafe
                 { "@TenDU", $"%{searchText}%" }
             };
 
-            dtgvData.DataSource = ConnectSQL.Load(strSQl, parameters);
+            DataTable dt = ConnectSQL.Load(strSQl, parameters);
+
+            // --- THÊM CỘT MỚI "Loại Đồ Uống" ---
+            // 1. Thêm một cột kiểu string vào DataTable
+            dt.Columns.Add("LoaiDoUongText", typeof(string));
+
+            // 2. Duyệt qua từng dòng để điền dữ liệu cho cột mới
+            foreach (DataRow row in dt.Rows)
+            {
+                bool isPhaChe = (row["IsPhaChe"] != DBNull.Value) ? Convert.ToBoolean(row["IsPhaChe"]) : false;
+                row["LoaiDoUongText"] = isPhaChe ? "Đồ uống pha chế" : "Đồ uống nguyên bản";
+            }
+
+            // --- THÊM CỘT MỚI "Trạng Thái" ---
+            dt.Columns.Add("TrangThaiHienThiText", typeof(string));
+            foreach (DataRow row in dt.Rows)
+            {
+                bool isHienThi = (row["IsHienThi"] != DBNull.Value) ? Convert.ToBoolean(row["IsHienThi"]) : true; // Mặc định là hiển thị
+                row["TrangThaiHienThiText"] = isHienThi ? "Hiển thị" : "Đã ẩn";
+            }
+
+            dtgvData.DataSource = dt;
             frmNhanVien.SetupDataGridView(dtgvData);
-            dtgvData.Columns[0].HeaderText = "Mã đồ uống";
-            dtgvData.Columns[1].HeaderText = "Tên đồ uống";
-            dtgvData.Columns[2].HeaderText = "Mã loại";
-            dtgvData.Columns[3].HeaderText = "Đơn giá";
-            dtgvData.Columns[4].HeaderText = "Tồn kho";
-            dtgvData.Columns[5].Visible = true; // Hiện cột ngưỡng cảnh báo
-            dtgvData.Columns[5].HeaderText = "Ngưỡng C.Báo";
-            dtgvData.Columns[6].Visible = false; // Ẩn cột HinhAnh
-            dtgvData.Columns[7].Visible = false; // Ẩn cột IsPhaChe
-            dtgvData.Columns[8].Visible = false; // Ẩn cột GiaGoc
-            dtgvData.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
+            // Tắt chế độ tự động co giãn để có thể tùy chỉnh
+            dtgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Thiết lập độ rộng (bằng pixel) và tiêu đề cho từng cột
+            dtgvData.Columns["MaDU"].HeaderText = "Mã Đồ Uống";
+            dtgvData.Columns["MaDU"].Width = 120;
+
+            dtgvData.Columns["TenDU"].HeaderText = "Tên Đồ Uống";
+            // Thiết lập độ rộng vừa phải và cho phép tự động lấp đầy nếu còn trống
+            dtgvData.Columns["TenDU"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dtgvData.Columns["LoaiDoUongText"].HeaderText = "Loại Đồ Uống";
+            dtgvData.Columns["LoaiDoUongText"].Width = 140;
+
+            dtgvData.Columns["TrangThaiHienThiText"].HeaderText = "Trạng Thái";
+            dtgvData.Columns["TrangThaiHienThiText"].Width = 70;
+
+            dtgvData.Columns["MaLoai"].HeaderText = "Mã Loại";
+            dtgvData.Columns["MaLoai"].Width = 60;
+
+            dtgvData.Columns["DonGia"].HeaderText = "Đơn Giá";
+            dtgvData.Columns["DonGia"].DefaultCellStyle.Format = "N0";
+            dtgvData.Columns["DonGia"].Width = 80;
+
+            dtgvData.Columns["SoLuongTon"].HeaderText = "Tồn Kho";
+            dtgvData.Columns["SoLuongTon"].Width = 50;
+
+            dtgvData.Columns["NguongCanhBao"].HeaderText = "C.Báo";
+            dtgvData.Columns["NguongCanhBao"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvData.Columns["NguongCanhBao"].Width = 50;
+
+            // Ẩn các cột không cần thiết
+            dtgvData.Columns["HinhAnh"].Visible = false;
+            dtgvData.Columns["IsPhaChe"].Visible = false;
+            dtgvData.Columns["IsHienThi"].Visible = false;
+            dtgvData.Columns["GiaGoc"].Visible = false;
+
             if (dtgvData.Rows.Count == 0)
             {
                 txtMaDU.Text = "";
@@ -75,6 +123,7 @@ namespace QuanLyCafe
                 nmNguongCanhBao.Text = "";  // Xóa văn bản hiển thị
                 rbPhaChe.Checked = true; // Mặc định là đồ pha chế
                 nmGiaGoc.Value = 0;
+                chkHienThi.Checked = true;
                 dtCongThuc.Clear(); // Xóa bảng công thức tạm
 
             }
@@ -105,6 +154,9 @@ namespace QuanLyCafe
         private void DisplayRowData(DataGridViewRow row)
         {
             if (row == null) return;
+
+            // Khi hiển thị dữ liệu để sửa, khóa ô Mã Đồ Uống lại
+            txtMaDU.ReadOnly = true;
 
             txtMaDU.Text = row.Cells["MaDU"].Value?.ToString() ?? string.Empty;
             txtTenDU.Text = row.Cells["TenDU"].Value?.ToString() ?? string.Empty;
@@ -152,6 +204,16 @@ namespace QuanLyCafe
                 nmGiaGoc.Value = 0;
             }
 
+            // Hiển thị trạng thái hiển thị
+            if (row.Cells["IsHienThi"].Value != DBNull.Value && row.Cells["IsHienThi"].Value != null)
+            {
+                chkHienThi.Checked = Convert.ToBoolean(row.Cells["IsHienThi"].Value);
+            }
+            else
+            {
+                chkHienThi.Checked = true; // Mặc định là hiển thị nếu dữ liệu null
+            }
+
             // Tính và hiển thị lợi nhuận
             TinhVaHienThiLoiNhuan();
 
@@ -194,9 +256,15 @@ namespace QuanLyCafe
             dtgvCongThuc.Columns["SoLuong"].HeaderText = "Số Lượng";
             dtgvCongThuc.Columns["DonViTinh"].HeaderText = "ĐVT";
 
-            dtgvCongThuc.Columns["TenNL"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dtgvCongThuc.Columns["SoLuong"].Width = 80;
-            dtgvCongThuc.Columns["DonViTinh"].Width = 60;
+            dtgvCongThuc.Columns["TenNL"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgvCongThuc.Columns["TenNL"].Width = 150;
+            dtgvCongThuc.Columns["TenNL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvCongThuc.Columns["SoLuong"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgvCongThuc.Columns["SoLuong"].Width = 100;
+            dtgvCongThuc.Columns["SoLuong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dtgvCongThuc.Columns["DonViTinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgvCongThuc.Columns["DonViTinh"].Width = 100;
+            dtgvCongThuc.Columns["DonViTinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void LoadCongThuc(string maDU)
@@ -267,11 +335,53 @@ namespace QuanLyCafe
             // Khi chọn "Pha chế" -> Hiện group công thức, ẩn giá gốc
             grbCongThuc.Visible = rbPhaChe.Checked;
 
-            // CẬP NHẬT: Giá gốc luôn ở chế độ chỉ đọc.
-            // Nó chỉ được thay đổi từ form "Bảng giá đồ uống nhập".
-            nmGiaGoc.ReadOnly = true; // Chuyển sang ReadOnly để người dùng vẫn thấy rõ giá trị
-            nmGiaGoc.Increment = 0; // Không cho phép tăng giảm bằng nút
+            // Ẩn/Hiện mục giá gốc tương ứng
+            lblGiaGoc.Visible = !rbPhaChe.Checked;
+            nmGiaGoc.Visible = !rbPhaChe.Checked;
+
+            // Ẩn/Hiện mục số lượng tồn tương ứng
+            label5.Visible = !rbPhaChe.Checked;
+            txtSoLuongTon.Visible = !rbPhaChe.Checked;
+
+            // Ẩn/Hiện mục ngưỡng cảnh báo
+            label6.Visible = !rbPhaChe.Checked;
+            nmNguongCanhBao.Visible = !rbPhaChe.Checked;
+
+
+            // --- CẬP NHẬT LOGIC CHO Ô GIÁ GỐC ---
+            // Nếu đang ở chế độ "Thêm mới" (ô Mã đồ uống không bị khóa)
+            if (!txtMaDU.ReadOnly)
+            {
+                nmGiaGoc.ReadOnly = !rbNguyenBan.Checked; // Chỉ cho sửa khi chọn "Nguyên bản"
+                nmGiaGoc.Increment = rbNguyenBan.Checked ? 1 : 0; // Cho phép tăng giảm khi được sửa
+            }
+            else // Nếu đang ở chế độ "Sửa"
+            {
+                nmGiaGoc.ReadOnly = true; // Luôn khóa lại
+                nmGiaGoc.Increment = 0;
+            }
             lblGiaGoc.Enabled = true; // Label thì vẫn hiện
+
+            // --- TỰ ĐỘNG THÊM HẬU TỐ VÀO MÃ ĐỒ UỐNG ---
+            string currentMaDU = txtMaDU.Text.Trim();
+
+            // Chỉ thực hiện khi người dùng đang trong quá trình nhập liệu mới (chưa có trong CSDL)
+            // hoặc khi mã đồ uống không rỗng.
+            if (!string.IsNullOrWhiteSpace(currentMaDU))
+            {
+                // Loại bỏ các hậu tố cũ nếu có để tránh lặp lại (ví dụ: COCA_CB_NB)
+                if (currentMaDU.EndsWith("_CB"))
+                {
+                    currentMaDU = currentMaDU.Substring(0, currentMaDU.Length - 3);
+                }
+                else if (currentMaDU.EndsWith("_NB"))
+                {
+                    currentMaDU = currentMaDU.Substring(0, currentMaDU.Length - 3);
+                }
+
+                // Thêm hậu tố mới dựa trên lựa chọn
+                txtMaDU.Text = rbPhaChe.Checked ? currentMaDU + "_CB" : currentMaDU + "_NB";
+            }
 
             if (rbPhaChe.Checked) nmGiaGoc.Value = 0; // Reset giá gốc nếu là đồ pha chế
             TinhVaHienThiLoiNhuan(); // Tính lại lợi nhuận khi đổi loại
@@ -279,6 +389,8 @@ namespace QuanLyCafe
 
         private void menuThem_Click(object? sender, EventArgs e)
         {
+            // Khi thêm mới, cho phép sửa Mã Đồ Uống
+
             if (string.IsNullOrEmpty(txtMaDU.Text))
             {
                 MessageBox.Show("Chưa nhập mã đồ uống");
@@ -313,7 +425,7 @@ namespace QuanLyCafe
                 return;
             }
 
-            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, IsPhaChe, GiaGoc) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia, @SoLuongTon, @NguongCanhBao, @IsPhaChe, @GiaGoc)";
+            string sqlInsert = "INSERT INTO DoUong(MaDU, TenDU, MaLoai, DonGia, SoLuongTon, NguongCanhBao, IsPhaChe, GiaGoc, IsHienThi) VALUES (@MaDU, @TenDU, @MaLoai, @DonGia, @SoLuongTon, @NguongCanhBao, @IsPhaChe, @GiaGoc, @IsHienThi)";
             var paramInsert = new Dictionary<string, object>
             {
                 { "@MaDU", txtMaDU.Text },
@@ -323,7 +435,8 @@ namespace QuanLyCafe
                 { "@SoLuongTon", decimal.Parse(txtSoLuongTon.Text) },
                 { "@NguongCanhBao", nmNguongCanhBao.Value },
                 { "@IsPhaChe", rbPhaChe.Checked },
-                { "@GiaGoc", rbNguyenBan.Checked ? (object)nmGiaGoc.Value : DBNull.Value }
+                { "@GiaGoc", rbNguyenBan.Checked ? (object)nmGiaGoc.Value : DBNull.Value },
+                { "@IsHienThi", chkHienThi.Checked }
             };
 
             if (ConnectSQL.RunQuery(sqlInsert, paramInsert) > 0)
@@ -390,7 +503,11 @@ namespace QuanLyCafe
                 return;
             }
 
-            string MaDUSua = dtgvData.CurrentRow.Cells[0].Value.ToString()!.Trim();
+            // Khi sửa, không cho phép thay đổi Mã Đồ Uống
+            // Do đó, chúng ta không cần kiểm tra mã trùng lặp nữa.
+            // Mã đồ uống mới sẽ luôn bằng mã đồ uống cũ.
+
+            string MaDUSua = dtgvData.CurrentRow!.Cells[0].Value.ToString()!.Trim();
             if (txtMaDU.Text.Trim() != MaDUSua)
             {
                 string sqlCheck = "SELECT MaDU FROM DoUong WHERE MaDU = @MaDU";
@@ -403,7 +520,8 @@ namespace QuanLyCafe
                 }
             }
 
-            string strSQL = "UPDATE DoUong SET MaDU = @MaDU, TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia, SoLuongTon = @SoLuongTon, NguongCanhBao = @NguongCanhBao, IsPhaChe = @IsPhaChe, GiaGoc = @GiaGoc WHERE MaDU = @MaDUSua";
+            // Câu lệnh UPDATE không còn cập nhật MaDU nữa
+            string strSQL = "UPDATE DoUong SET TenDU = @TenDU, MaLoai = @MaLoai, DonGia = @DonGia, SoLuongTon = @SoLuongTon, NguongCanhBao = @NguongCanhBao, IsPhaChe = @IsPhaChe, GiaGoc = @GiaGoc, IsHienThi = @IsHienThi WHERE MaDU = @MaDUSua";
             var parameters = new Dictionary<string, object> {
                 { "@MaDU", txtMaDU.Text }, { "@TenDU", txtTenDU.Text }, { "@MaLoai", cboMaLoai.SelectedValue! },
                 { "@DonGia", decimal.Parse(txtDonGia.Text) }, 
@@ -412,17 +530,16 @@ namespace QuanLyCafe
                 { "@NguongCanhBao", nmNguongCanhBao.Value }, 
                 { "@IsPhaChe", rbPhaChe.Checked },
                 { "@GiaGoc", rbNguyenBan.Checked ? (object)nmGiaGoc.Value : DBNull.Value },
+                { "@IsHienThi", chkHienThi.Checked },
                 { "@MaDUSua", MaDUSua }
             };
 
             if (ConnectSQL.RunQuery(strSQL, parameters) > 0)
             {
-                // --- Cập nhật công thức ---
-                // 1. Xóa công thức cũ của đồ uống này
-                string sqlDeleteCongThuc = "DELETE FROM CongThuc WHERE MaDU = @MaDU";
-                ConnectSQL.RunQuery(sqlDeleteCongThuc, new Dictionary<string, object> { { "@MaDU", txtMaDU.Text } });
+                // Cập nhật công thức: Xóa cũ, thêm mới
+                string sqlDeleteCongThuc = "DELETE FROM CongThuc WHERE MaDU = @MaDUSua";
+                ConnectSQL.RunQuery(sqlDeleteCongThuc, new Dictionary<string, object> { { "@MaDUSua", MaDUSua } });
 
-                // 2. Nếu là đồ uống pha chế, thêm lại công thức mới từ dtgvCongThuc
                 if (rbPhaChe.Checked)
                 {
                     foreach (DataRow row in dtCongThuc.Rows)
@@ -430,7 +547,7 @@ namespace QuanLyCafe
                         string sqlInsertCongThuc = "INSERT INTO CongThuc(MaDU, MaNL, SoLuong) VALUES (@MaDU, @MaNL, @SoLuong)";
                         var paramCongThuc = new Dictionary<string, object>
                         {
-                            { "@MaDU", txtMaDU.Text },
+                            { "@MaDU", MaDUSua }, // Luôn dùng mã gốc
                             { "@MaNL", row["MaNL"] },
                             { "@SoLuong", row["SoLuong"] }
                         };
@@ -488,6 +605,15 @@ namespace QuanLyCafe
             {
                 string maDU = dtgvData.CurrentRow.Cells[0].Value?.ToString()?.Trim() ?? string.Empty;
 
+                // --- KIỂM TRA KHÓA NGOẠI TRƯỚC KHI XÓA ---
+                // Kiểm tra xem đồ uống này đã từng được bán chưa (có trong ChiTietHoaDon không)
+                string sqlCheck = "SELECT TOP 1 MaDU FROM ChiTietHoaDon WHERE MaDU = @MaDU";
+                if (ConnectSQL.ExcuteReader_bool(sqlCheck, new Dictionary<string, object> { { "@MaDU", maDU } }))
+                {
+                    MessageBox.Show("Không thể xóa đồ uống này vì đã có trong lịch sử bán hàng. Bạn có thể cân nhắc ngừng kinh doanh bằng cách ẩn nó đi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Dừng lại, không xóa
+                }
+
                 // Trước khi xóa đồ uống, phải xóa các bản ghi liên quan trong CongThuc và ChiTietHoaDon
                 string sqlDeleteCongThuc = "DELETE FROM CongThuc WHERE MaDU = @MaDU";
                 ConnectSQL.RunQuery(sqlDeleteCongThuc, new Dictionary<string, object> { { "@MaDU", maDU } });
@@ -507,6 +633,7 @@ namespace QuanLyCafe
 
         private void menuXoaTrang_Click(object? sender, EventArgs e)
         {
+            txtMaDU.ReadOnly = false; // Cho phép nhập mã khi xóa trắng
             if (txtMaDU != null) txtMaDU.Text = "";
             if (txtTenDU != null) txtTenDU.Text = "";
             if (txtDonGia != null) txtDonGia.Text = "";
@@ -515,7 +642,9 @@ namespace QuanLyCafe
             nmNguongCanhBao.Text = "";
             rbPhaChe.Checked = true;
             nmGiaGoc.Value = 0;
+            nmGiaGoc.Text = "";
             dtCongThuc.Clear();
+            chkHienThi.Checked = true;
         }
 
         private void menuThoat_Click(object? sender, EventArgs e)
@@ -604,6 +733,19 @@ namespace QuanLyCafe
         {
             // Cần một cơ chế phức tạp hơn để tính lại giá vốn từ dtgvCongThuc thay vì query lại CSDL
             // Tạm thời, chúng ta sẽ tính lại sau khi lưu.
+        }
+
+        // Thêm sự kiện Enter cho nmGiaGoc để tự động chọn text
+        private void nmGiaGoc_Enter(object sender, EventArgs e)
+        {
+            if (sender is NumericUpDown numericUpDown)
+            {
+                // Nếu ô đang trống, không cần chọn gì cả
+                if (!string.IsNullOrEmpty(numericUpDown.Text))
+                {
+                    numericUpDown.Select(0, numericUpDown.Text.Length);
+                }
+            }
         }
     }
 }

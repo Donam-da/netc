@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace QuanLyCafe
 {
     partial class frmManHinhChinh
     {
@@ -46,6 +46,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnHeThong = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuThongTinCaNhan = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuXoaLichSuGiaoDich = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDX = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDanhMuc = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuNhanVien = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +55,7 @@
             this.lblLowStockWarning = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuBan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDoUong = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDonViTinh = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLDU = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlBan = new System.Windows.Forms.Panel();
             this.dtgvBan = new System.Windows.Forms.DataGridView();
@@ -66,6 +69,7 @@
             this.menuDoanhThuNgay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuThongKeDoanhThuNV = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHangBanChay = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLoiNhuan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLichSuHoaDon = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -132,8 +136,9 @@
             // 
             this.btnHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuThongTinCaNhan,
-            this.menuNhanVien,
-            this.menuKH,
+            this.toolStripSeparator1,
+            this.menuXoaLichSuGiaoDich,
+            new System.Windows.Forms.ToolStripSeparator(),
             this.btnDX});
             this.btnHeThong.ForeColor = System.Drawing.Color.White;
             this.btnHeThong.Image = ((System.Drawing.Image)(resources.GetObject("btnHeThong.Image")));
@@ -145,13 +150,22 @@
             // 
             // menuThongTinCaNhan
             // 
-            this.menuThongTinCaNhan.Size = new System.Drawing.Size(224, 28);
+            this.menuThongTinCaNhan.Name = "menuThongTinCaNhan";
+            this.menuThongTinCaNhan.Size = new System.Drawing.Size(252, 28);
             this.menuThongTinCaNhan.Text = "Đổi mật khẩu";
             this.menuThongTinCaNhan.Click += new System.EventHandler(this.menuThongTinCaNhan_Click);
             // 
+            // menuXoaLichSuGiaoDich
+            // 
+            this.menuXoaLichSuGiaoDich.Name = "menuXoaLichSuGiaoDich";
+            this.menuXoaLichSuGiaoDich.Size = new System.Drawing.Size(252, 28);
+            this.menuXoaLichSuGiaoDich.Text = "Xóa Lịch sử Giao dịch";
+            this.menuXoaLichSuGiaoDich.Click += new System.EventHandler(this.menuXoaLichSuGiaoDich_Click);
+            // 
             // btnDX
             // 
-            this.btnDX.Size = new System.Drawing.Size(224, 28);
+            this.btnDX.Name = "btnDX";
+            this.btnDX.Size = new System.Drawing.Size(252, 28);
             this.btnDX.Text = "Đăng xuất";
             this.btnDX.Click += new System.EventHandler(this.btnDX_Click);
             //
@@ -162,7 +176,8 @@
             this.menuDoUong,
             this.menuLDU,
             this.menuBangGiaNL,
-            this.menuBangGiaDU});
+            this.menuBangGiaDU,
+            this.menuDonViTinh});
             this.btnDanhMuc.ForeColor = System.Drawing.Color.White;
             this.btnDanhMuc.Image = null;
             this.btnDanhMuc.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -222,6 +237,7 @@
             this.btnThongKe.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuDoanhThuNgay,
             this.menuThongKeDoanhThuNV,
+            this.menuLoiNhuan,
             this.menuHangBanChay,
             this.menuLichSuHoaDon});
             this.btnThongKe.ForeColor = System.Drawing.Color.White;
@@ -249,14 +265,21 @@
             // menuHangBanChay
             // 
             this.menuHangBanChay.Name = "menuHangBanChay";
-            this.menuHangBanChay.Size = new System.Drawing.Size(212, 28);
+            this.menuHangBanChay.Size = new System.Drawing.Size(224, 28);
             this.menuHangBanChay.Text = "Hàng bán chạy";
             this.menuHangBanChay.Click += new System.EventHandler(this.menuHangBanChay_Click);
+            // 
+            // menuLoiNhuan
+            // 
+            this.menuLoiNhuan.Name = "menuLoiNhuan";
+            this.menuLoiNhuan.Size = new System.Drawing.Size(224, 28);
+            this.menuLoiNhuan.Text = "Thống kê lợi nhuận";
+            this.menuLoiNhuan.Click += new System.EventHandler(this.menuLoiNhuan_Click);
             // 
             // menuLichSuHoaDon
             // 
             this.menuLichSuHoaDon.Name = "menuLichSuHoaDon";
-            this.menuLichSuHoaDon.Size = new System.Drawing.Size(212, 28);
+            this.menuLichSuHoaDon.Size = new System.Drawing.Size(224, 28);
             this.menuLichSuHoaDon.Text = "Lịch sử hóa đơn";
             this.menuLichSuHoaDon.Click += new System.EventHandler(this.menuLichSuHoaDon_Click);
             // 
@@ -642,6 +665,13 @@
             this.menuBangGiaNL.Text = "Bảng giá nguyên liệu";
             this.menuBangGiaNL.Click += new System.EventHandler(this.menuBangGiaNL_Click);
             // 
+            // menuDonViTinh
+            // 
+            this.menuDonViTinh.Name = "menuDonViTinh";
+            this.menuDonViTinh.Size = new System.Drawing.Size(283, 28);
+            this.menuDonViTinh.Text = "Quản lý đơn vị tính";
+            this.menuDonViTinh.Click += new System.EventHandler(this.menuDonViTinh_Click);
+            // 
             // menuBangGiaDU
             // 
             this.menuBangGiaDU.Name = "menuBangGiaDU";
@@ -815,7 +845,11 @@
         private System.Windows.Forms.ToolStripMenuItem menuThongKeDoanhThuNV;
         private System.Windows.Forms.ToolStripMenuItem menuHangBanChay;
         private System.Windows.Forms.ToolStripMenuItem menuLichSuHoaDon;
+        private System.Windows.Forms.ToolStripMenuItem menuLoiNhuan;
         private System.Windows.Forms.ToolStripMenuItem menuBangGiaNL;
+        private System.Windows.Forms.ToolStripMenuItem menuXoaLichSuGiaoDich;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuBangGiaDU;
+        private System.Windows.Forms.ToolStripMenuItem menuDonViTinh;
     }
 }

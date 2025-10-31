@@ -21,10 +21,10 @@ namespace QuanLyCafe
 
         private void LoadData()
         {
-            // Chỉ lấy những đồ uống là 'Nguyên bản' (IsPhaChe = 0)
+            // Lấy TẤT CẢ đồ uống để quản lý giá gốc tập trung
             string sql = @"SELECT MaDU, TenDU, GiaGoc 
                            FROM DoUong 
-                           WHERE IsPhaChe = 0 AND TenDU LIKE @TenDU";
+                           WHERE TenDU LIKE @TenDU";
             var parameters = new Dictionary<string, object>
             {
                 { "@TenDU", $"%{txtSearch.Text}%" }
